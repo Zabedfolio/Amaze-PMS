@@ -1,0 +1,47 @@
+// Amaze PMS Theme Token Variables (Sass & CSS Custom Properties)
+
+$bg-base: #0A0A0C;
+$bg-elevated: #111114;
+$bg-card: #17171B;
+
+$accent-primary: #FF5004; // Vibrant Orange-Red theme
+$accent-hover: #FF6A28;   // Bright Orange-Red hover
+
+$text-primary: #F5F5F7;
+$text-muted: #A1A1AA;
+$border-color: rgba(255, 255, 255, 0.08);
+
+:root {
+  // Brand color scheme variables
+  --bg-base: #{$bg-base};
+  --bg-elevated: #{$bg-elevated};
+  --bg-card: #{$bg-card};
+  
+  --accent: #{$accent-primary};
+  --accent-hover: #{$accent-hover};
+  --accent-glow: rgba(255, 80, 4, 0.15);
+  --accent-glow-strong: rgba(255, 80, 4, 0.4);
+  
+  --text-primary: #{$text-primary};
+  --text-muted: #{$text-muted};
+  --border: #{$border-color};
+  --border-hover: rgba(255, 80, 4, 0.25);
+  
+  // Font stacks
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Outfit', 'General Sans', 'Inter Tight', sans-serif;
+  
+  // Custom transition presets
+  --transition-smooth: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --transition-bounce: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  // Border Radius definitions
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  
+  // Native controls coloring
+  color-scheme: dark;
+}

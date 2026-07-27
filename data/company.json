@@ -1,0 +1,71 @@
+{
+  "founder": {
+    "name": "Subhani Abdul",
+    "role": "Founder & Managing Director",
+    "background": "Ex-Indian Navy Vet & Certified Security Practitioner",
+    "quote": "Our mission is simple: to keep your business running smoothly by providing premium, in-house, compliant property management services. We don't rely on third-party subcontracts; our 15,000+ professionals are our own family.",
+    "bio": "Subhani Abdul founded Action Group in 2001 following a distinguished career in the Indian Navy. With extensive certifications in security management and infrastructure services, he envisioned a premium, self-performing property services brand that honors compliance and fair wages as much as technical excellence."
+  },
+  "headquarters": {
+    "city": "Cyberabad, Hyderabad",
+    "state": "Telangana",
+    "country": "India",
+    "address": "Action Group House, Phase 2, HITEC City, Hyderabad, 500081"
+  },
+  "milestones": [
+    {
+      "year": "2001",
+      "title": "Action Group Inception",
+      "description": "Founded by Subhani Abdul with a primary focus on corporate guarding and security operations in Hyderabad."
+    },
+    {
+      "year": "2006",
+      "title": "Facility Management Integration",
+      "description": "Expanded into integrated housekeeping and MEP services, launching the Amaze PMS division."
+    },
+    {
+      "year": "2012",
+      "title": "Pan-India Expansion",
+      "description": "Secured major contracts in Bangalore, Chennai, and Mumbai, scaling the workforce to 5,000+ professionals."
+    },
+    {
+      "year": "2018",
+      "title": "Bespoke Technical Operations",
+      "description": "Launched high-end STP/WTP operation cells and corporate cost-audit optimization divisions."
+    },
+    {
+      "year": "2022",
+      "title": "15,000 Professionals Milestone",
+      "description": "Ranked among India's largest self-performing facility operators, serving 20M+ sq ft."
+    },
+    {
+      "year": "2026",
+      "title": "Digital Facility Transformation",
+      "description": "Integrating environmental sustainability goals and IoT remote monitoring diagnostics across managed portfolios."
+    }
+  ],
+  "values": [
+    {
+      "title": "100% In-House Capability",
+      "description": "We recruit, train, and pay our staff directly. No subcontracting, no diluted standards, and full accountability."
+    },
+    {
+      "title": "Absolute Statutory Compliance",
+      "description": "Ethical employee welfare is core. 100% compliance with PF, ESIC, minimum wages, and safety insurance."
+    },
+    {
+      "title": "Technical Innovation",
+      "description": "Utilizing advanced diagnostic meters, chemical balances, and power audits to optimize facility lifecycle costs."
+    },
+    {
+      "title": "Certified Security Mindset",
+      "description": "Rooted in military precision and risk auditing to guarantee asset, data, and human protection."
+    }
+  ],
+  "differentiators": [
+    "No subcontractor markups or split accountability",
+    "Certified Navy veterans leading regional risk operations",
+    "SLA audits integrated directly with client systems",
+    "Custom green sanitization chemicals & recycling protocols"
+  ]
+}

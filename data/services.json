@@ -1,0 +1,202 @@
+[
+  {
+    "id": "housekeeping",
+    "order": 1,
+    "name": "Professional Housekeeping",
+    "shortDescription": "End-to-end premium housekeeping and sanitation services tailored for corporate facilities, industrial plants, and luxury residential societies.",
+    "icon": "Bucket",
+    "stat": {
+      "value": "8.5M+ sqft",
+      "label": "Sanitized Daily"
+    },
+    "gradient": ["#FF5004", "#B33300"],
+    "included": [
+      "Daily janitorial & floor maintenance",
+      "Shatter-proof glass & window cleaning",
+      "Waste segregation & eco-friendly disposal",
+      "High-traffic touchpoint sanitization",
+      "Restroom hygiene management"
+    ],
+    "cardImage": "/images/services/housekeeping.jpg"
+  },
+  {
+    "id": "mep",
+    "order": 2,
+    "name": "MEP Engineering Services",
+    "shortDescription": "24/7 technical operations, preventive maintenance, and engineering services covering mechanical, electrical, and plumbing infrastructure.",
+    "icon": "Wrench",
+    "stat": {
+      "value": "200+",
+      "label": "Transformers Maintained"
+    },
+    "gradient": ["#E8A94A", "#8F5E16"],
+    "included": [
+      "HT/LT electrical panel operations",
+      "HVAC & chiller plant maintenance",
+      "Diesel generator backup operation",
+      "Plumbing and drainage networks",
+      "Firefighting and safety systems audit"
+    ],
+    "cardImage": "/images/services/mep.jpg"
+  },
+  {
+    "id": "security",
+    "order": 3,
+    "name": "Integrated Security Solutions",
+    "shortDescription": "Comprehensive protection protocols overseen by certified security practitioners, combining physical guarding with electronic surveillance.",
+    "icon": "Shield",
+    "stat": {
+      "value": "4,500+",
+      "label": "Guards Deployed"
+    },
+    "gradient": ["#F43F5E", "#9F1239"],
+    "included": [
+      "Executive protection & access control",
+      "24/7 CCTV surveillance monitoring",
+      "Visitor management & vehicle screening",
+      "Emergency response & evacuation drill",
+      "Loss prevention & asset security audits"
+    ],
+    "cardImage": "/images/services/security.jpg"
+  },
+  {
+    "id": "pest-control",
+    "order": 4,
+    "name": "Advanced Pest Control",
+    "shortDescription": "WHO-approved, eco-friendly pest management programs designed to protect health, hygiene, and property structure.",
+    "icon": "Bugs",
+    "stat": {
+      "value": "100% compliant",
+      "label": "WHO Standards"
+    },
+    "gradient": ["#10B981", "#064E3B"],
+    "included": [
+      "General disinfestation treatments",
+      "Rodent & vector control systems",
+      "Anti-termite pre & post treatments",
+      "Mosquito misting & larvicide application",
+      "Industrial food-grade pest compliance"
+    ],
+    "cardImage": "/images/services/pest-control.jpg"
+  },
+  {
+    "id": "gardening",
+    "order": 5,
+    "name": "Landscape & Horticulture",
+    "shortDescription": "Professional landscape maintenance, vertical gardens, lawn curation, and nursery services that bring ecological balance to facilities.",
+    "icon": "Grass",
+    "stat": {
+      "value": "1.2M sqft",
+      "label": "Green Zones Curated"
+    },
+    "gradient": ["#84CC16", "#3F6212"],
+    "included": [
+      "Lawn mowing, pruning & weeding",
+      "Indoor plant rotation & nursery sourcing",
+      "Seasonal flowerbed design",
+      "Drip irrigation system management",
+      "Soil health analysis & organic fertilizing"
+    ],
+    "cardImage": "/images/services/gardening.jpg"
+  },
+  {
+    "id": "stp-wtp",
+    "order": 6,
+    "name": "STP & WTP Operations",
+    "shortDescription": "Eco-friendly Sewage Treatment Plant (STP) and Water Treatment Plant (WTP) operations ensuring absolute compliance with environmental laws.",
+    "icon": "WaterDrop",
+    "stat": {
+      "value": "5M Liters",
+      "label": "Recycled Daily"
+    },
+    "gradient": ["#3B82F6", "#1E3A8A"],
+    "included": [
+      "STP/WTP operations & chemical dosing",
+      "Water testing (pH, TDS, turbidity, BOD/COD)",
+      "Pump & blower preventive maintenance",
+      "Zero Liquid Discharge (ZLD) regulation",
+      "Pollution control board compliance audits"
+    ],
+    "cardImage": "/images/services/stp-wtp.jpg"
+  },
+  {
+    "id": "parking",
+    "order": 7,
+    "name": "Parking Management",
+    "shortDescription": "Sleek, organized parking layouts powered by modern traffic flow strategies, digital validation, and high-efficiency parking wardens.",
+    "icon": "LayoutGrid",
+    "stat": {
+      "value": "25,000+",
+      "label": "Bays Managed Daily"
+    },
+    "gradient": ["#A855F7", "#581C87"],
+    "included": [
+      "Automated boom barrier operations",
+      "Valet parking & traffic marshalling",
+      "Ticketing & digital payment collection",
+      "Spatially optimized parking layouts",
+      "E-charging bay traffic management"
+    ],
+    "cardImage": "/images/services/parking.jpg"
+  },
+  {
+    "id": "pool",
+    "order": 8,
+    "name": "Swimming Pool Maintenance",
+    "shortDescription": "Professional swimming pool cleaning, chemical balances, and structural maintenance for community hubs and luxury properties.",
+    "icon": "Broom",
+    "stat": {
+      "value": "150+",
+      "label": "Active Pools Cared For"
+    },
+    "gradient": ["#06B6D4", "#155E75"],
+    "included": [
+      "Suction sweeping & tile scrubbing",
+      "Chlorine & pH level balancing",
+      "Filtration system filter backwash",
+      "Algae treatment & shock dosing",
+      "Pool deck hygiene & lifeguard audits"
+    ],
+    "cardImage": "/images/services/pool.jpg"
+  },
+  {
+    "id": "office-support",
+    "order": 9,
+    "name": "Office Support Services",
+    "shortDescription": "Trained executive assistance, mailroom management, pantries, and front-desk reception teams executing sleek administrative operations.",
+    "icon": "FileText",
+    "stat": {
+      "value": "500+",
+      "label": "Helpdesk Associates"
+    },
+    "gradient": ["#6366F1", "#312E81"],
+    "included": [
+      "Reception & front-desk guest relations",
+      "Mailroom sorting, dispatch & tracking",
+      "Executive pantry & coffee station management",
+      "Meeting room logistics & scheduling",
+      "Reprography & office supply coordination"
+    ],
+    "cardImage": "/images/services/office-support.jpg"
+  },
+  {
+    "id": "deep-cleaning",
+    "order": 10,
+    "name": "Specialized Deep Cleaning",
+    "shortDescription": "Intensive structural scrubbing, industrial floor restorations, and comprehensive post-construction cleaning utilizing advanced machinery.",
+    "icon": "Sparkles",
+    "stat": {
+      "value": "2M+ sqft",
+      "label": "Deep Cleaned Annually"
+    },
+    "gradient": ["#EC4899", "#9D174D"],
+    "included": [
+      "High-pressure jet washing",
+      "Marble polishing & floor scrubbing",
+      "Upholstery, sofa & carpet shampooing",
+      "Post-construction debris clearance",
+      "Façade spider-man cleaning operations"
+    ],
+    "cardImage": "/images/services/deep-cleaning.jpg"
+  }
+]

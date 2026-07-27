@@ -1,0 +1,34 @@
+[
+  {
+    "id": 1,
+    "quoteSummary": "Amaze PMS transformed our facility operations. Their technical MEP audits uncovered significant energy drains and their housekeeping teams maintain an immaculate standard.",
+    "authorName": "Srinivas Rao",
+    "authorRole": "VP - Real Estate Operations",
+    "propertyType": "Apex IT Developers",
+    "avatar": "/images/avatars/srinivas.jpg"
+  },
+  {
+    "id": 2,
+    "quoteSummary": "With 1,200+ apartments in our complex, compliance and safety are paramount. Amaze's STP operations and trained security professionals keep our community secure and environmentally compliant.",
+    "authorName": "Sunita Krishnan",
+    "authorRole": "President, Executive Commitee",
+    "propertyType": "Zenith Grand Residency",
+    "avatar": "/images/avatars/sunita.jpg"
+  },
+  {
+    "id": 3,
+    "quoteSummary": "Our manufacturing unit runs 24/7. Amaze's MEP teams and pest control professionals operate with zero disruption to our workflows. They are the most reliable facility team in India.",
+    "authorName": "Ramesh Nair",
+    "authorRole": "Director of Manufacturing",
+    "propertyType": "Southern Pharma Ltd",
+    "avatar": "/images/avatars/ramesh.jpg"
+  },
+  {
+    "id": 4,
+    "quoteSummary": "The level of customer service and professional oversight provided by their management team is exemplary. Their site audits saved us 12% in cooling utility bills alone.",
+    "authorName": "Amit Sharma",
+    "authorRole": "General Manager & Facility Lead",
+    "propertyType": "Cyber Plaza Shopping Hub",
+    "avatar": "/images/avatars/amit.jpg"
+  }
+]

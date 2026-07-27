@@ -1,0 +1,50 @@
+{
+  "categories": [
+    { "id": "all", "label": "All Sectors" },
+    { "id": "corporate", "label": "Corporate & IT Parks" },
+    { "id": "residential", "label": "Luxury Residential" },
+    { "id": "retail", "label": "Retail & Malls" },
+    { "id": "industrial", "label": "Industrial & Logistics" }
+  ],
+  "logos": [
+    { "id": "cyber-towers", "name": "Cyber Towers Tech Park", "category": "corporate", "logo": "/images/clients/cyber-towers.svg" },
+    { "id": "inorbit", "name": "Inorbit Mall", "category": "retail", "logo": "/images/clients/inorbit.svg" },
+    { "id": "l-t-metro", "name": "L&T Metro Rail", "category": "industrial", "logo": "/images/clients/lt-metro.svg" },
+    { "id": "dlf", "name": "DLF Cyber City", "category": "corporate", "logo": "/images/clients/dlf.svg" },
+    { "id": "myhome-hub", "name": "My Home Bhooja", "category": "residential", "logo": "/images/clients/myhome.svg" },
+    { "id": "itc-kohenur", "name": "ITC Kohenur", "category": "retail", "logo": "/images/clients/itc.svg" },
+    { "id": "reddy-labs", "name": "Dr. Reddy's Laboratories", "category": "industrial", "logo": "/images/clients/reddy.svg" },
+    { "id": "amazon-hq", "name": "Amazon Hyderabad HQ", "category": "corporate", "logo": "/images/clients/amazon.svg" },
+    { "id": "aparna-sarovar", "name": "Aparna Sarovar Zenith", "category": "residential", "logo": "/images/clients/aparna.svg" },
+    { "id": "tata-motors", "name": "TATA Motors Plant", "category": "industrial", "logo": "/images/clients/tata.svg" }
+  ],
+  "caseStudies": [
+    {
+      "id": "cyber-gateway-rebuild",
+      "propertyName": "The Cyber Gateway Tech Park",
+      "category": "corporate",
+      "sqft": "1.8M sqft",
+      "servicesProvided": ["housekeeping", "mep", "security", "stp-wtp"],
+      "outcome": "Achieved a 15% reduction in monthly power grid consumption through smart HVAC chiller optimizations and MEP monitoring schedules.",
+      "image": "/images/cases/corporate-gate.jpg"
+    },
+    {
+      "id": "myhome-bhooja-res",
+      "propertyName": "My Home Bhooja Residency",
+      "category": "residential",
+      "sqft": "2.5M sqft",
+      "servicesProvided": ["housekeeping", "security", "gardening", "pool", "stp-wtp"],
+      "outcome": "Restored 100% recycling compliance for a multi-tower sewage treatment layout, saving 1.2M liters of freshwater monthly.",
+      "image": "/images/cases/residence-lux.jpg"
+    },
+    {
+      "id": "hitech-pharma-logistics",
+      "propertyName": "HiTech BioPharma Laboratories",
+      "category": "industrial",
+      "sqft": "450k sqft",
+      "servicesProvided": ["housekeeping", "mep", "pest-control", "deep-cleaning"],
+      "outcome": "Maintained cleanroom sterility certifications across all audit windows, utilizing custom bio-disinfection protocols.",
+      "image": "/images/cases/industrial-clean.jpg"
+    }
+  ]
+}

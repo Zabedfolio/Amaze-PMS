@@ -1,0 +1,81 @@
+{
+  "navLinks": [
+    { "label": "Home", "path": "/" },
+    { "label": "About Us", "path": "/about" },
+    { "label": "Services", "path": "/services" },
+    { "label": "Clients & Cases", "path": "/clients" },
+    { "label": "Careers", "path": "/careers" },
+    { "label": "Recruitment", "path": "/recruitment" }
+  ],
+  "ctaButton": {
+    "label": "Book Consultation",
+    "path": "/contact#schedule"
+  },
+  "footer": {
+    "tagline": "Premium, in-house facility and property management solutions across India.",
+    "columns": [
+      {
+        "title": "Company",
+        "links": [
+          { "label": "About Us", "path": "/about" },
+          { "label": "Clients & Cases", "path": "/clients" },
+          { "label": "Careers", "path": "/careers" },
+          { "label": "Contact Us", "path": "/contact" }
+        ]
+      },
+      {
+        "title": "Core Services",
+        "links": [
+          { "label": "Housekeeping", "path": "/services#housekeeping" },
+          { "label": "MEP Engineering", "path": "/services#mep" },
+          { "label": "Security Solutions", "path": "/services#security" },
+          { "label": "STP & WTP Ops", "path": "/services#stp-wtp" }
+        ]
+      },
+      {
+        "title": "Other Solutions",
+        "links": [
+          { "label": "Parking Management", "path": "/services#parking" },
+          { "label": "Horticulture & Gardens", "path": "/services#gardening" },
+          { "label": "Pool Care", "path": "/services#pool" },
+          { "label": "Deep Cleaning", "path": "/services#deep-cleaning" }
+        ]
+      }
+    ],
+    "socials": [
+      { "platform": "LinkedIn", "icon": "Linkedin", "url": "https://linkedin.com" },
+      { "platform": "Twitter", "icon": "Twitter", "url": "https://twitter.com" },
+      { "platform": "Facebook", "icon": "Facebook", "url": "https://facebook.com" }
+    ],
+    "legal": {
+      "links": [
+        { "label": "Privacy Policy", "path": "/privacy" },
+        { "label": "Terms of Service", "path": "/terms" },
+        { "label": "Compliance Audits", "path": "/compliance" }
+      ],
+      "copyright": "© 2026 Amaze Property Management Solutions Pvt Ltd. A Division of ACTION GROUP. All Rights Reserved."
+    }
+  },
+  "serviceOptionsForForms": [
+    "Professional Housekeeping",
+    "MEP Engineering Services",
+    "Integrated Security Solutions",
+    "Advanced Pest Control",
+    "Landscape & Horticulture",
+    "STP & WTP Operations",
+    "Parking Management",
+    "Swimming Pool Maintenance",
+    "Office Support Services",
+    "Specialized Deep Cleaning"
+  ],
+  "propertyTypeOptionsForForms": [
+    "Corporate IT Park / Commercial Building",
+    "Luxury Residential Society",
+    "Retail Center / Mall",
+    "Industrial Plant / Factory",
+    "Warehousing & Logistics Hub",
+    "Hospital / Healthcare Facility",
+    "Educational Institution",
+    "Other"
+  ]
+}

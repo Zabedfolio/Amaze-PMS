@@ -1,0 +1,59 @@
+{
+  "heroStats": [
+    {
+      "id": "staff",
+      "value": 15000,
+      "suffix": "+",
+      "label": "Trained Professionals"
+    },
+    {
+      "id": "properties",
+      "value": 200,
+      "suffix": "+",
+      "label": "Active Clients"
+    },
+    {
+      "id": "sqft",
+      "value": 20,
+      "suffix": "M+",
+      "label": "Sq. Ft. Managed"
+    },
+    {
+      "id": "experience",
+      "value": 25,
+      "suffix": " Yrs",
+      "label": "Industry Presence"
+    }
+  ],
+  "growthChart": [
+    { "year": "2001", "sqft": 0.1 },
+    { "year": "2005", "sqft": 1.2 },
+    { "year": "2010", "sqft": 4.5 },
+    { "year": "2015", "sqft": 9.8 },
+    { "year": "2020", "sqft": 14.5 },
+    { "year": "2025", "sqft": 20.0 }
+  ],
+  "clientGrowthChart": [
+    { "year": "2001", "clients": 2 },
+    { "year": "2005", "clients": 15 },
+    { "year": "2010", "clients": 48 },
+    { "year": "2015", "clients": 95 },
+    { "year": "2020", "clients": 142 },
+    { "year": "2025", "clients": 208 }
+  ],
+  "serviceMix": [
+    { "name": "Housekeeping", "value": 35, "color": "#FF5004" },
+    { "name": "MEP Engineering", "value": 25, "color": "#E8A94A" },
+    { "name": "Security Services", "value": 20, "color": "#F43F5E" },
+    { "name": "STP/WTP Ops", "value": 10, "color": "#3B82F6" },
+    { "name": "Others", "value": 10, "color": "#EC4899" }
+  ],
+  "regionalPresence": [
+    { "location": "Hyderabad (HQ)", "state": "Telangana", "isHQ": true, "coords": [17.4483, 78.3741] },
+    { "location": "Bangalore", "state": "Karnataka", "isHQ": false, "coords": [12.9716, 77.5946] },
+    { "location": "Chennai", "state": "Tamil Nadu", "isHQ": false, "coords": [13.0827, 80.2707] },
+    { "location": "Mumbai", "state": "Maharashtra", "isHQ": false, "coords": [19.0760, 72.8777] },
+    { "location": "Delhi NCR", "state": "Delhi", "isHQ": false, "coords": [28.6139, 77.2090] },
+    { "location": "Kolkata", "state": "West Bengal", "isHQ": false, "coords": [22.5726, 88.3639] }
+  ]
+}

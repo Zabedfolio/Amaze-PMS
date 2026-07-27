@@ -1,0 +1,71 @@
+// Media Queries and Layout Breakpoints
+@mixin mobile {
+  @media (max-width: 480px) { @content; }
+}
+
+@mixin tablet {
+  @media (max-width: 768px) { @content; }
+}
+
+@mixin desktop {
+  @media (max-width: 1024px) { @content; }
+}
+
+@mixin widescreen {
+  @media (max-width: 1440px) { @content; }
+}
+
+// Glassmorphism - Premium Frosted glass styling
+@mixin glass-card($bg: rgba(23, 23, 27, 0.6), $blur: 16px, $border: rgba(255, 255, 255, 0.05)) {
+  background: $bg;
+  backdrop-filter: blur($blur);
+  -webkit-backdrop-filter: blur($blur);
+  border: 1px solid $border;
+}
+
+// Accent outer glow hover state
+@mixin hover-glow {
+  position: relative;
+  transition: var(--transition-smooth);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: 0 0 15px var(--accent-glow-strong);
+    opacity: 0;
+    transition: var(--transition-smooth);
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+// Grid Layout Helper
+@mixin grid-layout($cols: 12, $gap: 24px) {
+  display: grid;
+  grid-template-columns: repeat($cols, minmax(0, 1fr));
+  gap: $gap;
+  
+  @include tablet {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+// Flex Row Center
+@mixin flex-row-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Flex Column
+@mixin flex-col {
+  display: flex;
+  flex-direction: column;
+}

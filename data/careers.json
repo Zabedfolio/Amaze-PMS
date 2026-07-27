@@ -1,0 +1,73 @@
+{
+  "benefits": [
+    {
+      "id": "compliance",
+      "icon": "Shield",
+      "title": "100% PF & ESIC Compliance",
+      "description": "We guarantee statutory compliance, clean payrolls, and full social security protection for every professional."
+    },
+    {
+      "id": "training",
+      "icon": "GraduationCap",
+      "title": "Amaze Academy Training",
+      "description": "Continuous specialized drills covering technical MEP systems, modern sanitation gear, and emergency protocols."
+    },
+    {
+      "id": "safety",
+      "icon": "AlertTriangle",
+      "title": "Safety-First Culture",
+      "description": "Zero compromises on personal protective equipment (PPE), hazard checks, and safe operating heights."
+    },
+    {
+      "id": "growth",
+      "icon": "TrendingUp",
+      "title": "Career Advancement Pathways",
+      "description": "Over 75% of our supervisors and facility managers started their journey as frontline operators."
+    }
+  ],
+  "departments": [
+    { "id": "all", "label": "All Departments" },
+    { "id": "engineering", "label": "Engineering & MEP" },
+    { "id": "operations", "label": "Operations & Janitorial" },
+    { "id": "security", "label": "Security & Guarding" },
+    { "id": "administration", "label": "Corporate Admin" }
+  ],
+  "openRoles": [
+    {
+      "id": "mep-engineer-hyd",
+      "title": "Senior MEP Maintenance Engineer",
+      "department": "engineering",
+      "location": "Cyberabad, Hyderabad",
+      "type": "Full-Time",
+      "experience": "5-8 Years",
+      "description": "Manage day-to-day electrical systems, chillers, and diesel generator networks in a premium corporate commercial park. Experience in corporate facility operations required."
+    },
+    {
+      "id": "facility-manager-blr",
+      "title": "Senior Facility Manager",
+      "department": "operations",
+      "location": "Whitefield, Bangalore",
+      "type": "Full-Time",
+      "experience": "8-10 Years",
+      "description": "Orchestrate overall site cleaning, guest helpdesks, and MEP coordination for a multi-tenant tech complex spanning 1.5M sqft. Strong vendor negotiation and billing skills are essential."
+    },
+    {
+      "id": "security-officer-chn",
+      "title": "Assistant Security Officer (ASO)",
+      "department": "security",
+      "location": "OMR, Chennai",
+      "type": "Full-Time",
+      "experience": "3-5 Years",
+      "description": "Audit gate entry logs, manage patrol rotations, and train fire marshal teams under guidelines set by the Director of Security. Ex-servicemen or security diplomates preferred."
+    },
+    {
+      "id": "hr-executive-hyd",
+      "title": "HR Operations Executive",
+      "department": "administration",
+      "location": "Cyberabad, Hyderabad",
+      "type": "Full-Time",
+      "experience": "2-4 Years",
+      "description": "Supervise PF, ESIC enrollment, and daily compliance registers for a deployment force of 2,000+ staff. Coordinate with site supervisors on attendance reconciliation."
+    }
+  ]
+}
