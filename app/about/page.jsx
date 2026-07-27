@@ -5,13 +5,10 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ShieldCheck, Award, HeartHandshake, Eye } from "lucide-react";
 import companyData from "../../data/company.json";
-import statsData from "../../data/stats.json";
 import CTABanner from "../../components/sections/CTABanner";
 import InteractiveGrid from "../../components/ui/InteractiveGrid";
 import AmbientAura from "../../components/ui/AmbientAura";
-import styles from "./About.module.scss";
 
-// Map value icons dynamically
 const iconMap = {
   "100% In-House Capability": HeartHandshake,
   "Absolute Statutory Compliance": ShieldCheck,
@@ -30,7 +27,6 @@ export default function AboutPage() {
     const line = lineRef.current;
     if (!line || !containerRef.current) return;
 
-    // Animate the milestone vertical connector line drawing
     const lineAnim = gsap.fromTo(
       line,
       { scaleY: 0 },
@@ -47,9 +43,8 @@ export default function AboutPage() {
       }
     );
 
-    // Fade-in milestones sequentially
     const milestoneAnims = [];
-    milestoneRefs.current.forEach((el, index) => {
+    milestoneRefs.current.forEach((el) => {
       if (!el) return;
       const anim = gsap.fromTo(
         el,
@@ -77,69 +72,80 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <div ref={containerRef} className={styles.aboutPage}>
+    <div ref={containerRef} className="bg-[#0A0A0C] min-h-screen">
       {/* Short Hero Header */}
-      <section className={styles.heroSection}>
+      <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-[#111114] to-[#0A0A0C] border-b border-white/8">
         <InteractiveGrid />
-        <div className={`${styles.heroContainer} container`}>
-          <span className={styles.tag}>Our Story</span>
-          <h1 className={styles.headline}>Founded on Precise Operations & Compliance</h1>
-          <p className={styles.subheadline}>
+        <div className="container relative z-10 flex flex-col gap-4">
+          <span className="font-display text-xs font-semibold uppercase tracking-wider text-[#FF5004]">Our Story</span>
+          <h1 className="font-display text-[clamp(2.25rem,6vw,4rem)] font-extrabold text-[#F5F5F7] tracking-tight leading-tight max-w-4xl">
+            Founded on Precise Operations &amp; Compliance
+          </h1>
+          <p className="text-[#A1A1AA] text-[clamp(1rem,2.5vw,1.1875rem)] leading-relaxed max-w-2xl">
             Founded in 2001 by military veteran Subhani Abdul, Amaze PMS operates under a unified self-performance commitment.
           </p>
         </div>
       </section>
 
       {/* Founder Pullquote Block */}
-      <section className={styles.founderSection}>
+      <section className="py-24 relative overflow-hidden bg-[#0A0A0C]">
         <AmbientAura />
-        <div className={`${styles.founderContainer} container`}>
-          <div className={styles.founderCard}>
-            <div className={styles.founderLeft}>
-              <div className={styles.founderAvatar}>
+        <div className="container relative z-10">
+          <div className="bg-[#17171B] border border-white/8 rounded-2xl p-8 md:p-12 grid grid-cols-1 md:grid-cols-3 gap-8 items-center shadow-2xl">
+            <div className="flex flex-col items-center text-center border-b md:border-b-0 md:border-r border-white/8 pb-6 md:pb-0 md:pr-8">
+              <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#FF5004] to-[#FF6A28] text-[#0A0A0C] font-display font-extrabold text-3xl flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(255,80,4,0.3)]">
                 {companyData.founder.name.charAt(0)}
               </div>
-              <h3 className={styles.founderName}>{companyData.founder.name}</h3>
-              <p className={styles.founderRole}>{companyData.founder.role}</p>
-              <span className={styles.founderTag}>{companyData.founder.background}</span>
+              <h3 className="font-display text-xl font-bold text-[#F5F5F7]">{companyData.founder.name}</h3>
+              <p className="text-xs text-[#A1A1AA] font-medium mt-0.5">{companyData.founder.role}</p>
+              <span className="inline-block mt-3 px-3 py-1 rounded-full bg-[#FF5004]/10 border border-[#FF5004]/20 text-[#FF5004] text-[10px] font-bold uppercase tracking-wider">
+                {companyData.founder.background}
+              </span>
             </div>
             
-            <div className={styles.founderRight}>
-              <blockquote className={styles.blockquote}>
+            <div className="md:col-span-2 flex flex-col gap-4">
+              <blockquote className="font-display text-lg md:text-xl font-semibold text-[#F5F5F7] italic leading-relaxed">
                 "{companyData.founder.quote}"
               </blockquote>
-              <p className={styles.founderBio}>{companyData.founder.bio}</p>
+              <p className="text-sm text-[#A1A1AA] leading-relaxed">{companyData.founder.bio}</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Vertical Milestones Timeline */}
-      <section className={styles.timelineSection}>
-        <div className={`${styles.timelineContainer} container`}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Our Expansion Chronology</h2>
-            <p className={styles.sectionSub}>A look back at how we grew to manage 20M+ sq ft across India.</p>
+      <section className="py-24 bg-[#111114] border-t border-b border-white/8">
+        <div className="container">
+          <div className="max-w-2xl mx-auto text-center mb-16">
+            <h2 className="font-display text-3xl font-extrabold text-[#F5F5F7] tracking-tight mb-3">Our Expansion Chronology</h2>
+            <p className="text-[#A1A1AA] text-base leading-relaxed">A look back at how we grew to manage 20M+ sq ft across India.</p>
           </div>
 
-          <div className={styles.timelineWrapper}>
-            <div className={styles.timelineTrack}>
-              <div ref={lineRef} className={styles.timelineFill} />
+          <div className="relative max-w-4xl mx-auto">
+            {/* Timeline center line */}
+            <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 bg-white/10 hidden md:block">
+              <div ref={lineRef} className="w-full h-full bg-[#FF5004] origin-top" />
             </div>
 
-            <div className={styles.milestoneList}>
+            <div className="flex flex-col gap-12">
               {companyData.milestones.map((milestone, idx) => (
                 <div
                   key={idx}
                   ref={(el) => (milestoneRefs.current[idx] = el)}
-                  className={`${styles.milestoneItem} ${idx % 2 === 0 ? styles.even : styles.odd}`}
+                  className={`flex flex-col md:flex-row items-center gap-8 relative ${
+                    idx % 2 === 0 ? "md:flex-row-reverse" : ""
+                  }`}
                 >
-                  <div className={styles.milestoneCard}>
-                    <span className={styles.milestoneYear}>{milestone.year}</span>
-                    <h4 className={styles.milestoneTitle}>{milestone.title}</h4>
-                    <p className={styles.milestoneDesc}>{milestone.description}</p>
+                  <div className="w-full md:w-1/2">
+                    <div className="bg-[#17171B] border border-white/8 rounded-xl p-6 hover:border-[#FF5004]/30 transition-colors duration-300">
+                      <span className="font-display text-sm font-extrabold text-[#FF5004] block mb-1">{milestone.year}</span>
+                      <h4 className="font-display text-lg font-bold text-[#F5F5F7] mb-2">{milestone.title}</h4>
+                      <p className="text-sm text-[#A1A1AA] leading-relaxed">{milestone.description}</p>
+                    </div>
                   </div>
-                  <div className={styles.markerDot} />
+                  {/* Center Dot */}
+                  <div className="w-4 h-4 rounded-full bg-[#0A0A0C] border-2 border-[#FF5004] absolute left-1/2 -translate-x-1/2 z-10 hidden md:block" />
+                  <div className="w-full md:w-1/2 hidden md:block" />
                 </div>
               ))}
             </div>
@@ -148,23 +154,23 @@ export default function AboutPage() {
       </section>
 
       {/* Values Bento Grid */}
-      <section className={styles.valuesSection}>
-        <div className={`${styles.valuesContainer} container`}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Our Operational Pillars</h2>
-            <p className={styles.sectionSub}>Core values that guide our 15,000+ professionals every single day.</p>
+      <section className="py-24 bg-[#0A0A0C]">
+        <div className="container">
+          <div className="max-w-2xl mx-auto text-center mb-16">
+            <h2 className="font-display text-3xl font-extrabold text-[#F5F5F7] tracking-tight mb-3">Our Operational Pillars</h2>
+            <p className="text-[#A1A1AA] text-base leading-relaxed">Core values that guide our 15,000+ professionals every single day.</p>
           </div>
 
-          <div className={styles.valuesGrid}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {companyData.values.map((val, idx) => {
               const IconComp = iconMap[val.title] || ShieldCheck;
               return (
-                <div key={idx} className={styles.valueCard}>
-                  <div className={styles.valueIconBox}>
-                    <IconComp size={24} className={styles.valueIcon} />
+                <div key={idx} className="bg-[#17171B] border border-white/8 rounded-xl p-6 flex flex-col gap-4 hover:border-[#FF5004]/30 transition-colors duration-300">
+                  <div className="w-12 h-12 rounded-lg bg-[#FF5004]/10 border border-[#FF5004]/20 flex items-center justify-center text-[#FF5004]">
+                    <IconComp size={24} />
                   </div>
-                  <h3 className={styles.valueTitle}>{val.title}</h3>
-                  <p className={styles.valueDesc}>{val.description}</p>
+                  <h3 className="font-display text-lg font-bold text-[#F5F5F7]">{val.title}</h3>
+                  <p className="text-sm text-[#A1A1AA] leading-relaxed">{val.description}</p>
                 </div>
               );
             })}

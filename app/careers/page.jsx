@@ -16,10 +16,7 @@ import {
 import careersData from "../../data/careers.json";
 import { mockSubmit } from "../../lib/mockSubmit";
 import Button from "../../components/ui/Button";
-import Spinner from "../../components/ui/Spinner";
-import GlassCard from "../../components/ui/GlassCard";
 import AmbientAura from "../../components/ui/AmbientAura";
-import styles from "./Careers.module.scss";
 
 const iconMap = {
   Shield: Shield,
@@ -39,7 +36,6 @@ export default function CareersPage() {
     ? careersData.openRoles
     : careersData.openRoles.filter((role) => role.department === activeDept);
 
-  // Sync selected role to form input value state
   useEffect(() => {
     setTargetPosition(selectedRoleId);
   }, [selectedRoleId]);
@@ -69,7 +65,7 @@ export default function CareersPage() {
       await mockSubmit(payload);
       toast.success("Application submitted! Our recruitment desk will contact you.");
       formEl.reset();
-      setIsModalOpen(false); // Close Modal on success
+      setIsModalOpen(false);
     } catch (err) {
       toast.error(err.message || "Failed to submit application. Please try again.");
     } finally {
@@ -78,37 +74,39 @@ export default function CareersPage() {
   };
 
   return (
-    <div className={styles.careersPage}>
+    <div className="bg-[#0A0A0C] min-h-screen">
       {/* Hero Section */}
-      <section className={styles.heroSection}>
+      <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-[#111114] to-[#0A0A0C] border-b border-white/8">
         <AmbientAura />
-        <div className={`${styles.heroContainer} container`}>
-          <span className={styles.tag}>Work With Us</span>
-          <h1 className={styles.headline}>Join 15,000+ Facility Professionals</h1>
-          <p className={styles.subheadline}>
+        <div className="container relative z-10 flex flex-col gap-4">
+          <span className="font-display text-xs font-semibold uppercase tracking-wider text-[#FF5004]">Work With Us</span>
+          <h1 className="font-display text-[clamp(2.25rem,6vw,4rem)] font-extrabold text-[#F5F5F7] tracking-tight leading-tight max-w-4xl">
+            Join 15,000+ Facility Professionals
+          </h1>
+          <p className="text-[#A1A1AA] text-[clamp(1rem,2.5vw,1.1875rem)] leading-relaxed max-w-2xl">
             Build your career with Action Group's property management division. 100% compliant salary payouts, statutory PF/ESIC coverage, and Amaze Academy training resources.
           </p>
         </div>
       </section>
 
       {/* Benefits Bento Grid */}
-      <section className={styles.benefitsSection}>
-        <div className={`${styles.benefitsContainer} container`}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>The Amaze Advantage</h2>
-            <p className={styles.sectionSub}>Why thousands of operational engineers and janitorial experts choose Amaze.</p>
+      <section className="py-24 bg-[#0A0A0C]">
+        <div className="container">
+          <div className="max-w-2xl mb-12">
+            <h2 className="font-display text-3xl font-extrabold text-[#F5F5F7] tracking-tight mb-2">The Amaze Advantage</h2>
+            <p className="text-[#A1A1AA] text-base leading-relaxed">Why thousands of operational engineers and janitorial experts choose Amaze.</p>
           </div>
 
-          <div className={styles.benefitsGrid}>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {careersData.benefits.map((benefit) => {
               const IconComponent = iconMap[benefit.icon] || Shield;
               return (
-                <div key={benefit.id} className={styles.benefitCard}>
-                  <div className={styles.benefitIconBox}>
-                    <IconComponent size={24} className={styles.benefitIcon} />
+                <div key={benefit.id} className="bg-[#17171B] border border-white/8 rounded-xl p-6 flex flex-col gap-4 hover:border-[#FF5004]/30 transition-colors duration-300">
+                  <div className="w-12 h-12 rounded-lg bg-[#FF5004]/10 border border-[#FF5004]/20 flex items-center justify-center text-[#FF5004]">
+                    <IconComponent size={24} />
                   </div>
-                  <h3 className={styles.benefitTitle}>{benefit.title}</h3>
-                  <p className={styles.benefitDesc}>{benefit.description}</p>
+                  <h3 className="font-display text-lg font-bold text-[#F5F5F7]">{benefit.title}</h3>
+                  <p className="text-sm text-[#A1A1AA] leading-relaxed">{benefit.description}</p>
                 </div>
               );
             })}
@@ -117,21 +115,25 @@ export default function CareersPage() {
       </section>
 
       {/* Open Roles filterable section */}
-      <section className={styles.rolesSection}>
-        <div className={`${styles.rolesContainer} container`}>
-          <div className={styles.sectionHeader}>
-            <span className={styles.secTag}>Openings</span>
-            <h2 className={styles.sectionTitle}>Available Job Openings</h2>
-            <p className={styles.sectionSub}>Apply directly to our regional operations desks. Direct recruitment, zero agent fees.</p>
+      <section className="py-24 bg-[#111114] border-t border-b border-white/8">
+        <div className="container">
+          <div className="max-w-2xl mb-12">
+            <span className="font-display text-xs font-semibold uppercase tracking-wider text-[#FF5004]">Openings</span>
+            <h2 className="font-display text-3xl font-extrabold text-[#F5F5F7] tracking-tight mt-2 mb-2">Available Job Openings</h2>
+            <p className="text-[#A1A1AA] text-base leading-relaxed">Apply directly to our regional operations desks. Direct recruitment, zero agent fees.</p>
           </div>
 
           {/* Department Filters */}
-          <div className={styles.filtersList}>
+          <div className="flex flex-wrap gap-2 mb-10 border-b border-white/8 pb-4">
             {careersData.departments.map((dept) => (
               <button
                 key={dept.id}
                 onClick={() => setActiveDept(dept.id)}
-                className={`${styles.filterBtn} ${activeDept === dept.id ? styles.activeFilter : ""}`}
+                className={`px-5 py-2.5 rounded-full font-display text-sm font-semibold transition-colors duration-300 ${
+                  activeDept === dept.id
+                    ? "bg-[#FF5004] text-[#0A0A0C]"
+                    : "bg-white/[0.03] text-[#A1A1AA] hover:text-[#F5F5F7] border border-white/8"
+                }`}
               >
                 {dept.label}
               </button>
@@ -139,7 +141,7 @@ export default function CareersPage() {
           </div>
 
           {/* Jobs Listing */}
-          <div className={styles.jobsList}>
+          <div className="flex flex-col gap-4">
             <AnimatePresence mode="popLayout">
               {filteredRoles.map((role) => (
                 <motion.div
@@ -149,27 +151,27 @@ export default function CareersPage() {
                   exit={{ opacity: 0, y: -12 }}
                   transition={{ duration: 0.3 }}
                   key={role.id}
-                  className={styles.jobRow}
+                  className="bg-[#17171B] border border-white/8 rounded-xl p-6 flex flex-col md:flex-row md:items-center justify-between gap-6 hover:border-[#FF5004]/30 transition-colors duration-300"
                 >
-                  <div className={styles.jobInfo}>
-                    <h3 className={styles.jobTitle}>{role.title}</h3>
-                    <div className={styles.jobMetaRow}>
-                      <span className={styles.metaTag}>
+                  <div className="flex flex-col gap-3 max-w-2xl">
+                    <h3 className="font-display text-xl font-bold text-[#F5F5F7]">{role.title}</h3>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/8 text-xs text-[#A1A1AA]">
                         <Briefcase size={12} />
                         <span>{role.type}</span>
                       </span>
-                      <span className={styles.metaTag}>
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/8 text-xs text-[#A1A1AA]">
                         <MapPin size={12} />
                         <span>{role.location}</span>
                       </span>
-                      <span className={styles.metaTag}>
+                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-white/[0.04] border border-white/8 text-xs text-[#A1A1AA]">
                         <Clock size={12} />
                         <span>{role.experience} experience</span>
                       </span>
                     </div>
-                    <p className={styles.jobDesc}>{role.description}</p>
+                    <p className="text-sm text-[#A1A1AA] leading-relaxed">{role.description}</p>
                   </div>
-                  <div className={styles.jobAction}>
+                  <div className="shrink-0">
                     <Button onClick={() => handleApplyClick(role.id)} variant="outline" size="sm">
                       Apply Now
                     </Button>
@@ -184,10 +186,10 @@ export default function CareersPage() {
       {/* Interactive Application Modal Overlay */}
       <AnimatePresence>
         {isModalOpen && (
-          <div className={styles.modalOverlay} onClick={() => setIsModalOpen(false)}>
+          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" onClick={() => setIsModalOpen(false)}>
             <motion.div
-              className={styles.modalCard}
-              onClick={(e) => e.stopPropagation()} // Prevent bubble triggers
+              className="bg-[#17171B] border border-white/10 rounded-2xl p-6 sm:p-8 max-w-xl w-full relative shadow-2xl my-8"
+              onClick={(e) => e.stopPropagation()}
               initial={{ opacity: 0, scale: 0.93, y: 24 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.93, y: 24 }}
@@ -195,68 +197,68 @@ export default function CareersPage() {
             >
               <button 
                 type="button" 
-                className={styles.closeBtn} 
+                className="absolute top-4 right-4 text-[#A1A1AA] hover:text-[#F5F5F7] p-2 rounded-lg hover:bg-white/5 transition-colors" 
                 onClick={() => setIsModalOpen(false)}
                 aria-label="Close form"
               >
                 <X size={22} />
               </button>
 
-              <div className={styles.formHeader}>
-                <h2 className={styles.formTitle}>Submit Your Candidacy</h2>
-                <p className={styles.formSub}>
+              <div className="mb-6">
+                <h2 className="font-display text-2xl font-bold text-[#F5F5F7] mb-2">Submit Your Candidacy</h2>
+                <p className="text-sm text-[#A1A1AA] leading-relaxed">
                   Upload your credentials. Our HR compliance officers audit all profiles within 48 hours.
                 </p>
               </div>
 
-              <form className={styles.careersForm} onSubmit={handleApplicationSubmit}>
-                <div className={styles.formRow}>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="fullName" className={styles.label}>Full Name *</label>
+              <form className="flex flex-col gap-4" onSubmit={handleApplicationSubmit}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="fullName" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Full Name *</label>
                     <input
                       id="fullName"
                       type="text"
                       name="fullName"
                       required
                       placeholder="Enter your full name"
-                      className={styles.input}
+                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="email" className={styles.label}>Email Address *</label>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="email" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Email Address *</label>
                     <input
                       id="email"
                       type="email"
                       name="email"
                       required
                       placeholder="Enter your email"
-                      className={styles.input}
+                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
                 </div>
 
-                <div className={styles.formRow}>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="phone" className={styles.label}>Phone Number *</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="phone" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Phone Number *</label>
                     <input
                       id="phone"
                       type="tel"
                       name="phone"
                       required
                       placeholder="e.g. +91 98765 43210"
-                      className={styles.input}
+                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="position" className={styles.label}>Target Position *</label>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="position" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Target Position *</label>
                     <select
                       id="position"
                       name="position"
                       required
-                      className={styles.select}
+                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                       value={targetPosition}
                       onChange={(e) => setTargetPosition(e.target.value)}
@@ -271,14 +273,14 @@ export default function CareersPage() {
                   </div>
                 </div>
 
-                <div className={styles.formRow}>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="experience" className={styles.label}>Years of Experience *</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="experience" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Years of Experience *</label>
                     <select
                       id="experience"
                       name="experience"
                       required
-                      className={styles.select}
+                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     >
                       <option value="">Select range</option>
@@ -288,56 +290,52 @@ export default function CareersPage() {
                       <option value="8+">8+ Years</option>
                     </select>
                   </div>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="currentLocation" className={styles.label}>Current Location *</label>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="currentLocation" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Current Location *</label>
                     <input
                       id="currentLocation"
                       type="text"
                       name="currentLocation"
                       required
                       placeholder="e.g. Hyderabad"
-                      className={styles.input}
+                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
                 </div>
 
-                {/* File Upload resume */}
-                <div className={styles.inputGroup}>
-                  <label htmlFor="resume" className={styles.label}>Attach CV / Resume (PDF, Word) *</label>
-                  <div className={styles.fileWrapper}>
-                    <input
-                      id="resume"
-                      type="file"
-                      name="resume"
-                      required
-                      accept=".pdf,.doc,.docx"
-                      className={styles.fileInput}
-                      disabled={formLoading}
-                    />
-                  </div>
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="resume" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Attach CV / Resume (PDF, Word) *</label>
+                  <input
+                    id="resume"
+                    type="file"
+                    name="resume"
+                    required
+                    accept=".pdf,.doc,.docx"
+                    className="bg-[#0A0A0C] border border-white/8 rounded-lg p-2 text-sm text-[#A1A1AA] file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-[#FF5004] file:text-[#0A0A0C]"
+                    disabled={formLoading}
+                  />
                 </div>
 
-                {/* Message */}
-                <div className={styles.inputGroup}>
-                  <label htmlFor="message" className={styles.label}>Brief Statement / Note</label>
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="message" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Brief Statement / Note</label>
                   <textarea
                     id="message"
                     name="message"
                     rows={3}
                     placeholder="Share details about your core qualifications..."
-                    className={styles.textarea}
+                    className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors resize-y"
                     disabled={formLoading}
                   />
                 </div>
 
-                <div className={styles.submitRow}>
+                <div className="mt-4">
                   <Button
                     type="submit"
                     variant="primary"
                     size="lg"
                     loading={formLoading}
-                    className={styles.submitBtn}
+                    className="w-full"
                   >
                     Submit Application
                   </Button>

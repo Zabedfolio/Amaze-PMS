@@ -6,9 +6,7 @@ import { AreaChart, Area, XAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Ce
 import { Shield, Building, Globe, Award, MapPin } from "lucide-react";
 import statsData from "../../data/stats.json";
 import SpotlightCard from "../ui/SpotlightCard";
-import styles from "./BentoStats.module.scss";
 
-// Client-side CountUp utility linked to scroll viewport triggers
 function Counter({ end, duration = 1.5, suffix = "" }) {
   const [count, setCount] = useState(0);
   const elementRef = useRef(null);
@@ -39,7 +37,6 @@ export default function BentoStats() {
   const gridRef = useRef(null);
   const gridInView = useInView(gridRef, { once: true, margin: "-40px" });
 
-  // Safeguard Recharts rendering to prevent SSR hydration errors in Next.js
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -63,36 +60,38 @@ export default function BentoStats() {
   };
 
   return (
-    <section className={styles.statsSection}>
-      <div className={`${styles.container} container`}>
-        <div className={styles.header}>
-          <span className={styles.tag}>Metrics</span>
-          <h2 className={styles.headline}>Amaze at a Glance</h2>
-          <p className={styles.subtext}>
+    <section className="py-28 bg-[#0A0A0C] border-b border-white/8 relative">
+      <div className="container">
+        <div className="max-w-[600px] mx-auto text-center mb-14">
+          <span className="font-display text-[0.75rem] font-semibold uppercase tracking-[0.05em] text-[#FF5004]">Metrics</span>
+          <h2 className="font-display text-[clamp(2rem,5vw,3rem)] font-extrabold text-[#F5F5F7] tracking-[-0.02em] mt-2 mb-4">Amaze at a Glance</h2>
+          <p className="text-[#A1A1AA] text-base leading-relaxed">
             Precision operations, audited compliance, and continuous growth across India's premium portfolios.
           </p>
         </div>
 
         <motion.div
           ref={gridRef}
-          className={styles.bentoGrid}
+          className="grid grid-cols-1 md:grid-cols-12 gap-6"
           initial="hidden"
           animate={gridInView ? "visible" : "hidden"}
           variants={containerVariants}
         >
           {/* 1. Main Huge Stat Card */}
-          <motion.div className={styles.colSpan8} variants={itemVariants}>
-            <SpotlightCard className={styles.mainCell}>
-              <div className={styles.bentoCell}>
-                <div className={styles.cellHeader}>
-                  <div className={styles.iconCircle}><Shield size={20} className={styles.teal} /></div>
-                  <span className={styles.cellLabel}>Operational Force</span>
+          <motion.div className="md:col-span-8" variants={itemVariants}>
+            <SpotlightCard className="min-h-[320px]">
+              <div className="p-8 flex flex-col h-full">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-teal-500/10 border border-teal-500/20 flex items-center justify-center">
+                    <Shield size={20} className="text-teal-400" />
+                  </div>
+                  <span className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Operational Force</span>
                 </div>
-                <div className={styles.mainStatVal}>
+                <div className="font-display text-[clamp(2.5rem,6vw,4rem)] font-extrabold text-[#F5F5F7] leading-none mb-3">
                   <Counter end={15000} suffix="+" />
                 </div>
-                <h3 className={styles.cellTitle}>Directly Employed Professionals</h3>
-                <p className={styles.cellDesc}>
+                <h3 className="font-display text-xl font-bold text-[#F5F5F7] mb-2">Directly Employed Professionals</h3>
+                <p className="text-[#A1A1AA] text-sm leading-relaxed max-w-xl">
                   Our personnel are 100% in-house. We do not subcontract. Every housekeeper, MEP technician, and guard is directly audited, compliant, and fully insured.
                 </p>
               </div>
@@ -100,19 +99,21 @@ export default function BentoStats() {
           </motion.div>
 
           {/* 2. Recharts Area Chart Card */}
-          <motion.div className={styles.colSpan4} variants={itemVariants}>
-            <SpotlightCard className={styles.chartCell}>
-              <div className={styles.bentoCell}>
-                <div className={styles.cellHeader}>
-                  <div className={styles.iconCircle}><Building size={20} className={styles.orange} /></div>
-                  <span className={styles.cellLabel}>Managed Footprint Growth</span>
+          <motion.div className="md:col-span-4" variants={itemVariants}>
+            <SpotlightCard className="min-h-[320px]">
+              <div className="p-8 flex flex-col h-full justify-between">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/20 flex items-center justify-center">
+                    <Building size={20} className="text-[#FF5004]" />
+                  </div>
+                  <span className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Managed Footprint Growth</span>
                 </div>
-                <div className={styles.chartTitleRow}>
-                  <span className={styles.chartTitleVal}><Counter end={20} suffix="M+" /></span>
-                  <span className={styles.chartTitleLabel}>Sq. Ft. Area</span>
+                <div className="flex items-baseline gap-2 mb-2">
+                  <span className="font-display text-3xl font-extrabold text-[#F5F5F7]"><Counter end={20} suffix="M+" /></span>
+                  <span className="text-xs font-medium text-[#A1A1AA]">Sq. Ft. Area</span>
                 </div>
                 
-                <div className={styles.chartContainer}>
+                <div className="w-full h-[120px] mt-auto">
                   {isMounted && gridInView && (
                     <ResponsiveContainer width="100%" height={120}>
                       <AreaChart data={statsData.growthChart} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
@@ -148,16 +149,18 @@ export default function BentoStats() {
           </motion.div>
 
           {/* 3. Pie Chart / Service Mix Card */}
-          <motion.div className={styles.colSpan4} variants={itemVariants}>
-            <SpotlightCard className={styles.mixCell}>
-              <div className={styles.bentoCell}>
-                <div className={styles.cellHeader}>
-                  <div className={styles.iconCircle}><Award size={20} className={styles.pink} /></div>
-                  <span className={styles.cellLabel}>Service Mix Breakdown</span>
+          <motion.div className="md:col-span-4" variants={itemVariants}>
+            <SpotlightCard className="min-h-[320px]">
+              <div className="p-8 flex flex-col h-full">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center">
+                    <Award size={20} className="text-pink-400" />
+                  </div>
+                  <span className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Service Mix Breakdown</span>
                 </div>
 
-                <div className={styles.mixWrapper}>
-                  <div className={styles.pieContainer}>
+                <div className="flex flex-col sm:flex-row items-center gap-4 my-auto">
+                  <div className="w-full sm:w-1/2 h-[110px]">
                     {isMounted && gridInView && (
                       <ResponsiveContainer width="100%" height={110}>
                         <PieChart>
@@ -178,11 +181,11 @@ export default function BentoStats() {
                       </ResponsiveContainer>
                     )}
                   </div>
-                  <div className={styles.mixLegend}>
+                  <div className="flex flex-col gap-2 w-full sm:w-1/2">
                     {statsData.serviceMix.slice(0, 4).map((entry, index) => (
-                      <div key={index} className={styles.legendItem}>
-                        <span className={styles.legendDot} style={{ backgroundColor: entry.color }} />
-                        <span className={styles.legendLabel}>{entry.name} ({entry.value}%)</span>
+                      <div key={index} className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: entry.color }} />
+                        <span className="text-xs text-[#A1A1AA] truncate">{entry.name} ({entry.value}%)</span>
                       </div>
                     ))}
                   </div>
@@ -192,32 +195,34 @@ export default function BentoStats() {
           </motion.div>
 
           {/* 4. Regional Presence Map / Locations Card */}
-          <motion.div className={styles.colSpan8} variants={itemVariants}>
-            <SpotlightCard className={styles.geoCell}>
-              <div className={styles.bentoCell}>
-                <div className={styles.cellHeader}>
-                  <div className={styles.iconCircle}><Globe size={20} className={styles.blue} /></div>
-                  <span className={styles.cellLabel}>Pan-India Footprint</span>
+          <motion.div className="md:col-span-8" variants={itemVariants}>
+            <SpotlightCard className="min-h-[320px]">
+              <div className="p-8 flex flex-col h-full justify-between">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
+                    <Globe size={20} className="text-blue-400" />
+                  </div>
+                  <span className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Pan-India Footprint</span>
                 </div>
 
-                <div className={styles.geoContent}>
-                  <div className={styles.geoLeft}>
-                    <h3 className={styles.cellTitle}>HQ: Cyberabad, Hyderabad</h3>
-                    <p className={styles.cellDesc}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                  <div className="flex flex-col gap-2">
+                    <h3 className="font-display text-lg font-bold text-[#F5F5F7]">HQ: Cyberabad, Hyderabad</h3>
+                    <p className="text-[#A1A1AA] text-sm leading-relaxed">
                       We operate fully staffed regional divisions in key metros, allowing us to deploy and oversee property service audits nationwide with zero subcontracts.
                     </p>
-                    <div className={styles.activeClientsWrap}>
-                      <span className={styles.clientsCount}><Counter end={200} suffix="+" /></span>
-                      <span className={styles.clientsLabel}>Active Portfolios Cared For</span>
+                    <div className="flex flex-col mt-2">
+                      <span className="font-display text-2xl font-extrabold text-[#F5F5F7]"><Counter end={200} suffix="+" /></span>
+                      <span className="text-xs uppercase tracking-wider text-[#A1A1AA]">Active Portfolios Cared For</span>
                     </div>
                   </div>
 
-                  <div className={styles.locationsList}>
+                  <div className="flex flex-wrap gap-2">
                     {statsData.regionalPresence.map((loc, i) => (
-                      <div key={i} className={styles.locationTag}>
-                        <MapPin size={14} className={loc.isHQ ? styles.teal : styles.mutedPin} />
-                        <span className={styles.locationName}>{loc.location}</span>
-                        {loc.isHQ && <span className={styles.hqBadge}>HQ</span>}
+                      <div key={i} className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.03] border border-white/8 text-xs text-[#F5F5F7]">
+                        <MapPin size={14} className={loc.isHQ ? "text-teal-400" : "text-[#A1A1AA]"} />
+                        <span>{loc.location}</span>
+                        {loc.isHQ && <span className="text-[10px] font-bold uppercase px-1 py-0.5 rounded bg-teal-500/20 text-teal-300">HQ</span>}
                       </div>
                     ))}
                   </div>

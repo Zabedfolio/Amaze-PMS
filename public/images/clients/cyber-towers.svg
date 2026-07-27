@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 56" fill="none">
+  <!-- Tower silhouette mark -->
+  <rect x="6" y="18" width="10" height="30" rx="1" fill="#00A3E0"/>
+  <rect x="19" y="8" width="14" height="40" rx="1" fill="#00BFFF"/>
+  <rect x="36" y="18" width="10" height="30" rx="1" fill="#00A3E0"/>
+  <!-- Wordmark -->
+  <text x="56" y="24" font-family="Arial, sans-serif" font-weight="800" font-size="13" fill="#E0E0E0" letter-spacing="0.3">CYBER TOWERS</text>
+  <text x="56" y="42" font-family="Arial, sans-serif" font-weight="400" font-size="9.5" fill="#888" letter-spacing="2">TECH PARK</text>
+</svg>

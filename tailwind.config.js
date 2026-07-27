@@ -20,6 +20,10 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-sans)", "Inter", "sans-serif"],
         display: ["var(--font-display)", "Outfit", "sans-serif"],
+      },
+      opacity: {
+        '6': '0.06',
+        '8': '0.08',
       }
     },
   },

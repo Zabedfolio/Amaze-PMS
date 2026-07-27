@@ -9,14 +9,12 @@ import { mockSubmit } from "../../lib/mockSubmit";
 import Button from "../../components/ui/Button";
 import GlassCard from "../../components/ui/GlassCard";
 import SchedulingWidget from "../../components/sections/SchedulingWidget";
-import styles from "./Contact.module.scss";
 
 function ContactContent() {
   const searchParams = useSearchParams();
   const [formLoading, setFormLoading] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
 
-  // Check if a service parameter was deep-linked (e.g. ?service=housekeeping)
   useEffect(() => {
     const serviceParam = searchParams.get("service");
     if (serviceParam) {
@@ -45,7 +43,6 @@ function ContactContent() {
     const formData = new FormData(formEl);
     const payload = Object.fromEntries(formData);
 
-    // Honeypot spam check
     if (payload.company_website) {
       toast.error("Spam protection triggered. Submission rejected.");
       setFormLoading(false);
@@ -68,29 +65,31 @@ function ContactContent() {
   };
 
   return (
-    <div className={styles.contactPage}>
+    <div className="bg-[#0A0A0C] min-h-screen">
       {/* Hero Header */}
-      <section className={styles.heroSection}>
-        <div className={`${styles.heroContainer} container`}>
-          <span className={styles.tag}>Contact</span>
-          <h1 className={styles.headline}>Let's Talk Property Management</h1>
-          <p className={styles.subheadline}>
+      <section className="pt-32 pb-16 border-b border-white/8 bg-gradient-to-b from-[#111114] to-[#0A0A0C] relative overflow-hidden">
+        <div className="container relative z-10 flex flex-col gap-4">
+          <span className="font-display text-xs font-semibold uppercase tracking-wider text-[#FF5004]">Contact</span>
+          <h1 className="font-display text-[clamp(2.25rem,6vw,4rem)] font-extrabold text-[#F5F5F7] tracking-tight leading-tight max-w-4xl">
+            Let's Talk Property Management
+          </h1>
+          <p className="text-[#A1A1AA] text-[clamp(1rem,2.5vw,1.1875rem)] leading-relaxed max-w-2xl">
             Request a comprehensive facility load or safety audit. Connect with our Cyberabad headquarters for regional deployments.
           </p>
         </div>
       </section>
 
-  <section id="schedule" className="py-24 border-t border-white/5 bg-black relative overflow-hidden">
-        {/* Soft background light */}
+      {/* Instant Booking Section */}
+      <section id="schedule" className="py-24 border-b border-white/8 bg-black relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_0%,rgba(255,80,4,0.02),transparent_50%)] pointer-events-none" />
         
         <div className="container mx-auto px-6 max-w-5xl relative z-10">
           <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs font-semibold tracking-wider text-accent uppercase font-display">Instant Booking</span>
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mt-2 mb-4 font-display font-sans">
+            <span className="text-xs font-semibold tracking-wider text-[#FF5004] uppercase font-display">Instant Booking</span>
+            <h2 className="text-3xl md:text-5xl font-extrabold text-[#F5F5F7] tracking-tight mt-2 mb-4 font-display">
               Schedule a Consultation
             </h2>
-            <p className="text-sm text-zinc-400 leading-relaxed">
+            <p className="text-sm text-[#A1A1AA] leading-relaxed">
               Book a direct 30-minute call with our estimators to scope out your property's MEP or janitorial needs.
             </p>
           </div>
@@ -99,68 +98,72 @@ function ContactContent() {
       </section>
       
       {/* Section 1: Standard RFP Quote Form & Map */}
-      <section className={styles.contentSection}>
-        <div className={`${styles.gridContainer} container`}>
+      <section className="py-24 bg-[#0A0A0C]">
+        <div className="container grid grid-cols-1 lg:grid-cols-12 gap-12">
           {/* Left Column: Address Card & Map */}
-          <div className={styles.infoColumn}>
-            <GlassCard className={styles.infoCard} hoverEffect={false}>
-              <h2 className={styles.columnTitle}>Action Group Headquarters</h2>
-              <p className={styles.officeDesc}>
+          <div className="lg:col-span-5 flex flex-col gap-8">
+            <GlassCard className="p-8 flex flex-col gap-6" hoverEffect={false}>
+              <h2 className="font-display text-2xl font-bold text-[#F5F5F7]">Action Group Headquarters</h2>
+              <p className="text-sm text-[#A1A1AA] leading-relaxed">
                 Our central operations desk coordinates B2B billing, compliance audits, and SLA reporting registries nationwide.
               </p>
 
-              <div className={styles.contactsList}>
-                <div className={styles.contactItem}>
-                  <div className={styles.iconBox}><MapPin size={18} /></div>
-                  <div className={styles.contactText}>
-                    <h4>Corporate Address</h4>
-                    <p>Action Group House, Phase 2, HITEC City, Hyderabad, 500081</p>
+              <div className="flex flex-col gap-6 pt-2">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-[#FF5004]/10 border border-[#FF5004]/20 text-[#FF5004] flex items-center justify-center shrink-0">
+                    <MapPin size={18} />
+                  </div>
+                  <div>
+                    <h4 className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Corporate Address</h4>
+                    <p className="text-sm text-[#F5F5F7] font-medium mt-1">Action Group House, Phase 2, HITEC City, Hyderabad, 500081</p>
                   </div>
                 </div>
 
-                <div className={styles.contactItem}>
-                  <div className={styles.iconBox}><Phone size={18} /></div>
-                  <div className={styles.contactText}>
-                    <h4>Regional Estimations</h4>
-                    <p>+91 40 4567 8900 / +91 99887 76655</p>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-[#FF5004]/10 border border-[#FF5004]/20 text-[#FF5004] flex items-center justify-center shrink-0">
+                    <Phone size={18} />
+                  </div>
+                  <div>
+                    <h4 className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Regional Estimations</h4>
+                    <p className="text-sm text-[#F5F5F7] font-medium mt-1">+91 40 4567 8900 / +91 99887 76655</p>
                   </div>
                 </div>
 
-                <div className={styles.contactItem}>
-                  <div className={styles.iconBox}><Mail size={18} /></div>
-                  <div className={styles.contactText}>
-                    <h4>Corporate Inquiries</h4>
-                    <p>proposals@amazepms.com / info@amazepms.com</p>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-lg bg-[#FF5004]/10 border border-[#FF5004]/20 text-[#FF5004] flex items-center justify-center shrink-0">
+                    <Mail size={18} />
+                  </div>
+                  <div>
+                    <h4 className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Corporate Inquiries</h4>
+                    <p className="text-sm text-[#F5F5F7] font-medium mt-1">proposals@amazepms.com / info@amazepms.com</p>
                   </div>
                 </div>
               </div>
             </GlassCard>
 
             {/* Styled Map Placeholder */}
-            <div className={styles.mapContainer}>
-              <div className={styles.mapBackground}>
-                <div className={styles.mapGridLines} />
-                <div className={styles.mapMarkerCard}>
-                  <MapPin size={24} className={styles.markerIcon} />
-                  <div className={styles.markerText}>
-                    <h5>AMAZE PMS HQ</h5>
-                    <p>HITEC City, Cyberabad</p>
-                  </div>
+            <div className="relative h-64 rounded-2xl overflow-hidden border border-white/8 bg-[#17171B] flex items-center justify-center">
+              <div className="absolute inset-0 opacity-20" style={{ backgroundImage: "radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px)", backgroundSize: "16px 16px" }} />
+              <div className="relative z-10 bg-[#0A0A0C]/90 border border-[#FF5004]/30 rounded-xl p-4 flex items-center gap-3 shadow-xl">
+                <MapPin size={24} className="text-[#FF5004]" />
+                <div>
+                  <h5 className="font-display text-sm font-bold text-[#F5F5F7]">AMAZE PMS HQ</h5>
+                  <p className="text-xs text-[#A1A1AA]">HITEC City, Cyberabad</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right Column: Quote RFP Form */}
-          <div className={styles.formColumn}>
-            <div className={styles.formCard}>
-              <h2 className={styles.formTitle}>Request a Facility Proposal</h2>
-              <p className={styles.formSub}>
+          <div className="lg:col-span-7">
+            <div className="bg-[#17171B] border border-white/8 rounded-2xl p-8 sm:p-10 shadow-2xl">
+              <h2 className="font-display text-2xl font-bold text-[#F5F5F7] mb-2">Request a Facility Proposal</h2>
+              <p className="text-sm text-[#A1A1AA] leading-relaxed mb-8">
                 Provide details about your property size and service interests. Fields marked with * are required.
               </p>
 
-              <form className={styles.contactForm} onSubmit={handleContactSubmit}>
-                <div className={styles.honeypot} aria-hidden="true">
+              <form className="flex flex-col gap-6" onSubmit={handleContactSubmit}>
+                <div className="hidden" aria-hidden="true">
                   <label htmlFor="company_website">Company Website</label>
                   <input
                     id="company_website"
@@ -172,145 +175,143 @@ function ContactContent() {
                   />
                 </div>
 
-                <div className={styles.formRow}>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="fullName" className={styles.label}>Contact Person *</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="fullName" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Contact Person *</label>
                     <input
                       id="fullName"
                       type="text"
                       name="fullName"
                       required
                       placeholder="Your full name"
-                      className={styles.input}
+                      className="bg-[#0A0A0C] border border-white/8 rounded-xl px-4 py-3 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="companyName" className={styles.label}>Company Name *</label>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="companyName" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Company Name *</label>
                     <input
                       id="companyName"
                       type="text"
                       name="companyName"
                       required
                       placeholder="Your enterprise name"
-                      className={styles.input}
+                      className="bg-[#0A0A0C] border border-white/8 rounded-xl px-4 py-3 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
                 </div>
 
-                <div className={styles.formRow}>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="email" className={styles.label}>Corporate Email *</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="email" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Corporate Email *</label>
                     <input
                       id="email"
                       type="email"
                       name="email"
                       required
                       placeholder="e.g. facility@company.com"
-                      className={styles.input}
+                      className="bg-[#0A0A0C] border border-white/8 rounded-xl px-4 py-3 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="phone" className={styles.label}>Phone Number *</label>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="phone" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Phone Number *</label>
                     <input
                       id="phone"
                       type="tel"
                       name="phone"
                       required
                       placeholder="e.g. +91 98765 43210"
-                      className={styles.input}
+                      className="bg-[#0A0A0C] border border-white/8 rounded-xl px-4 py-3 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
                 </div>
 
-                <div className={styles.formRow}>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="propertyType" className={styles.label}>Property Category *</label>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="propertyType" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Property Category *</label>
                     <select
                       id="propertyType"
                       name="propertyType"
                       required
-                      className={styles.select}
+                      className="bg-[#0A0A0C] border border-white/8 rounded-xl px-4 py-3 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors cursor-pointer"
                       disabled={formLoading}
                     >
                       <option value="">Select Category</option>
                       {navData.propertyTypeOptionsForForms.map((option, idx) => (
-                        <option key={idx} value={option}>{option}</option>
+                        <option key={idx} value={option} className="bg-[#17171B] text-[#F5F5F7]">{option}</option>
                       ))}
                     </select>
                   </div>
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="propertySize" className={styles.label}>Property Area (Sq. Ft.) *</label>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="propertySize" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Property Area (Sq. Ft.) *</label>
                     <input
                       id="propertySize"
                       type="text"
                       name="propertySize"
                       required
                       placeholder="e.g. 150,000 sq ft"
-                      className={styles.input}
+                      className="bg-[#0A0A0C] border border-white/8 rounded-xl px-4 py-3 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
                 </div>
 
-                  <div className={styles.inputGroup}>
-                    <label className={styles.label}>Services of Interest (Select all that apply)</label>
-                    <div className={styles.servicesGrid}>
-                      {navData.serviceOptionsForForms.map((service, idx) => (
-                        <label key={idx} className={styles.checkboxLabel}>
-                          <input
-                            type="checkbox"
-                            checked={selectedServices.includes(service)}
-                            onChange={() => handleCheckboxChange(service)}
-                            className={styles.checkbox}
-                            disabled={formLoading}
-                          />
-                          <span className={styles.checkboxText}>{service}</span>
-                        </label>
-                      ))}
-                    </div>
+                <div className="flex flex-col gap-2">
+                  <label className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Services of Interest (Select all that apply)</label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 border border-white/8 rounded-xl p-4 bg-black/15">
+                    {navData.serviceOptionsForForms.map((service, idx) => (
+                      <label key={idx} className="flex items-center gap-2.5 cursor-pointer select-none">
+                        <input
+                          type="checkbox"
+                          checked={selectedServices.includes(service)}
+                          onChange={() => handleCheckboxChange(service)}
+                          className="w-4 h-4 accent-[#FF5004] cursor-pointer"
+                          disabled={formLoading}
+                        />
+                        <span className="text-xs text-[#F5F5F7] font-medium">{service}</span>
+                      </label>
+                    ))}
                   </div>
+                </div>
 
-                  <div className={styles.inputGroup}>
-                    <label htmlFor="message" className={styles.label}>Brief Scope of Requirements</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={4}
-                      placeholder="Provide details about MEP specifications or cleaning frequency targets..."
-                      className={styles.textarea}
-                      disabled={formLoading}
-                    />
-                  </div>
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="message" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Brief Scope of Requirements</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={4}
+                    placeholder="Provide details about MEP specifications or cleaning frequency targets..."
+                    className="bg-[#0A0A0C] border border-white/8 rounded-xl px-4 py-3 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors resize-y"
+                    disabled={formLoading}
+                  />
+                </div>
 
-                  <div className={styles.submitRow}>
-                    <Button
-                      type="submit"
-                      variant="primary"
-                      size="lg"
-                      loading={formLoading}
-                      className={styles.submitBtn}
-                    >
-                      Submit RFP Inquiry
-                    </Button>
-                  </div>
-                </form>
-              </div>
+                <div className="mt-2">
+                  <Button
+                    type="submit"
+                    variant="primary"
+                    size="lg"
+                    loading={formLoading}
+                    className="w-full sm:w-auto min-w-[200px]"
+                  >
+                    Submit RFP Inquiry
+                  </Button>
+                </div>
+              </form>
             </div>
           </div>
-        </section>
-
-
+        </div>
+      </section>
     </div>
   );
 }
 
 export default function ContactPage() {
   return (
-    <Suspense fallback={<div style={{ padding: "100px 0", textAlign: "center", color: "var(--text-muted)", fontFamily: "var(--font-sans)" }}>Loading Contact Page...</div>}>
+    <Suspense fallback={<div className="py-24 text-center text-[#A1A1AA]">Loading Contact Page...</div>}>
       <ContactContent />
     </Suspense>
   );

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 56" fill="none">
+  <!-- Inorbit orbit mark -->
+  <circle cx="24" cy="28" r="18" fill="none" stroke="#F04E23" stroke-width="2.5"/>
+  <ellipse cx="24" cy="28" rx="10" ry="18" fill="none" stroke="#F04E23" stroke-width="2" transform="rotate(45 24 28)"/>
+  <circle cx="24" cy="28" r="4" fill="#F04E23"/>
+  <!-- Wordmark -->
+  <text x="52" y="27" font-family="Arial, sans-serif" font-weight="800" font-size="16" fill="#E0E0E0" letter-spacing="-0.3">inorbit</text>
+  <text x="52" y="44" font-family="Arial, sans-serif" font-weight="400" font-size="9.5" fill="#888" letter-spacing="2.5">MALL</text>
+</svg>

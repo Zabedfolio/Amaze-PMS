@@ -29,9 +29,9 @@ function Building({ x, z, w, d, h, color, opacity }) {
       <lineSegments geometry={edges}>
         <lineBasicMaterial color={color} opacity={opacity} transparent />
       </lineSegments>
-      {/* Very faint solid interior for depth */}
+      {/* Semi-translucent interior for solid volume presence */}
       <mesh geometry={fill}>
-        <meshBasicMaterial color={color} opacity={0.018} transparent />
+        <meshBasicMaterial color={color} opacity={0.16} transparent />
       </mesh>
     </group>
   );
@@ -176,17 +176,14 @@ function CityGrid() {
                 ? 1.2 + rand() * 1.8        // inner suburbs
                 : 0.4 + rand() * 0.9;       // outer low-rise
 
-          // Color — bright orange for tallest, darker toward edge
-          const color =
-            h > 6    ? "#FF5004"
-            : h > 3.5 ? "#FF6B2B"
-            : h > 1.5 ? "#CC4400"
-                       : "#8B2E00";
+          // Color — all buildings matching the brand accent color
+          const color = "#FF5004";
 
-          // Opacity — prominent downtown, subtle at edge
-          const opacity = Math.max(0.25, 0.9 - t * 0.7);
+          // Opacity — high visibility wireframe edge line opacity
+          const opacity = Math.max(0.70, 1.0 - t * 0.30);
 
           list.push({ key: `${xi}-${zi}-${b}`, x: bx, z: bz, w: bw, d: bd, h, color, opacity });
+
         }
       }
     }
@@ -225,9 +222,9 @@ function CityGrid() {
 
   return (
     <group ref={groupRef} position={[6, 0, 0]}>
-      {/* Road grid */}
+      {/* Road grid — brighter */}
       <lineSegments geometry={roadGeom}>
-        <lineBasicMaterial color="#FF5004" opacity={0.10} transparent />
+        <lineBasicMaterial color="#FF5004" opacity={0.22} transparent />
       </lineSegments>
 
       {/* Ground base plate — subtle dot grid look */}
@@ -350,22 +347,26 @@ export default function HeroScene() {
         style={{ width: "100%", height: "100%" }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         frameloop="always"
-        onCreated={({ gl, scene }) => {
+        onCreated={({ gl, scene, camera }) => {
           glRef.current = gl;
           gl.setClearColor(0x000000, 0);
-          // Repoint camera to track the right-shifted city center
           camera.lookAt(6, 0, 0);
-          // Exponential fog — far buildings fade into darkness
-          scene.fog = new THREE.FogExp2(0x080300, 0.042);
+          // Light fog — just enough depth, doesn't swallow buildings
+          scene.fog = new THREE.FogExp2(0x000000, 0.016);
         }}
       >
-        {/* Warm overhead fill */}
-        <ambientLight intensity={0.25} color="#FF5004" />
-        {/* Strong centre point — illuminates downtown */}
-        <pointLight position={[0, 14, 0]} intensity={2.5} color="#FF5004" distance={50} decay={1.5} />
-        {/* Side rim lights */}
-        <pointLight position={[12, 8, 6]}  intensity={0.8} color="#FF7733" distance={30} decay={2} />
-        <pointLight position={[-10, 6, -8]} intensity={0.5} color="#CC4000" distance={25} decay={2} />
+        {/* Warm ambient fill */}
+        <ambientLight intensity={0.9}  color="#FF7744" />
+        {/* Strong overhead centre — illuminates downtown */}
+        <pointLight position={[0,  16,  0]}  intensity={8}   color="#FF5004" distance={70} decay={1.2} />
+        {/* Electric blue rim — gives blue buildings their glow */}
+        <pointLight position={[14,  10,  8]}  intensity={4}   color="#00BFFF" distance={50} decay={1.5} />
+        {/* Violet accent from behind */}
+        <pointLight position={[-12,  8, -10]} intensity={3}   color="#A855F7" distance={45} decay={1.5} />
+        {/* Cyan fill from left */}
+        <pointLight position={[-6,   5,  12]} intensity={2.5} color="#00E5FF" distance={40} decay={2} />
+        {/* Warm fill from right */}
+        <pointLight position={[18,   4,  -4]} intensity={2}   color="#FF6B2B" distance={40} decay={2} />
 
         <CityGrid />
         <CityParticles count={220} />

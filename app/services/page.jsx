@@ -20,7 +20,6 @@ import servicesData from "../../data/services.json";
 import Button from "../../components/ui/Button";
 import CTABanner from "../../components/sections/CTABanner";
 import InteractiveGrid from "../../components/ui/InteractiveGrid";
-import styles from "./Services.module.scss";
 
 const iconMap = {
   Bucket: Brush,
@@ -30,20 +29,19 @@ const iconMap = {
   Grass: Flower2,
   WaterDrop: Droplets,
   LayoutGrid: Grid,
-  Broom: Brush, // Swimming Pool
+  Broom: Brush,
   FileText: FileText,
-  Sparkles: Sparkles, // Deep Cleaning
+  Sparkles: Sparkles,
 };
 
-// Expandable Accordion component for detailed service inclusions
 function ServiceAccordion({ items, color }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={styles.accordion}>
+    <div className="border border-white/8 rounded-xl bg-white/[0.005] mb-7 overflow-hidden">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className={styles.accordionHeader}
+        className="w-full px-5 py-4 bg-none border-none flex justify-between items-center text-[#F5F5F7] font-display text-sm font-semibold cursor-pointer outline-none hover:bg-white/[0.02] transition-colors"
         style={{
           borderBottom: `1px solid ${isOpen ? color + "44" : "rgba(255,255,255,0.06)"}`,
         }}
@@ -61,13 +59,13 @@ function ServiceAccordion({ items, color }) {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className={styles.accordionContent}
+            className="p-5 bg-black/10 overflow-hidden"
           >
-            <ul className={styles.checkList}>
+            <ul className="list-none flex flex-col gap-3">
               {items.map((item, i) => (
-                <li key={i} className={styles.checkItem}>
-                  <span className={styles.checkBullet} style={{ backgroundColor: color }} />
-                  <span className={styles.checkText}>{item}</span>
+                <li key={i} className="flex items-center gap-3">
+                  <span className="w-1.5 h-1.5 rounded-full shrink-0 shadow-[0_0_4px_currentColor]" style={{ backgroundColor: color }} />
+                  <span className="text-sm text-[#A1A1AA] leading-relaxed">{item}</span>
                 </li>
               ))}
             </ul>
@@ -80,23 +78,25 @@ function ServiceAccordion({ items, color }) {
 
 export default function ServicesPage() {
   return (
-    <div className={styles.servicesPage}>
+    <div className="bg-[#0A0A0C] min-h-screen">
       {/* Hero Section */}
-      <section className={styles.heroSection}>
+      <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-[#111114] to-[#0A0A0C] border-b border-white/8">
         <InteractiveGrid />
-        <div className={`${styles.heroContainer} container`}>
-          <span className={styles.tag}>What We Do</span>
-          <h1 className={styles.headline}>Comprehensive, In-House Facility Services</h1>
-          <p className={styles.subheadline}>
+        <div className="container relative z-10 flex flex-col gap-4">
+          <span className="font-display text-xs font-semibold uppercase tracking-wider text-[#FF5004]">What We Do</span>
+          <h1 className="font-display text-[clamp(2.25rem,6vw,4rem)] font-extrabold text-[#F5F5F7] tracking-tight leading-tight max-w-4xl">
+            Comprehensive, In-House Facility Services
+          </h1>
+          <p className="text-[#A1A1AA] text-[clamp(1rem,2.5vw,1.1875rem)] leading-relaxed max-w-2xl">
             A single point of accountability. We recruit, train, and deploy our own personnel—covering critical security, engineering, and hygiene mandates.
           </p>
         </div>
       </section>
 
       {/* Services List alternating */}
-      <section className={styles.listSection}>
+      <section className="py-24">
         <div className="container">
-          <div className={styles.servicesList}>
+          <div className="flex flex-col gap-28 md:gap-32">
             {servicesData.map((service, index) => {
               const IconComp = iconMap[service.icon] || Wrench;
               const isEven = index % 2 === 0;
@@ -114,63 +114,71 @@ export default function ServicesPage() {
                 <motion.div
                   key={service.id}
                   id={service.id}
-                  className={`${styles.serviceRow} ${isEven ? styles.rowNormal : styles.rowReverse}`}
+                  className={`flex flex-col lg:flex-row items-center gap-12 lg:gap-16 w-full ${
+                    isEven ? "" : "lg:flex-row-reverse"
+                  }`}
                   initial="hidden"
                   whileInView="visible"
                   viewport={{ once: true, margin: "-100px" }}
                   variants={slideVariants}
                 >
                   {/* Left: Graphic gradient card representing service */}
-                  <div className={styles.visualCol}>
+                  <div className="w-full lg:w-[44%] shrink-0">
                     <div
-                      className={styles.glowBox}
+                      className="relative aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden shadow-2xl"
                       style={{
                         backgroundImage: `linear-gradient(135deg, ${service.gradient[0]}15 0%, #17171B 100%)`,
                         border: `1px solid ${service.gradient[0]}33`,
                       }}
                     >
                       <div
-                        className={styles.graphicIcon}
+                        className="w-24 h-24 rounded-2xl flex items-center justify-center relative z-10"
                         style={{
                           background: `linear-gradient(135deg, ${service.gradient[0]} 0%, ${service.gradient[1]} 100%)`,
                           boxShadow: `0 8px 30px ${service.gradient[0]}33`,
                         }}
                       >
-                        <IconComp size={48} className={styles.mainIcon} />
+                        <IconComp size={48} className="text-[#0A0A0C]" />
                       </div>
-                      <div className={styles.decorGrid} />
+                      <div
+                        className="absolute inset-0 opacity-60 pointer-events-none"
+                        style={{
+                          backgroundImage: "radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px)",
+                          backgroundSize: "20px 20px",
+                        }}
+                      />
                     </div>
                   </div>
 
                   {/* Right: Detailed Content */}
-                  <div className={styles.contentCol}>
-                    <div className={styles.titleGroup}>
-                      <span className={styles.orderLabel}>0{index + 1}</span>
-                      <h2 className={styles.serviceName}>{service.name}</h2>
+                  <div className="flex-1">
+                    <div className="flex items-baseline gap-3 mb-4">
+                      <span className="font-display text-xl font-extrabold text-[#FF5004]">0{index + 1}</span>
+                      <h2 className="font-display text-[clamp(1.75rem,4vw,2.5rem)] font-extrabold text-[#F5F5F7] tracking-tight">{service.name}</h2>
                     </div>
 
-                    <p className={styles.serviceDesc}>{service.shortDescription}</p>
+                    <p className="text-[#A1A1AA] text-base leading-relaxed mb-6">{service.shortDescription}</p>
 
-                    <div className={styles.statBox}>
-                      <span className={styles.statVal} style={{ color: service.gradient[0] }}>
+                    <div className="flex flex-col mb-6">
+                      <span className="font-display text-2xl font-extrabold leading-none" style={{ color: service.gradient[0] }}>
                         {service.stat.value}
                       </span>
-                      <span className={styles.statLabel}>{service.stat.label}</span>
+                      <span className="text-xs font-semibold uppercase tracking-wider text-[#A1A1AA] mt-1">{service.stat.label}</span>
                     </div>
 
                     {/* Accordion List Inclusions */}
                     <ServiceAccordion items={service.included} color={service.gradient[0]} />
 
                     {/* Request CTA deep-link */}
-                    <div className={styles.actionRow}>
+                    <div className="flex">
                       <Button
                         href={`/contact?service=${service.id}`}
                         variant="secondary"
                         size="md"
-                        className={styles.inlineCta}
+                        className="inline-flex items-center gap-2 group"
                       >
                         <span>Request Service Proposal</span>
-                        <ArrowRight size={16} className={styles.arrow} />
+                        <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                       </Button>
                     </div>
                   </div>

@@ -4,7 +4,7 @@ import LenisProvider from "../components/layout/LenisProvider";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import GlobalErrorSuppressor from "../components/layout/GlobalErrorSuppressor";
-import "../styles/globals.scss";
+import "../styles/globals.css";
 
 const inter = Inter({
   variable: "--font-sans",
