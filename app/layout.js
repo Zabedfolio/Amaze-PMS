@@ -4,6 +4,7 @@ import LenisProvider from "../components/layout/LenisProvider";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import ProposalDrawer from "../components/layout/ProposalDrawer";
+import RouteLoader from "../components/layout/RouteLoader";
 import "../styles/globals.css";
 
 const inter = Inter({
@@ -142,9 +143,10 @@ export default function RootLayout({ children }) {
       </head>
       <body style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <LenisProvider>
+          <RouteLoader />
           <Navbar />
           <ProposalDrawer />
-          <main style={{ flex: 1, paddingTop: "80px" }}>{children}</main>
+          <main style={{ flex: 1, paddingTop: "96px" }}>{children}</main>
           <Footer />
           <Toaster
             position="bottom-right"
