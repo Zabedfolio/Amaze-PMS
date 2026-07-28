@@ -165,7 +165,7 @@ export default function ProcessTimeline() {
                 >
                   {/* Outer Motion Wrapper for Entrance & Floating animations */}
                   <motion.div
-                    className={`w-full lg:w-[48%] ${step.rotation}`}
+                    className={`w-full lg:w-[48%] pl-14 sm:pl-16 lg:pl-0 ${step.rotation}`}
                     initial={{ opacity: 0, y: 50 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-80px" }}

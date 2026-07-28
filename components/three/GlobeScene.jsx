@@ -2,7 +2,7 @@
 
 import React, { useRef, useMemo, Suspense } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls, useTexture } from "@react-three/drei";
+import { OrbitControls, useTexture, Stars } from "@react-three/drei";
 import * as THREE from "three";
 import CanvasErrorBoundary from "./CanvasErrorBoundary";
 
@@ -110,6 +110,59 @@ function GlobeFallback() {
   );
 }
 
+function CelestialBackground() {
+  const saturnGroupRef = useRef();
+
+  useFrame((state, delta) => {
+    if (saturnGroupRef.current) {
+      saturnGroupRef.current.rotation.y += delta * 0.12;
+    }
+  });
+
+  return (
+    <group>
+      {/* Stars Background */}
+      <Stars radius={80} depth={40} count={1000} factor={5} saturation={0.5} fade speed={1.2} />
+
+      {/* Sun (glowing star in the distance) */}
+      <mesh position={[10, 5, -15]}>
+        <sphereGeometry args={[1.3, 32, 32]} />
+        <meshBasicMaterial color="#FFD700" />
+      </mesh>
+      {/* Sun aura glow */}
+      <mesh position={[10, 5, -15]}>
+        <sphereGeometry args={[2.2, 16, 16]} />
+        <meshBasicMaterial color="#FF5004" transparent opacity={0.12} />
+      </mesh>
+
+      {/* Moon (near globe) */}
+      <mesh position={[-3.0, 1.2, -2.5]}>
+        <sphereGeometry args={[0.3, 24, 24]} />
+        <meshStandardMaterial color="#8E8E93" roughness={0.8} metalness={0.1} />
+      </mesh>
+
+      {/* Saturn ringed planet */}
+      <group ref={saturnGroupRef} position={[-7.5, -2, -14]}>
+        <mesh>
+          <sphereGeometry args={[0.75, 32, 32]} />
+          <meshStandardMaterial color="#4A8C55" roughness={0.7} />
+        </mesh>
+        {/* Ring */}
+        <mesh rotation={[Math.PI / 2.6, 0, 0]}>
+          <ringGeometry args={[1.0, 1.6, 64]} />
+          <meshBasicMaterial color="#559960" transparent opacity={0.35} side={THREE.DoubleSide} />
+        </mesh>
+      </group>
+
+      {/* Mars-like red planet */}
+      <mesh position={[5.5, -3.5, -9]}>
+        <sphereGeometry args={[0.42, 24, 24]} />
+        <meshStandardMaterial color="#C83E0A" roughness={0.75} />
+      </mesh>
+    </group>
+  );
+}
+
 export default function GlobeScene() {
   const [mounted, setMounted] = React.useState(false);
   const glRef = React.useRef(null);
@@ -136,15 +189,16 @@ export default function GlobeScene() {
         camera={{ position: [0, 1.0, 4.0], fov: 60 }}
         style={{ width: "100%", height: "100%" }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
-        frameloop="demand"
+        frameloop="always"
         onCreated={({ gl }) => { glRef.current = gl; }}
       >
-        <ambientLight intensity={0.4} color="#FF5004" />
-        <directionalLight position={[5, 5, 2]} intensity={1.5} color="#FF5004" />
-        <pointLight position={[0, 0, 4]} intensity={2.2} color="#FF5004" />
+        <ambientLight intensity={0.5} />
+        <directionalLight position={[10, 8, 5]} intensity={1.8} color="#FFD700" />
+        <pointLight position={[0, 0, 4]} intensity={2.5} color="#FF5004" />
 
         <Suspense fallback={<GlobeFallback />}>
           <GlobeModel />
+          <CelestialBackground />
         </Suspense>
 
         <OrbitControls

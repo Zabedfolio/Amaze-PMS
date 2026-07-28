@@ -27,47 +27,45 @@ export default function AboutPage() {
     const line = lineRef.current;
     if (!line || !containerRef.current) return;
 
-    const lineAnim = gsap.fromTo(
-      line,
-      { scaleY: 0 },
-      {
-        scaleY: 1,
-        transformOrigin: "top center",
-        ease: "none",
-        scrollTrigger: {
-          trigger: line.parentElement,
-          start: "top 70%",
-          end: "bottom 70%",
-          scrub: 1,
-        },
-      }
-    );
-
-    const milestoneAnims = [];
-    milestoneRefs.current.forEach((el) => {
-      if (!el) return;
-      const anim = gsap.fromTo(
-        el,
-        { opacity: 0, y: 30 },
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        line,
+        { scaleY: 0 },
         {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power2.out",
+          scaleY: 1,
+          transformOrigin: "top center",
+          ease: "none",
           scrollTrigger: {
-            trigger: el,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
+            trigger: line.parentElement,
+            start: "top 70%",
+            end: "bottom 70%",
+            scrub: 1,
           },
         }
       );
-      milestoneAnims.push(anim);
-    });
+
+      milestoneRefs.current.forEach((el) => {
+        if (!el) return;
+        gsap.fromTo(
+          el,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+    }, containerRef);
 
     return () => {
-      lineAnim.kill();
-      milestoneAnims.forEach((anim) => anim.kill());
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      ctx.revert();
     };
   }, []);
 

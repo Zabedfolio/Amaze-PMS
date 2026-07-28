@@ -183,57 +183,58 @@ export default function CareersPage() {
         </div>
       </section>
 
-      {/* Interactive Application Modal Overlay */}
+      {/* Interactive Application Bottom Sheet Drawer Overlay */}
       <AnimatePresence>
         {isModalOpen && (
-          <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto" onClick={() => setIsModalOpen(false)}>
+          <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-end justify-center overflow-hidden" onClick={() => setIsModalOpen(false)}>
             <motion.div
-              className="bg-[#17171B] border border-white/10 rounded-2xl p-6 sm:p-8 max-w-xl w-full relative shadow-2xl my-8"
+              className="bg-[#17171B] border-t border-x border-white/10 rounded-t-[24px] p-6 sm:p-8 max-w-2xl w-full relative shadow-2xl flex flex-col justify-between h-[88vh] md:h-[80vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
-              initial={{ opacity: 0, scale: 0.93, y: 24 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.93, y: 24 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 28, stiffness: 240 }}
             >
+              {/* Close handle button */}
               <button 
                 type="button" 
-                className="absolute top-4 right-4 text-[#A1A1AA] hover:text-[#F5F5F7] p-2 rounded-lg hover:bg-white/5 transition-colors" 
+                className="absolute top-4 right-4 text-[#A1A1AA] hover:text-[#F5F5F7] p-2 rounded-lg hover:bg-white/5 transition-colors z-10" 
                 onClick={() => setIsModalOpen(false)}
                 aria-label="Close form"
               >
                 <X size={22} />
               </button>
 
-              <div className="mb-6">
-                <h2 className="font-display text-2xl font-bold text-[#F5F5F7] mb-2">Submit Your Candidacy</h2>
-                <p className="text-sm text-[#A1A1AA] leading-relaxed">
+              <div className="mb-5 pr-8">
+                <h2 className="font-display text-xl sm:text-2xl font-bold text-[#F5F5F7] mb-1.5">Submit Your Candidacy</h2>
+                <p className="text-xs sm:text-sm text-[#A1A1AA] leading-relaxed">
                   Upload your credentials. Our HR compliance officers audit all profiles within 48 hours.
                 </p>
               </div>
 
-              <form className="flex flex-col gap-4" onSubmit={handleApplicationSubmit}>
+              <form className="flex-1 flex flex-col gap-4" onSubmit={handleApplicationSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="fullName" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Full Name *</label>
+                    <label htmlFor="fullName" className="font-display text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Full Name *</label>
                     <input
                       id="fullName"
                       type="text"
                       name="fullName"
                       required
                       placeholder="Enter your full name"
-                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
+                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2 text-xs sm:text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="email" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Email Address *</label>
+                    <label htmlFor="email" className="font-display text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Email Address *</label>
                     <input
                       id="email"
                       type="email"
                       name="email"
                       required
                       placeholder="Enter your email"
-                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
+                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2 text-xs sm:text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
@@ -241,24 +242,24 @@ export default function CareersPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="phone" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Phone Number *</label>
+                    <label htmlFor="phone" className="font-display text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Phone Number *</label>
                     <input
                       id="phone"
                       type="tel"
                       name="phone"
                       required
                       placeholder="e.g. +91 98765 43210"
-                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
+                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2 text-xs sm:text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="position" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Target Position *</label>
+                    <label htmlFor="position" className="font-display text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Target Position *</label>
                     <select
                       id="position"
                       name="position"
                       required
-                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
+                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2 text-xs sm:text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                       value={targetPosition}
                       onChange={(e) => setTargetPosition(e.target.value)}
@@ -275,12 +276,12 @@ export default function CareersPage() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="experience" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Years of Experience *</label>
+                    <label htmlFor="experience" className="font-display text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Years of Experience *</label>
                     <select
                       id="experience"
                       name="experience"
                       required
-                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
+                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2 text-xs sm:text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     >
                       <option value="">Select range</option>
@@ -291,45 +292,45 @@ export default function CareersPage() {
                     </select>
                   </div>
                   <div className="flex flex-col gap-1.5">
-                    <label htmlFor="currentLocation" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Current Location *</label>
+                    <label htmlFor="currentLocation" className="font-display text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Current Location *</label>
                     <input
                       id="currentLocation"
                       type="text"
                       name="currentLocation"
                       required
                       placeholder="e.g. Hyderabad"
-                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
+                      className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2 text-xs sm:text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors"
                       disabled={formLoading}
                     />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="resume" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Attach CV / Resume (PDF, Word) *</label>
+                  <label htmlFor="resume" className="font-display text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Attach CV / Resume (PDF, Word) *</label>
                   <input
                     id="resume"
                     type="file"
                     name="resume"
                     required
                     accept=".pdf,.doc,.docx"
-                    className="bg-[#0A0A0C] border border-white/8 rounded-lg p-2 text-sm text-[#A1A1AA] file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-[#FF5004] file:text-[#0A0A0C]"
+                    className="bg-[#0A0A0C] border border-white/8 rounded-lg p-2 text-xs sm:text-sm text-[#A1A1AA] file:mr-4 file:py-1.5 file:px-3 file:rounded-md file:border-0 file:text-[10px] file:sm:text-xs file:font-semibold file:bg-[#FF5004] file:text-[#0A0A0C]"
                     disabled={formLoading}
                   />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                  <label htmlFor="message" className="font-display text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Brief Statement / Note</label>
+                  <label htmlFor="message" className="font-display text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Brief Statement / Note</label>
                   <textarea
                     id="message"
                     name="message"
-                    rows={3}
+                    rows={2}
                     placeholder="Share details about your core qualifications..."
-                    className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors resize-y"
+                    className="bg-[#0A0A0C] border border-white/8 rounded-lg px-4 py-2.5 text-xs sm:text-sm text-[#F5F5F7] outline-none focus:border-[#FF5004] transition-colors resize-y"
                     disabled={formLoading}
                   />
                 </div>
 
-                <div className="mt-4">
+                <div className="mt-3">
                   <Button
                     type="submit"
                     variant="primary"

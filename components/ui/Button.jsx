@@ -61,7 +61,9 @@ export default function Button({
   const content = (
     <>
       {loading && <Spinner size="sm" className="mr-2 shrink-0" />}
-      <span className={loading ? "opacity-0" : ""}>{children}</span>
+      <span className={["flex items-center justify-center gap-2", loading ? "opacity-0" : ""].join(" ")}>
+        {children}
+      </span>
     </>
   );
 

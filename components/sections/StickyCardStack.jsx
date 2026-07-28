@@ -21,33 +21,37 @@ export default function StickyCardStack() {
     const cardsEl = cardsRef.current;
     if (!containerRef.current || cardsEl.length === 0) return;
 
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: `+=${(cardsEl.length - 1) * 130}%`,
-        scrub: 1.2,
-        pin: true,
-        invalidateOnRefresh: true,
-      },
-    });
+    const ctx = gsap.context(() => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top top",
+          end: `+=${(cardsEl.length - 1) * 130}%`,
+          scrub: 1.2,
+          pin: true,
+          invalidateOnRefresh: true,
+        },
+      });
 
-    cardsEl.forEach((card, index) => {
-      if (index === 0) return;
-      tl.fromTo(
-        card,
-        { yPercent: 100, scale: 0.97, opacity: 0 },
-        { yPercent: 0, scale: 1, opacity: 1, duration: 1, ease: "none" },
-        index - 0.75
-      );
-      tl.to(
-        cardsEl[index - 1],
-        { scale: 0.94 - index * 0.01, opacity: 0.4, yPercent: -8, duration: 1, ease: "none" },
-        index - 0.75
-      );
-    });
+      cardsEl.forEach((card, index) => {
+        if (index === 0) return;
+        tl.fromTo(
+          card,
+          { yPercent: 100, scale: 0.97, opacity: 0 },
+          { yPercent: 0, scale: 1, opacity: 1, duration: 1, ease: "none" },
+          index - 0.75
+        );
+        tl.to(
+          cardsEl[index - 1],
+          { scale: 0.94 - index * 0.01, opacity: 0.4, yPercent: -8, duration: 1, ease: "none" },
+          index - 0.75
+        );
+      });
+    }, containerRef);
 
-    return () => { ScrollTrigger.getAll().forEach((t) => t.kill()); };
+    return () => {
+      ctx.revert();
+    };
   }, [cards.length]);
 
   return (
@@ -64,7 +68,7 @@ export default function StickyCardStack() {
       </div>
 
       {/* Stacked cards */}
-      <div className="container relative" style={{ height: "60vh" }}>
+      <div className="container relative h-[780px] sm:h-[640px] md:h-[580px] lg:h-[60vh] lg:max-h-[600px]">
         {cards.map((service, index) => {
           const Icon = iconMap[service.icon] || Wrench;
           const cardNum = String(index + 1).padStart(2, "0");
@@ -79,27 +83,27 @@ export default function StickyCardStack() {
             >
               {/* Card shell */}
               <div
-                className="relative w-full h-full flex"
+                className="relative w-full h-full flex flex-col lg:flex-row"
                 style={{
                   background: "linear-gradient(160deg, #16161A 0%, #111114 100%)",
                   boxShadow: `0 0 0 1px ${service.gradient[0]}20, 0 40px 80px rgba(0,0,0,0.55)`,
                 }}
               >
-                {/* ── Left accent strip ── */}
+                {/* ── Left/Top accent strip ── */}
                 <div
-                  className="w-[3px] flex-shrink-0 self-stretch rounded-l-[20px]"
+                  className="w-full h-[3px] lg:w-[3px] lg:h-full flex-shrink-0 rounded-t-[20px] lg:rounded-tr-none lg:rounded-l-[20px]"
                   style={{
-                    background: `linear-gradient(180deg, ${service.gradient[0]} 0%, ${service.gradient[1]}40 100%)`,
+                    background: `linear-gradient(90deg, ${service.gradient[0]} 0%, ${service.gradient[1]}40 100%)`,
                   }}
                 />
 
                 {/* ── LEFT COLUMN ── */}
-                <div className="relative flex flex-col justify-between p-8 md:p-10 w-[44%] overflow-hidden">
+                <div className="relative flex flex-col justify-between p-5 sm:p-8 lg:p-10 w-full lg:w-[44%] overflow-hidden">
                   {/* Giant watermark number */}
                   <span
                     className="absolute -top-6 -left-3 font-display font-extrabold select-none pointer-events-none leading-none"
                     style={{
-                      fontSize: "11rem",
+                      fontSize: "clamp(6rem, 15vw, 11rem)",
                       color: service.gradient[0],
                       opacity: 0.045,
                       lineHeight: 1,
@@ -111,17 +115,18 @@ export default function StickyCardStack() {
                   {/* TOP: icon + counter badge */}
                   <div className="relative z-10 flex items-start justify-between">
                     <div
-                      className="w-[60px] h-[60px] rounded-2xl flex items-center justify-center flex-shrink-0"
+                      className="w-[48px] h-[48px] lg:w-[60px] lg:h-[60px] rounded-xl lg:rounded-2xl flex items-center justify-center flex-shrink-0"
                       style={{
                         background: `linear-gradient(135deg, ${service.gradient[0]} 0%, ${service.gradient[1]} 100%)`,
-                        boxShadow: `0 10px 32px ${service.gradient[0]}30`,
+                        boxShadow: `0 8px 24px ${service.gradient[0]}30`,
                       }}
                     >
-                      <Icon size={26} color="#fff" strokeWidth={2} />
+                      <Icon size={22} color="#fff" strokeWidth={2} className="lg:hidden" />
+                      <Icon size={26} color="#fff" strokeWidth={2} className="hidden lg:block" />
                     </div>
 
                     <span
-                      className="font-mono text-[0.7rem] font-bold tracking-[0.12em] px-3 py-1 rounded-full flex-shrink-0"
+                      className="font-mono text-[0.65rem] lg:text-[0.7rem] font-bold tracking-[0.12em] px-2.5 py-0.5 lg:px-3 lg:py-1 rounded-full flex-shrink-0"
                       style={{
                         color: service.gradient[0],
                         border: `1px solid ${service.gradient[0]}35`,
@@ -133,18 +138,18 @@ export default function StickyCardStack() {
                   </div>
 
                   {/* MIDDLE: name + description */}
-                  <div className="relative z-10 flex flex-col gap-3 mt-5">
-                    <h3 className="font-display text-[clamp(1.2rem,2.4vw,1.55rem)] font-extrabold text-[#F0F0F2] tracking-[-0.02em] leading-[1.18]">
+                  <div className="relative z-10 flex flex-col gap-2 lg:gap-3 mt-4 lg:mt-5">
+                    <h3 className="font-display text-[clamp(1.1rem,2vw,1.55rem)] font-extrabold text-[#F0F0F2] tracking-[-0.02em] leading-[1.18]">
                       {service.name}
                     </h3>
-                    <p className="text-[#6A6A76] text-[0.865rem] leading-[1.72]">
+                    <p className="text-[#6A6A76] text-[0.8rem] lg:text-[0.865rem] leading-[1.6] lg:leading-[1.72] max-w-full">
                       {service.shortDescription}
                     </p>
                   </div>
 
                   {/* BOTTOM: stat metric block */}
                   <div
-                    className="relative z-10 mt-6 rounded-[14px] p-4 flex items-center gap-4"
+                    className="relative z-10 mt-4 lg:mt-6 rounded-[12px] lg:rounded-[14px] p-3 lg:p-4 flex items-center gap-3 lg:gap-4"
                     style={{
                       background: `linear-gradient(135deg, ${service.gradient[0]}10 0%, transparent 100%)`,
                       border: `1px solid ${service.gradient[0]}22`,
@@ -161,7 +166,7 @@ export default function StickyCardStack() {
                       <span
                         className="font-display font-extrabold leading-none block"
                         style={{
-                          fontSize: "clamp(1.5rem, 3vw, 2rem)",
+                          fontSize: "clamp(1.25rem, 2.5vw, 2rem)",
                           background: `linear-gradient(90deg, ${service.gradient[0]} 0%, #F5F5F7 120%)`,
                           WebkitBackgroundClip: "text",
                           WebkitTextFillColor: "transparent",
@@ -169,23 +174,23 @@ export default function StickyCardStack() {
                       >
                         {service.stat.value}
                       </span>
-                      <span className="text-[0.68rem] font-semibold uppercase tracking-[0.11em] text-[#52525E] mt-1 block">
+                      <span className="text-[0.6rem] lg:text-[0.68rem] font-semibold uppercase tracking-[0.11em] text-[#52525E] mt-0.5 lg:mt-1 block">
                         {service.stat.label}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* ── Vertical divider ── */}
+                {/* ── Divider ── */}
                 <div
-                  className="w-px self-stretch my-8 flex-shrink-0"
+                  className="h-px w-[90%] mx-auto lg:w-px lg:h-auto lg:self-stretch lg:my-8 lg:mx-0 flex-shrink-0"
                   style={{
-                    background: `linear-gradient(180deg, transparent, ${service.gradient[0]}28 35%, ${service.gradient[0]}28 65%, transparent)`,
+                    background: `linear-gradient(90deg, transparent, ${service.gradient[0]}28 35%, ${service.gradient[0]}28 65%, transparent)`,
                   }}
                 />
 
                 {/* ── RIGHT COLUMN ── */}
-                <div className="relative flex flex-col p-8 md:p-10 flex-1 overflow-hidden">
+                <div className="relative flex flex-col p-5 sm:p-8 lg:p-10 flex-1 overflow-hidden">
                   {/* Subtle dot-grid texture */}
                   <div
                     className="absolute inset-0 pointer-events-none"
@@ -196,12 +201,12 @@ export default function StickyCardStack() {
                   />
 
                   {/* Section label with decorative lines */}
-                  <div className="relative z-10 flex items-center gap-3 mb-6">
+                  <div className="relative z-10 flex items-center gap-3 mb-4 lg:mb-6">
                     <div
                       className="h-px flex-shrink-0 w-8 rounded-full"
                       style={{ background: `linear-gradient(to right, ${service.gradient[0]}70, transparent)` }}
                     />
-                    <span className="text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#44444E] whitespace-nowrap">
+                    <span className="text-[0.62rem] lg:text-[0.68rem] font-bold uppercase tracking-[0.14em] text-[#44444E] whitespace-nowrap">
                       Inclusions &amp; Standards
                     </span>
                     <div className="h-px flex-1 rounded-full bg-white/[0.04]" />
@@ -212,19 +217,20 @@ export default function StickyCardStack() {
                     {service.included.map((item, idx) => (
                       <li
                         key={idx}
-                        className="flex items-center gap-4 py-[11px] border-b border-white/[0.045] last:border-0"
+                        className="flex items-center gap-3 lg:gap-4 py-[8px] lg:py-[11px] border-b border-white/[0.045] last:border-0"
                       >
                         {/* Check icon badge */}
                         <span
-                          className="w-[22px] h-[22px] rounded-full flex items-center justify-center flex-shrink-0"
+                          className="w-[18px] h-[18px] lg:w-[22px] lg:h-[22px] rounded-full flex items-center justify-center flex-shrink-0"
                           style={{
                             background: `${service.gradient[0]}15`,
                             border: `1px solid ${service.gradient[0]}30`,
                           }}
                         >
-                          <Check size={11} strokeWidth={2.8} style={{ color: service.gradient[0] }} />
+                          <Check size={9} strokeWidth={2.8} style={{ color: service.gradient[0] }} className="lg:hidden" />
+                          <Check size={11} strokeWidth={2.8} style={{ color: service.gradient[0] }} className="hidden lg:block" />
                         </span>
-                        <span className="text-[0.875rem] text-[#9A9AA4] leading-[1.5] font-medium">
+                        <span className="text-[0.78rem] lg:text-[0.875rem] text-[#9A9AA4] leading-[1.4] lg:leading-[1.5] font-medium">
                           {item}
                         </span>
                       </li>
