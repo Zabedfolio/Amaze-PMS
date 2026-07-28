@@ -108,10 +108,20 @@ export default function Navbar() {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-4 z-[102]">
-            <div className="hidden lg:block">
-              <Button href={navData.ctaButton.path} variant="primary" size="sm">
-                {navData.ctaButton.label}
+          <div className="flex items-center gap-6 z-[102]">
+            <div className="hidden lg:flex items-center gap-5">
+              <Link 
+                href="/contact#schedule" 
+                className="font-display text-[0.875rem] font-semibold text-[#A1A1AA] hover:text-[#F5F5F7] transition-colors"
+              >
+                Book Audit
+              </Link>
+              <Button 
+                onClick={() => window.dispatchEvent(new CustomEvent("open-proposal"))} 
+                variant="primary" 
+                size="sm"
+              >
+                Request Proposal
               </Button>
             </div>
 
@@ -177,8 +187,8 @@ export default function Navbar() {
 
               {/* Main Content Area */}
               <div className="flex-1 overflow-y-auto px-8 sm:px-12 py-6 flex flex-col justify-between gap-12">
-                {/* Navigation Links list */}
-                <motion.div className="flex flex-col gap-6" variants={staggerVariants}>
+                {/* Navigation Links list (Redesigned for Premium Corporate Look) */}
+                <motion.div className="flex flex-col gap-3" variants={staggerVariants}>
                   {navData.navLinks.map((link, index) => {
                     const isActive = pathname === link.path;
                     const indexStr = String(index + 1).padStart(2, "0");
@@ -186,24 +196,47 @@ export default function Navbar() {
                       <motion.div key={link.path} variants={itemVariants}>
                         <Link
                           href={link.path}
-                          className="group flex items-baseline gap-4 py-1"
+                          onClick={() => setIsOpen(false)}
+                          className={[
+                            "group flex items-center justify-between p-4 rounded-xl border transition-all duration-300 relative overflow-hidden",
+                            isActive 
+                              ? "bg-[#FF5004]/10 border-[#FF5004]/30 shadow-[0_4px_20px_rgba(255,80,4,0.1)]" 
+                              : "bg-white/[0.02] border-white/[0.05] hover:bg-white/[0.04] hover:border-white/10"
+                          ].join(" ")}
                         >
-                          <span
+                          <div className="flex items-center gap-4 relative z-10">
+                            <span
+                              className={[
+                                "font-mono text-[10px] font-bold px-2 py-0.5 rounded-md border",
+                                isActive 
+                                  ? "bg-[#FF5004] text-[#0A0A0C] border-transparent" 
+                                  : "bg-white/[0.04] text-[#A1A1AA] border-white/[0.06]"
+                              ].join(" ")}
+                            >
+                              {indexStr}
+                            </span>
+                            <span
+                              className={[
+                                "font-display text-sm sm:text-base font-bold tracking-tight transition-colors duration-300",
+                                isActive ? "text-[#F5F5F7]" : "text-[#A1A1AA] group-hover:text-[#F5F5F7]"
+                              ].join(" ")}
+                            >
+                              {link.label}
+                            </span>
+                          </div>
+                          
+                          <ArrowRight 
+                            size={15} 
                             className={[
-                              "font-mono text-[0.72rem] font-bold tracking-[0.1em]",
-                              isActive ? "text-[#FF5004]" : "text-[#44444F] group-hover:text-[#FF5004]/60 transition-colors",
+                              "transition-all duration-300 relative z-10",
+                              isActive 
+                                ? "text-[#FF5004] translate-x-0" 
+                                : "text-[#44444F] group-hover:text-[#FF5004] group-hover:translate-x-1"
                             ].join(" ")}
-                          >
-                            {indexStr}
-                          </span>
-                          <span
-                            className={[
-                              "font-display text-[2rem] sm:text-[2.25rem] font-extrabold tracking-[-0.02em] leading-none transition-all duration-300 relative",
-                              isActive ? "text-[#F5F5F7]" : "text-[#888899] hover:text-[#F5F5F7] group-hover:translate-x-2",
-                            ].join(" ")}
-                          >
-                            {link.label}
-                          </span>
+                          />
+
+                          {/* Subtle hover gradient background */}
+                          <div className="absolute inset-0 bg-gradient-to-r from-[#FF5004]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         </Link>
                       </motion.div>
                     );
@@ -223,15 +256,15 @@ export default function Navbar() {
                   <div className="flex flex-col gap-4">
                     <div className="flex items-center gap-3 text-[#9A9AA4]">
                       <MapPin size={16} className="text-[#FF5004]" />
-                      <span className="leading-relaxed">Action Group, New Delhi / Hyderabad, India</span>
+                      <span className="leading-relaxed text-xs">Action Group, New Delhi / Hyderabad, India</span>
                     </div>
 
-                    <a href="tel:+914045678900" className="flex items-center gap-3 text-[#9A9AA4] hover:text-[#F5F5F7] transition-colors w-max">
+                    <a href="tel:+914045678900" className="flex items-center gap-3 text-[#9A9AA4] hover:text-[#F5F5F7] transition-colors w-max text-xs">
                       <Phone size={16} className="text-[#FF5004]" />
                       <span>+91 40 4567 8900</span>
                     </a>
 
-                    <a href="mailto:operations@amazepms.com" className="flex items-center gap-3 text-[#9A9AA4] hover:text-[#F5F5F7] transition-colors w-max">
+                    <a href="mailto:operations@amazepms.com" className="flex items-center gap-3 text-[#9A9AA4] hover:text-[#F5F5F7] transition-colors w-max text-xs">
                       <Mail size={16} className="text-[#FF5004]" />
                       <span>operations@amazepms.com</span>
                     </a>
@@ -239,16 +272,20 @@ export default function Navbar() {
                 </motion.div>
               </div>
 
-              {/* Bottom CTA Block */}
+              {/* Bottom CTA Block: Triggers global proposal request */}
               <div className="p-8 sm:p-12 bg-white/[0.015] border-t border-white/[0.04] relative z-10 flex-shrink-0">
                 <Button
-                  href={navData.ctaButton.path}
+                  onClick={() => {
+                    setIsOpen(false);
+                    setTimeout(() => {
+                      window.dispatchEvent(new CustomEvent("open-proposal"));
+                    }, 300);
+                  }}
                   variant="primary"
                   size="lg"
                   className="w-full flex items-center justify-center gap-2"
-                  onClick={() => setIsOpen(false)}
                 >
-                  <span>{navData.ctaButton.label}</span>
+                  <span>Request Facility Proposal</span>
                   <ArrowRight size={16} />
                 </Button>
               </div>

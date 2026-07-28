@@ -3,6 +3,7 @@ import { Toaster } from "react-hot-toast";
 import LenisProvider from "../components/layout/LenisProvider";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import ProposalDrawer from "../components/layout/ProposalDrawer";
 import "../styles/globals.css";
 
 const inter = Inter({
@@ -137,6 +138,7 @@ export default function RootLayout({ children }) {
       <body style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <LenisProvider>
           <Navbar />
+          <ProposalDrawer />
           <main style={{ flex: 1, paddingTop: "80px" }}>{children}</main>
           <Footer />
           <Toaster

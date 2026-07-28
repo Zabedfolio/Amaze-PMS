@@ -3,7 +3,7 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Brush, Wrench, Shield, Bug, Flower2, Droplets, Check } from "lucide-react";
+import { Brush, Wrench, Shield, Bug, Flower2, Droplets, Check, ArrowRight } from "lucide-react";
 import servicesData from "../../data/services.json";
 
 const iconMap = {
@@ -178,6 +178,31 @@ export default function StickyCardStack() {
                         {service.stat.label}
                       </span>
                     </div>
+                  </div>
+
+                  {/* Proposal Action Button */}
+                  <div className="relative z-10 mt-4 lg:mt-5">
+                    <button
+                      onClick={() => window.dispatchEvent(new CustomEvent("open-proposal", { detail: { service: service.name } }))}
+                      className="w-full font-display text-[0.8rem] lg:text-[0.875rem] font-bold px-4 py-2.5 rounded-lg border text-[#F5F5F7] transition-all duration-300 flex items-center justify-center gap-2"
+                      style={{
+                        background: `${service.gradient[0]}0D`,
+                        borderColor: `${service.gradient[0]}35`,
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background = service.gradient[0];
+                        e.currentTarget.style.borderColor = "transparent";
+                        e.currentTarget.style.color = "#0A0A0C";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background = `${service.gradient[0]}0D`;
+                        e.currentTarget.style.borderColor = `${service.gradient[0]}35`;
+                        e.currentTarget.style.color = "#F5F5F7";
+                      }}
+                    >
+                      <span>Request Service Proposal</span>
+                      <ArrowRight size={14} />
+                    </button>
                   </div>
                 </div>
 

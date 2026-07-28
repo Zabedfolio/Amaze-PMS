@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -122,29 +123,30 @@ export default function ServicesPage() {
                   viewport={{ once: true, margin: "-100px" }}
                   variants={slideVariants}
                 >
-                  {/* Left: Graphic gradient card representing service */}
+                  {/* Left: Premium service photograph */}
                   <div className="w-full lg:w-[44%] shrink-0">
                     <div
-                      className="relative aspect-[4/3] rounded-2xl flex items-center justify-center overflow-hidden shadow-2xl"
+                      className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group/image"
                       style={{
-                        backgroundImage: `linear-gradient(135deg, ${service.gradient[0]}15 0%, #17171B 100%)`,
                         border: `1px solid ${service.gradient[0]}33`,
                       }}
                     >
-                      <div
-                        className="w-24 h-24 rounded-2xl flex items-center justify-center relative z-10"
+                      <Image
+                        src={service.cardImage}
+                        alt={service.name}
+                        fill
+                        className="object-cover transition-transform duration-700 ease-out group-hover/image:scale-110"
+                        sizes="(max-width: 1024px) 100vw, 44vw"
+                        priority={index < 2}
+                      />
+                      {/* Dark overlay mask that lifts on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C]/90 via-transparent to-transparent opacity-80 transition-opacity duration-500 group-hover/image:opacity-40" />
+                      
+                      {/* Subtle floating brand gradient corner line */}
+                      <div 
+                        className="absolute bottom-0 left-0 right-0 h-[3px]"
                         style={{
-                          background: `linear-gradient(135deg, ${service.gradient[0]} 0%, ${service.gradient[1]} 100%)`,
-                          boxShadow: `0 8px 30px ${service.gradient[0]}33`,
-                        }}
-                      >
-                        <IconComp size={48} className="text-[#0A0A0C]" />
-                      </div>
-                      <div
-                        className="absolute inset-0 opacity-60 pointer-events-none"
-                        style={{
-                          backgroundImage: "radial-gradient(rgba(255,255,255,0.02) 1px, transparent 1px)",
-                          backgroundSize: "20px 20px",
+                          background: `linear-gradient(90deg, ${service.gradient[0]}, ${service.gradient[1]})`
                         }}
                       />
                     </div>
@@ -169,10 +171,10 @@ export default function ServicesPage() {
                     {/* Accordion List Inclusions */}
                     <ServiceAccordion items={service.included} color={service.gradient[0]} />
 
-                    {/* Request CTA deep-link */}
+                    {/* Request CTA drawer trigger */}
                     <div className="flex">
                       <Button
-                        href={`/contact?service=${service.id}`}
+                        onClick={() => window.dispatchEvent(new CustomEvent("open-proposal", { detail: { service: service.name } }))}
                         variant="secondary"
                         size="md"
                         className="inline-flex items-center gap-2 group"
