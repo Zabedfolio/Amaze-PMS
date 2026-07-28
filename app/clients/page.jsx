@@ -29,6 +29,28 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
+// Stagger entrance animation variants for property list items
+const listContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.02,
+      delayChildren: 0.04,
+    },
+  },
+};
+
+const listItemVariants = {
+  hidden: { opacity: 0, y: 10, filter: "blur(3px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.3, ease: [0.25, 0.1, 0.25, 1.0] },
+  },
+};
+
 export default function ClientsPage() {
   const [activeCategory, setActiveCategory] = useState("all");
   const [mounted, setMounted] = useState(false);
@@ -220,19 +242,29 @@ export default function ClientsPage() {
                             <span className="text-xs text-[#A1A1AA] font-mono font-medium">({clients.length} Properties)</span>
                           </h3>
 
-                          {/* Responsive 4-Column Grid */}
-                          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-3.5">
+                          {/* Responsive 4-Column Staggered Animated Grid */}
+                          <motion.div
+                            variants={listContainerVariants}
+                            initial="hidden"
+                            animate="visible"
+                            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-2"
+                          >
                             {clients.map((client, index) => (
-                              <div key={index} className="flex items-center gap-3 group">
-                                <span className="font-mono text-xs font-semibold text-[#FF5004]/40 group-hover:text-[#FF5004] transition-colors w-5 text-right shrink-0">
+                              <motion.div
+                                key={index}
+                                variants={listItemVariants}
+                                whileHover={{ x: 4, transition: { duration: 0.2 } }}
+                                className="flex items-center gap-3 py-2 px-2.5 rounded-lg hover:bg-white/[0.03] border border-transparent hover:border-white/[0.06] transition-colors duration-200 group cursor-default"
+                              >
+                                <span className="font-mono text-xs font-semibold text-[#FF5004]/50 group-hover:text-[#FF5004] group-hover:font-bold transition-all duration-200 w-5 text-right shrink-0">
                                   {index + 1}.
                                 </span>
-                                <span className="font-display text-[13.5px] font-medium text-[#A1A1AA] group-hover:text-[#F5F5F7] transition-colors leading-tight">
+                                <span className="font-display text-[13.5px] font-medium text-[#A1A1AA] group-hover:text-[#F5F5F7] transition-colors duration-200 leading-tight">
                                   {client}
                                 </span>
-                              </div>
+                              </motion.div>
                             ))}
-                          </div>
+                          </motion.div>
                         </div>
                       );
                     })
@@ -247,22 +279,29 @@ export default function ClientsPage() {
                       </span>
                     </h3>
 
-                    {/* Responsive 4-Column Grid */}
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-4">
+                    {/* Responsive 4-Column Staggered Animated Grid */}
+                    <motion.div
+                      variants={listContainerVariants}
+                      initial="hidden"
+                      animate="visible"
+                      className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-3"
+                    >
                       {getClientsByCategory(activeCategory).map((client, index) => (
-                        <div
+                        <motion.div
                           key={index}
-                          className="flex items-center gap-3 p-3.5 rounded-xl bg-white/[0.01] border border-white/5 hover:border-[#FF5004]/30 hover:bg-white/[0.02] transition-all duration-300 group"
+                          variants={listItemVariants}
+                          whileHover={{ x: 4, scale: 1.01, transition: { duration: 0.2 } }}
+                          className="flex items-center gap-3 p-3.5 rounded-xl bg-white/[0.015] border border-white/5 hover:border-[#FF5004]/35 hover:bg-[#FF5004]/[0.03] hover:shadow-[0_4px_20px_rgba(255,80,4,0.06)] transition-all duration-200 group cursor-default"
                         >
-                          <span className="font-mono text-xs font-bold text-[#FF5004] bg-[#FF5004]/10 w-6 h-6 rounded-full flex items-center justify-center shrink-0">
+                          <span className="font-mono text-xs font-bold text-[#FF5004] bg-[#FF5004]/10 w-6 h-6 rounded-full flex items-center justify-center shrink-0 group-hover:bg-[#FF5004] group-hover:text-[#F5F5F7] transition-colors duration-200">
                             {index + 1}
                           </span>
-                          <span className="font-display text-[14px] font-semibold text-[#A1A1AA] group-hover:text-[#F5F5F7] transition-colors leading-tight">
+                          <span className="font-display text-[14px] font-semibold text-[#A1A1AA] group-hover:text-[#F5F5F7] transition-colors duration-200 leading-tight">
                             {client}
                           </span>
-                        </div>
+                        </motion.div>
                       ))}
-                    </div>
+                    </motion.div>
                   </div>
                 )}
               </motion.div>
