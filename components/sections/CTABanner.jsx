@@ -35,7 +35,13 @@ export default function CTABanner() {
               Schedule a comprehensive facility audit with our ex-navy practitioners. We will evaluate your MEP loads, STP compliance, and security frameworks with zero cost.
             </p>
             <div className="flex items-center gap-4 flex-wrap justify-center mt-2">
-              <Button href="/contact" variant="primary" size="lg">Request a Custom Audit</Button>
+              <Button 
+                onClick={() => window.dispatchEvent(new CustomEvent("open-proposal", { detail: { tab: "rfp" } }))} 
+                variant="primary" 
+                size="lg"
+              >
+                Request a Custom Audit
+              </Button>
               <Button href="/services" variant="outline" size="lg">Learn About Services</Button>
             </div>
           </div>

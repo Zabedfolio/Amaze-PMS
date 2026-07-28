@@ -22,7 +22,7 @@ function LostPortal() {
       groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, targetX, 0.05);
 
       // Gentle floating animation
-      const elapsed = state.clock.getElapsedTime();
+      const elapsed = state.clock.elapsedTime;
       groupRef.current.position.y = Math.sin(elapsed * 1.5) * 0.18;
     }
   });
@@ -80,7 +80,7 @@ function LostPackets({ count = 250 }) {
 
     const geo = pointsRef.current.geometry;
     const posArr = geo.attributes.position.array;
-    const elapsed = state.clock.getElapsedTime();
+    const elapsed = state.clock.elapsedTime;
 
     for (let i = 0; i < count; i++) {
       const idx = i * 3;
@@ -151,6 +151,9 @@ export default function NotFoundScene() {
           camera={{ position: [0, 0, 5], fov: 60 }}
           gl={{ antialias: true, alpha: true }}
           style={{ background: "transparent" }}
+          onCreated={({ gl }) => {
+            gl.domElement?.addEventListener("webglcontextlost", (e) => e.preventDefault(), false);
+          }}
         >
           <LostSceneContainer />
         </Canvas>

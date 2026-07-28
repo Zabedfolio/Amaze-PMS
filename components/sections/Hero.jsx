@@ -27,7 +27,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative w-full min-h-[calc(100vh-80px)] flex items-center overflow-hidden bg-[#0A0A0C]">
+    <section className="relative w-full min-h-screen flex items-center overflow-hidden bg-[#0A0A0C] pt-16">
       {/* 3D canvas — fills right half */}
       <div className="absolute inset-0 z-0">
         <HeroScene />
@@ -76,7 +76,13 @@ export default function Hero() {
 
           {/* CTAs */}
           <motion.div className="flex items-center gap-4 flex-wrap" variants={fadeUpVariants}>
-            <Button href="/contact" variant="primary" size="lg">Get a Free Quote</Button>
+            <Button 
+              onClick={() => window.dispatchEvent(new CustomEvent("open-proposal", { detail: { tab: "rfp" } }))} 
+              variant="primary" 
+              size="lg"
+            >
+              Get a Free Quote
+            </Button>
             <Button href="/services" variant="outline" size="lg">Explore Services</Button>
           </motion.div>
         </motion.div>

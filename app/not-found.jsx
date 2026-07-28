@@ -17,7 +17,7 @@ const NotFoundScene = dynamic(() => import("../components/three/NotFoundScene"),
 
 export default function NotFound() {
   return (
-    <div className="relative w-full min-h-[calc(100vh-80px)] flex items-center overflow-hidden bg-[#0A0A0C]">
+    <div className="relative w-full min-h-screen flex items-center overflow-hidden bg-[#0A0A0C] pt-16">
       {/* 3D canvas — fills full screen background */}
       <div className="absolute inset-0 z-0 w-full h-full">
         <NotFoundScene />

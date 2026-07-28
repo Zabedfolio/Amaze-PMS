@@ -10,6 +10,7 @@ import statsData from "../../data/stats.json";
 import GlassCard from "../../components/ui/GlassCard";
 import CTABanner from "../../components/sections/CTABanner";
 import GlobeScene from "../../components/three/GlobeScene";
+import AnimatedCounter from "../../components/ui/AnimatedCounter";
 
 // Custom glassmorphic tooltip for Recharts
 const CustomTooltip = ({ active, payload }) => {
@@ -84,7 +85,9 @@ export default function ClientsPage() {
                     <Building2 size={16} />
                     <span className="font-display text-[10px] font-bold uppercase tracking-wider text-[#A1A1AA]">Managed Properties</span>
                   </div>
-                  <span className="font-display text-3xl font-black text-[#F5F5F7] tracking-tight">200+</span>
+                  <span className="font-display text-3xl font-black text-[#F5F5F7] tracking-tight">
+                    <AnimatedCounter value={200} suffix="+" />
+                  </span>
                 </div>
 
                 <div className="p-5 rounded-2xl bg-white/[0.015] border border-white/5 flex flex-col gap-1.5">
@@ -92,7 +95,9 @@ export default function ClientsPage() {
                     <Users size={16} />
                     <span className="font-display text-[10px] font-bold uppercase tracking-wider text-[#A1A1AA]">Direct Workforce</span>
                   </div>
-                  <span className="font-display text-3xl font-black text-[#F5F5F7] tracking-tight">15,000+</span>
+                  <span className="font-display text-3xl font-black text-[#F5F5F7] tracking-tight">
+                    <AnimatedCounter value={15000} suffix="+" />
+                  </span>
                 </div>
               </div>
             </div>

@@ -17,6 +17,7 @@ import careersData from "../../data/careers.json";
 import { mockSubmit } from "../../lib/mockSubmit";
 import Button from "../../components/ui/Button";
 import AmbientAura from "../../components/ui/AmbientAura";
+import RollingNumber from "../../components/ui/RollingNumber";
 
 const iconMap = {
   Shield: Shield,
@@ -28,20 +29,17 @@ const iconMap = {
 export default function CareersPage() {
   const [activeDept, setActiveDept] = useState("all");
   const [formLoading, setFormLoading] = useState(false);
+
+  // Modal recruitment states
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedRoleId, setSelectedRoleId] = useState("");
-  const [targetPosition, setTargetPosition] = useState("");
+  const [selectedJob, setSelectedJob] = useState(null);
 
   const filteredRoles = activeDept === "all"
     ? careersData.openRoles
     : careersData.openRoles.filter((role) => role.department === activeDept);
 
-  useEffect(() => {
-    setTargetPosition(selectedRoleId);
-  }, [selectedRoleId]);
-
-  const handleApplyClick = (roleId) => {
-    setSelectedRoleId(roleId);
+  const handleApplyClick = (job) => {
+    setSelectedJob(job);
     setIsModalOpen(true);
   };
 
@@ -81,7 +79,7 @@ export default function CareersPage() {
         <div className="container relative z-10 flex flex-col gap-4">
           <span className="font-display text-xs font-semibold uppercase tracking-wider text-[#FF5004]">Work With Us</span>
           <h1 className="font-display text-[clamp(2.25rem,6vw,4rem)] font-extrabold text-[#F5F5F7] tracking-tight leading-tight max-w-4xl">
-            Join 15,000+ Facility Professionals
+            Join <span className="text-[#FF5004]"><RollingNumber value={15000} suffix="+" /></span> Facility Professionals
           </h1>
           <p className="text-[#A1A1AA] text-[clamp(1rem,2.5vw,1.1875rem)] leading-relaxed max-w-2xl">
             Build your career with Action Group's property management division. 100% compliant salary payouts, statutory PF/ESIC coverage, and Amaze Academy training resources.

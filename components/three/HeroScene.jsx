@@ -20,7 +20,7 @@ function BeaconLight() {
   const lightRef = useRef();
   useFrame((state) => {
     if (!lightRef.current) return;
-    const val = Math.sin(state.clock.getElapsedTime() * 6.5) * 0.5 + 0.5;
+    const val = Math.sin(state.clock.elapsedTime * 6.5) * 0.5 + 0.5;
     lightRef.current.opacity = val > 0.65 ? 1.0 : 0.2;
   });
 
@@ -212,7 +212,7 @@ function CityGrid() {
     groupRef.current.rotation.y += delta * 0.038;
     // Very subtle breathing tilt
     groupRef.current.rotation.x =
-      -0.08 + Math.sin(state.clock.getElapsedTime() * 0.1) * 0.012;
+      -0.08 + Math.sin(state.clock.elapsedTime * 0.1) * 0.012;
   });
 
   // ── Procedural city layout
@@ -395,7 +395,7 @@ function PulsingRing() {
   const ringRef = useRef();
   useFrame((state) => {
     if (!ringRef.current) return;
-    const t = (state.clock.getElapsedTime() % 2.4) / 2.4;
+    const t = (state.clock.elapsedTime % 2.4) / 2.4;
     ringRef.current.scale.setScalar(0.3 + t * 3.5);
     ringRef.current.material.opacity = (1 - t) * 0.6;
   });
@@ -442,7 +442,7 @@ function TrafficSystem() {
   }, []);
 
   useFrame((state) => {
-    const elapsed = state.clock.getElapsedTime();
+    const elapsed = state.clock.elapsedTime;
 
     // 1. Ring 1 Traffic (Orbiting inner loop, radius = 3.0)
     ring1Refs.current.forEach((mesh, index) => {
@@ -549,12 +549,7 @@ export default function HeroScene() {
   React.useEffect(() => {
     setMounted(true);
     return () => {
-      try {
-        if (glRef.current) {
-          glRef.current.dispose?.();
-          glRef.current.forceContextLoss?.();
-        }
-      } catch (_) {}
+      glRef.current = null;
     };
   }, []);
 
@@ -563,14 +558,15 @@ export default function HeroScene() {
   return (
     <CanvasErrorBoundary>
       <Canvas
-        camera={{ position: [8, 14, 11], fov: 36, near: 0.1, far: 120 }}
+        camera={{ position: [8, 12, 11], fov: 38, near: 0.1, far: 120 }}
         style={{ width: "100%", height: "100%" }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         frameloop="always"
         onCreated={({ gl, scene, camera }) => {
           glRef.current = gl;
+          gl.domElement?.addEventListener("webglcontextlost", (e) => e.preventDefault(), false);
           gl.setClearColor(0x000000, 0);
-          camera.lookAt(6, 0, 0);
+          camera.lookAt(6, 1.2, 0);
           // Reduced fog density to make outer details more visible
           scene.fog = new THREE.FogExp2(0x000000, 0.012);
         }}

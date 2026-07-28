@@ -28,6 +28,7 @@ export default function LenisProvider({ children }) {
     });
 
     lenisRef.current = lenis;
+    window.lenis = lenis;
 
     // Direct Lenis scroll events to update GSAP ScrollTrigger
     lenis.on("scroll", ScrollTrigger.update);
@@ -46,6 +47,7 @@ export default function LenisProvider({ children }) {
       // Clean up listeners on unmount
       lenis.destroy();
       gsap.ticker.remove(tickHandler);
+      window.lenis = null;
     };
   }, []);
 

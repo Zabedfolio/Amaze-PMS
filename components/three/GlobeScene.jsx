@@ -46,7 +46,7 @@ function GlobeModel() {
     }
 
     if (ringRef.current) {
-      const elapsed = state.clock.getElapsedTime();
+      const elapsed = state.clock.elapsedTime;
       const progress = (elapsed % 1.5) / 1.5; // Pulsing 1.5s loop
       ringRef.current.scale.setScalar(0.2 + progress * 2.2);
       if (ringRef.current.material) {
@@ -170,12 +170,7 @@ export default function GlobeScene() {
   React.useEffect(() => {
     setMounted(true);
     return () => {
-      try {
-        if (glRef.current) {
-          glRef.current.dispose?.();
-          glRef.current.forceContextLoss?.();
-        }
-      } catch (_) {}
+      glRef.current = null;
     };
   }, []);
 
@@ -190,7 +185,10 @@ export default function GlobeScene() {
         style={{ width: "100%", height: "100%" }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         frameloop="always"
-        onCreated={({ gl }) => { glRef.current = gl; }}
+        onCreated={({ gl }) => {
+          glRef.current = gl;
+          gl.domElement?.addEventListener("webglcontextlost", (e) => e.preventDefault(), false);
+        }}
       >
         <ambientLight intensity={0.5} />
         <directionalLight position={[10, 8, 5]} intensity={1.8} color="#FFD700" />

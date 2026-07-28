@@ -76,12 +76,7 @@ export default function TimelineParticles() {
   React.useEffect(() => {
     setMounted(true);
     return () => {
-      try {
-        if (glRef.current) {
-          glRef.current.dispose?.();
-          glRef.current.forceContextLoss?.();
-        }
-      } catch (_) {}
+      glRef.current = null;
     };
   }, []);
 
@@ -94,7 +89,10 @@ export default function TimelineParticles() {
           camera={{ position: [0, 0, 3] }}
           gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
           frameloop="demand"
-          onCreated={({ gl }) => { glRef.current = gl; }}
+          onCreated={({ gl }) => {
+            glRef.current = gl;
+            gl.domElement?.addEventListener("webglcontextlost", (e) => e.preventDefault(), false);
+          }}
         >
           <ambientLight intensity={0.4} />
           <FloatingPoints />

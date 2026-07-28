@@ -11,6 +11,9 @@ const SUPPRESSED_MESSAGES = [
   "Cannot read properties of null",
   "Cannot set properties of null",
   "R3F",
+  "THREE.Clock",
+  "Context Lost",
+  "loseContext",
 ];
 
 function isSuppressedError(error) {

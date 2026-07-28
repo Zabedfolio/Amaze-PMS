@@ -25,9 +25,26 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.documentElement.classList.add("lenis-stopped");
+      if (window.lenis && typeof window.lenis.stop === "function") {
+        window.lenis.stop();
+      }
+    } else {
+      document.body.style.overflow = "";
+      document.documentElement.classList.remove("lenis-stopped");
+      if (window.lenis && typeof window.lenis.start === "function") {
+        window.lenis.start();
+      }
+    }
+
     return () => {
       document.body.style.overflow = "";
+      document.documentElement.classList.remove("lenis-stopped");
+      if (window.lenis && typeof window.lenis.start === "function") {
+        window.lenis.start();
+      }
     };
   }, [isOpen]);
 
@@ -72,27 +89,27 @@ export default function Navbar() {
       <div className="fixed top-0 left-0 w-full z-[100] flex flex-col pointer-events-none">
         {/* Main Navbar */}
         <motion.nav
-          className="w-full h-24 flex items-center border-b border-transparent transition-all pointer-events-auto"
+          className="w-full h-16 flex items-center border-b border-transparent transition-all pointer-events-auto"
           initial="top"
           animate={isScrolled ? "scrolled" : "top"}
           variants={navVariants}
           transition={{ duration: 0.3 }}
         >
-          <div className="container mx-auto px-6 flex items-center justify-between w-full">
+          <div className="container mx-auto px-6 flex items-center justify-between w-full h-full">
           {/* Logo */}
-          <Link href="/" className="flex items-center z-[102] transition-transform hover:scale-1.05 active:scale-0.95">
+          <Link href="/" className="flex items-center z-[102] transition-transform hover:scale-1.05 active:scale-0.95 h-full">
             <Image
               src="/images/logo.png"
               alt="Amaze PMS"
               width={70}
               height={70}
               priority
-              className="object-contain h-[50px] sm:h-[56px] w-auto"
+              className="object-contain h-[36px] sm:h-[40px] w-auto"
             />
           </Link>
 
           {/* Desktop/Tablet Links (Tablet uses larger spacing block hidden on sm) */}
-          <div className="hidden lg:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8 h-full">
             {navData.navLinks.map((link) => {
               const isActive = pathname === link.path;
               return (
@@ -118,26 +135,36 @@ export default function Navbar() {
           </div>
 
           {/* Actions */}
-          <div className="flex items-center gap-6 z-[102]">
-            <div className="hidden lg:flex items-center gap-5">
-              <Link 
-                href="/contact#schedule" 
-                className="font-display text-[0.875rem] font-semibold text-[#A1A1AA] hover:text-[#F5F5F7] transition-colors"
+          <div className="flex items-center gap-3 sm:gap-4 z-[102] h-full">
+            {/* Mobile/Tablet visible Book Audit button */}
+            <button 
+              onClick={() => window.dispatchEvent(new CustomEvent("open-proposal", { detail: { tab: "book" } }))}
+              className="lg:hidden flex items-center gap-1.5 font-display text-xs font-semibold text-[#FF5004] bg-[#FF5004]/10 hover:bg-[#FF5004] hover:text-white border border-[#FF5004]/30 px-3.5 py-1.5 rounded-full transition-all duration-300 cursor-pointer shadow-sm active:scale-95"
+            >
+              <span>Book Audit</span>
+            </button>
+
+            <div className="hidden lg:flex items-center gap-5 h-full">
+              <button 
+                onClick={() => window.dispatchEvent(new CustomEvent("open-proposal", { detail: { tab: "book" } }))}
+                className="font-display text-[0.875rem] font-semibold text-[#A1A1AA] hover:text-[#F5F5F7] transition-colors cursor-pointer"
               >
                 Book Audit
-              </Link>
-              <Button 
-                onClick={() => window.dispatchEvent(new CustomEvent("open-proposal"))} 
-                variant="primary" 
-                size="sm"
-              >
-                Request Proposal
-              </Button>
+              </button>
+              <div className="flex items-center h-full">
+                <Button 
+                  onClick={() => window.dispatchEvent(new CustomEvent("open-proposal", { detail: { tab: "rfp" } }))} 
+                  variant="primary" 
+                  size="sm"
+                >
+                  Request Proposal
+                </Button>
+              </div>
             </div>
 
             {/* Custom Hamburger Button with animated lines and border glow */}
             <button
-              className="lg:hidden flex flex-col items-center justify-center w-11 h-11 rounded-full border border-white/10 bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300 cursor-pointer relative"
+              className="lg:hidden flex flex-col items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300 cursor-pointer relative"
               onClick={() => setIsOpen(!isOpen)}
               aria-label="Toggle menu"
               aria-expanded={isOpen}
@@ -166,25 +193,6 @@ export default function Navbar() {
           </div>
         </div>
       </motion.nav>
-
-      {/* Contact Utility Bar - Rendered under the navbar */}
-      <div className={`w-full bg-[#0A0A0C]/90 backdrop-blur-md border-b border-white/5 py-1.5 px-6 hidden sm:block text-[11px] text-[#9A9AA4] font-medium transition-all duration-300 pointer-events-auto ${isScrolled ? 'opacity-85 py-1' : 'opacity-100'}`}>
-        <div className="container mx-auto px-6 flex justify-between items-center w-full">
-          <div className="flex items-center gap-6">
-            <a href="tel:+919988776655" className="flex items-center gap-1.5 hover:text-[#FF5004] transition-colors">
-              <Phone size={11} className="text-[#FF5004]" />
-              <span>+91 99887 76655</span>
-            </a>
-            <a href="mailto:info@amazepms.com" className="flex items-center gap-1.5 hover:text-[#FF5004] transition-colors">
-              <Mail size={11} className="text-[#FF5004]" />
-              <span>info@amazepms.com</span>
-            </a>
-          </div>
-          <div className="flex items-center gap-4">
-            <span>Corporate Office: Hyderabad</span>
-          </div>
-        </div>
-      </div>
     </div>
 
       {/* Mobile & Tablet Premium Slide Drawer */}
@@ -203,7 +211,8 @@ export default function Navbar() {
 
             {/* Drawer */}
             <motion.div
-              className="fixed top-0 right-0 h-screen w-full sm:w-[480px] bg-[#0E0E12] border-l border-white/[0.06] z-[99] shadow-[0_0_80px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col justify-between"
+              data-lenis-prevent="true"
+              className="fixed top-0 right-0 h-full max-h-screen w-full sm:w-[480px] bg-[#0E0E12] border-l border-white/[0.06] z-[99] shadow-[0_0_80px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col justify-between"
               initial="closed"
               animate="open"
               exit="closed"
@@ -213,10 +222,13 @@ export default function Navbar() {
               <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#FF5004] opacity-[0.04] blur-[80px] pointer-events-none rounded-full" />
 
               {/* Top empty block to offset fixed Navbar header */}
-              <div className="h-24 flex-shrink-0" />
+              <div className="h-16 flex-shrink-0" />
 
               {/* Main Content Area */}
-              <div className="flex-1 overflow-y-auto px-8 sm:px-12 py-6 flex flex-col justify-between gap-12">
+              <div 
+                data-lenis-prevent="true"
+                className="flex-1 overflow-y-auto overscroll-contain px-6 sm:px-12 py-6 flex flex-col justify-between gap-10"
+              >
                 {/* Navigation Links list (Redesigned for Premium Corporate Look) */}
                 <motion.div className="flex flex-col gap-3" variants={staggerVariants}>
                   {navData.navLinks.map((link, index) => {
@@ -312,8 +324,26 @@ export default function Navbar() {
                 </motion.div>
               </div>
 
-              {/* Bottom CTA Block: Triggers global proposal request */}
-              <div className="p-8 sm:p-12 bg-white/[0.015] border-t border-white/[0.04] relative z-10 flex-shrink-0">
+              {/* Bottom CTA Block: Quick contact actions + Triggers global proposal request */}
+              <div className="p-6 sm:p-10 bg-white/[0.015] border-t border-white/[0.04] relative z-10 flex-shrink-0 flex flex-col gap-3">
+                {/* Dedicated Call & Email Action Buttons inside Hamburger Menu */}
+                <div className="grid grid-cols-2 gap-3">
+                  <a
+                    href="tel:+919988776655"
+                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-[#FF5004]/10 border border-[#FF5004]/30 text-[#FF5004] hover:bg-[#FF5004] hover:text-[#F5F5F7] transition-all duration-300 text-xs font-bold active:scale-95"
+                  >
+                    <Phone size={14} />
+                    <span>Call Us</span>
+                  </a>
+                  <a
+                    href="mailto:info@amazepms.com"
+                    className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-white/[0.04] border border-white/10 text-[#F5F5F7] hover:border-[#FF5004]/50 hover:text-[#FF5004] transition-all duration-300 text-xs font-bold active:scale-95"
+                  >
+                    <Mail size={14} />
+                    <span>Email Us</span>
+                  </a>
+                </div>
+
                 <Button
                   onClick={() => {
                     setIsOpen(false);
@@ -334,34 +364,36 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Floating Call/Email Widgets (Fixed in Bottom-Right Corner) */}
-      <div className="fixed bottom-6 right-6 z-[99] flex flex-col gap-3">
-        {/* Mobile-Friendly Call Button */}
-        <a
-          href="tel:+919988776655"
-          className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-[#0A0A0C]/90 backdrop-blur-md border border-[#FF5004]/50 text-[#FF5004] hover:bg-[#FF5004] hover:text-[#F5F5F7] shadow-[0_4px_20px_rgba(255,80,4,0.3)] hover:shadow-[0_8px_30px_rgba(255,80,4,0.5)] transition-all duration-300 active:scale-95 cursor-pointer pointer-events-auto"
-          aria-label="Call Mobile Support"
-        >
-          <Phone size={18} />
-          {/* Desktop Hover Tooltip */}
-          <span className="absolute right-14 bg-[#0A0A0C]/95 backdrop-blur-sm border border-white/10 text-[#F5F5F7] text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap shadow-2xl opacity-0 translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-            Call Mobile: +91 99887 76655
-          </span>
-        </a>
+      {/* Floating Call/Email Widgets (Only visible when mobile drawer is closed) */}
+      {!isOpen && (
+        <div className="fixed bottom-6 right-6 z-[99] flex flex-col gap-3">
+          {/* Mobile-Friendly Call Button */}
+          <a
+            href="tel:+919988776655"
+            className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-[#0A0A0C]/90 backdrop-blur-md border border-[#FF5004]/50 text-[#FF5004] hover:bg-[#FF5004] hover:text-[#F5F5F7] shadow-[0_4px_20px_rgba(255,80,4,0.3)] hover:shadow-[0_8px_30px_rgba(255,80,4,0.5)] transition-all duration-300 active:scale-95 cursor-pointer pointer-events-auto"
+            aria-label="Call Mobile Support"
+          >
+            <Phone size={18} />
+            {/* Desktop Hover Tooltip */}
+            <span className="absolute right-14 bg-[#0A0A0C]/95 backdrop-blur-sm border border-white/10 text-[#F5F5F7] text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap shadow-2xl opacity-0 translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+              Call Mobile: +91 99887 76655
+            </span>
+          </a>
 
-        {/* Mobile-Friendly Email Button */}
-        <a
-          href="mailto:info@amazepms.com"
-          className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-[#0A0A0C]/90 backdrop-blur-md border border-[#FF5004]/50 text-[#FF5004] hover:bg-[#FF5004] hover:text-[#F5F5F7] shadow-[0_4px_20px_rgba(255,80,4,0.3)] hover:shadow-[0_8px_30px_rgba(255,80,4,0.5)] transition-all duration-300 active:scale-95 cursor-pointer pointer-events-auto"
-          aria-label="Email Support"
-        >
-          <Mail size={18} />
-          {/* Desktop Hover Tooltip */}
-          <span className="absolute right-14 bg-[#0A0A0C]/95 backdrop-blur-sm border border-white/10 text-[#F5F5F7] text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap shadow-2xl opacity-0 translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
-            Email Us: info@amazepms.com
-          </span>
-        </a>
-      </div>
+          {/* Mobile-Friendly Email Button */}
+          <a
+            href="mailto:info@amazepms.com"
+            className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-[#0A0A0C]/90 backdrop-blur-md border border-[#FF5004]/50 text-[#FF5004] hover:bg-[#FF5004] hover:text-[#F5F5F7] shadow-[0_4px_20px_rgba(255,80,4,0.3)] hover:shadow-[0_8px_30px_rgba(255,80,4,0.5)] transition-all duration-300 active:scale-95 cursor-pointer pointer-events-auto"
+            aria-label="Email Support"
+          >
+            <Mail size={18} />
+            {/* Desktop Hover Tooltip */}
+            <span className="absolute right-14 bg-[#0A0A0C]/95 backdrop-blur-sm border border-white/10 text-[#F5F5F7] text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap shadow-2xl opacity-0 translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+              Email Us: info@amazepms.com
+            </span>
+          </a>
+        </div>
+      )}
     </>
   );
 }

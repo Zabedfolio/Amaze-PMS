@@ -28,7 +28,7 @@ const monthsList = [
   "July", "August", "September", "October", "November", "December"
 ];
 
-export default function SchedulingWidget() {
+export default function SchedulingWidget({ onStepChange }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
@@ -37,6 +37,13 @@ export default function SchedulingWidget() {
   const [timezone, setTimezone] = useState("UTC");
   const [currentTimeStr, setCurrentTimeStr] = useState("");
   
+  // Notify parent of step changes
+  useEffect(() => {
+    if (typeof onStepChange === "function") {
+      onStepChange(widgetStep);
+    }
+  }, [widgetStep, onStepChange]);
+
   // Form state
   const [formName, setFormName] = useState("");
   const [formEmail, setFormEmail] = useState("");
@@ -152,7 +159,7 @@ export default function SchedulingWidget() {
   return (
     <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
       {/* Outer Glassmorphic Widget Board */}
-      <div className="w-full bg-[#111114] border border-white/10 rounded-3xl overflow-hidden shadow-2xl relative z-10 flex flex-col md:grid md:grid-cols-12 min-h-[580px]">
+      <div className="w-full bg-[#111114] border border-white/10 rounded-3xl overflow-hidden shadow-2xl relative z-10 flex flex-col md:grid md:grid-cols-12 min-h-[480px] md:min-h-[520px]">
         
         {/* Left Column: Meeting Info */}
         <div className="md:col-span-4 border-b md:border-b-0 md:border-r border-white/5 p-8 flex flex-col justify-between bg-white/[0.01]">
@@ -362,7 +369,7 @@ export default function SchedulingWidget() {
                     Enter your coordinates to complete the appointment scheduling sequence.
                   </p>
 
-                  <form onSubmit={handleFormSubmit} className="space-y-4">
+                  <form id="scheduling-form" onSubmit={handleFormSubmit} className="space-y-4">
                     <div className="flex flex-col gap-1.5">
                       <label className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Your Name *</label>
                       <input 

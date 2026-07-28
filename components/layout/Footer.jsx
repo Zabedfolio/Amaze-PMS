@@ -79,6 +79,7 @@ export default function Footer() {
                 id="newsletter-email"
                 type="email"
                 name="email"
+                autoComplete="email"
                 required
                 placeholder="Enter your corporate email"
                 disabled={loading}
@@ -103,7 +104,19 @@ export default function Footer() {
             <ul className="flex flex-col gap-3 list-none">
               {column.links.map((link) => (
                 <li key={link.label}>
-                  <Link href={link.path} className="text-sm text-[#A1A1AA] hover:text-[#FF5004] hover:pl-0.5 transition-all duration-300">
+                  <Link 
+                    href={link.path} 
+                    onClick={(e) => {
+                      if (link.path === "/contact") {
+                        e.preventDefault();
+                        window.dispatchEvent(new CustomEvent("open-proposal", { detail: { tab: "rfp" } }));
+                      } else if (link.path === "/contact#schedule") {
+                        e.preventDefault();
+                        window.dispatchEvent(new CustomEvent("open-proposal", { detail: { tab: "book" } }));
+                      }
+                    }}
+                    className="text-sm text-[#A1A1AA] hover:text-[#FF5004] hover:pl-0.5 transition-all duration-300"
+                  >
                     {link.label}
                   </Link>
                 </li>

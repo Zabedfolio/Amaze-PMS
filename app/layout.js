@@ -20,9 +20,55 @@ const outfit = Outfit({
 });
 
 export const metadata = {
+  metadataBase: new URL("https://amazepms.com"),
   title: "Amaze Property Management Solutions | Premium Facility Services",
   description: "Amaze PMS (a division of Action Group) delivers premium, in-house facility management, security, MEP engineering, and cleaning operations across India. Employing 15,000+ professionals.",
-  keywords: "facility management, property management, MEP engineering, security services, STP operations, commercial property maintenance, action group, Hyderabad facilities",
+  keywords: [
+    "facility management",
+    "property management",
+    "MEP engineering",
+    "security services",
+    "STP operations",
+    "commercial property maintenance",
+    "action group",
+    "Hyderabad facilities"
+  ],
+  authors: [{ name: "Amaze PMS Technical Team" }],
+  creator: "Amaze PMS",
+  publisher: "Action Group",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  openGraph: {
+    title: "Amaze Property Management Solutions | Premium Facility Services",
+    description: "In-house facility management, security, MEP engineering, and cleaning operations across India. 15,000+ professionals deployed.",
+    url: "https://amazepms.com",
+    siteName: "Amaze PMS",
+    images: [
+      {
+        url: "/images/logo.png",
+        width: 1200,
+        height: 630,
+        alt: "Amaze Property Management Solutions Logo",
+      },
+    ],
+    locale: "en_IN",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Amaze Property Management Solutions",
+    description: "In-house facility management, security, MEP engineering, and cleaning operations across India.",
+    images: ["/images/logo.png"],
+  },
   icons: {
     icon: "/images/favicon.png",
     shortcut: "/favicon.ico",
@@ -34,6 +80,29 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
       <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              "name": "Amaze Property Management Solutions",
+              "alternateName": "Amaze PMS",
+              "url": "https://amazepms.com",
+              "logo": "https://amazepms.com/images/logo.png",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+91-9988776655",
+                "contactType": "customer service",
+                "areaServed": "IN",
+                "availableLanguage": ["English", "Hindi", "Telugu"]
+              },
+              "sameAs": [
+                "https://www.linkedin.com/company/amazepms"
+              ]
+            })
+          }}
+        />
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -128,13 +197,40 @@ export default function RootLayout({ children }) {
                   }
                 }, true);
 
-                const originalConsoleError = console.error;
+                const THREE_SUPPRESS = [
+                  "three.clock",
+                  "three.webglrenderer",
+                  "context lost",
+                  "losecontext",
+                  "contextlost",
+                ];
+
+                const formatMsg = (args) =>
+                  args
+                    .map((a) => (a && typeof a === "object" ? (a.message || String(a)) : String(a)))
+                    .join(" ")
+                    .toLowerCase();
+
+                const origWarn = console.warn;
+                console.warn = function(...args) {
+                  const msg = formatMsg(args);
+                  if (THREE_SUPPRESS.some((s) => msg.includes(s))) return;
+                  origWarn.apply(console, args);
+                };
+
+                const origError = console.error;
                 console.error = function(...args) {
-                  const msg = args.map((arg) => String(arg)).join(" ");
-                  if (checkSuppress(msg)) {
-                    return; // Swallowed
-                  }
-                  originalConsoleError.apply(console, args);
+                  const msg = formatMsg(args);
+                  if (THREE_SUPPRESS.some((s) => msg.includes(s))) return;
+                  if (checkSuppress(msg)) return;
+                  origError.apply(console, args);
+                };
+
+                const origInfo = console.info;
+                console.info = function(...args) {
+                  const msg = formatMsg(args);
+                  if (THREE_SUPPRESS.some((s) => msg.includes(s))) return;
+                  origInfo.apply(console, args);
                 };
               })();
             `,
@@ -146,7 +242,7 @@ export default function RootLayout({ children }) {
           <RouteLoader />
           <Navbar />
           <ProposalDrawer />
-          <main style={{ flex: 1, paddingTop: "96px" }}>{children}</main>
+          <main style={{ flex: 1 }}>{children}</main>
           <Footer />
           <Toaster
             position="bottom-right"
