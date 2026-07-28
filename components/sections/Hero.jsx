@@ -33,10 +33,13 @@ export default function Hero() {
         <HeroScene />
       </div>
 
-      {/* Gradient fade protecting left text */}
-      <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/80 to-transparent" />
+      {/* Global shadow overlay to slightly dim overall background scene visibility */}
+      <div className="absolute inset-0 z-[1] pointer-events-none bg-black/28" />
 
-      <div className="container relative z-[2]">
+      {/* Gradient fade protecting left text */}
+      <div className="absolute inset-0 z-[2] pointer-events-none bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/30 to-transparent" />
+
+      <div className="container relative z-[3]">
         <motion.div
           className="max-w-[600px] flex flex-col gap-6"
           initial="hidden"
@@ -44,15 +47,19 @@ export default function Hero() {
           variants={containerVariants}
         >
           {/* Headline — line 1: "Facility Management," | line 2: "Reimagined" */}
-          <h1 className="font-display font-extrabold text-[clamp(2.5rem,5.5vw,4.25rem)] leading-[1.08] tracking-[-0.02em]">
-            <span className="block overflow-hidden whitespace-nowrap">
-              {["Facility", "Management,"].map((word, i) => (
-                <motion.span key={i} variants={wordVariants} className="inline-block text-[#F5F5F7] mr-3 last:mr-0">
-                  {word}
-                </motion.span>
-              ))}
+          <h1 className="font-display font-extrabold text-[clamp(2.5rem,5.5vw,4.25rem)] leading-[1.08] tracking-[-0.02em] text-[#F5F5F7] flex flex-wrap gap-y-1">
+            <span className="inline-block overflow-hidden mr-3">
+              <motion.span variants={wordVariants} className="inline-block">
+                Facility
+              </motion.span>
             </span>
-            <span className="block overflow-hidden">
+            <span className="inline-block overflow-hidden">
+              <motion.span variants={wordVariants} className="inline-block">
+                Management,
+              </motion.span>
+            </span>
+            <div className="w-full h-0" aria-hidden="true" />
+            <span className="inline-block overflow-hidden">
               <motion.span variants={wordVariants} className="inline-block text-[#FF5004]">
                 Reimagined
               </motion.span>

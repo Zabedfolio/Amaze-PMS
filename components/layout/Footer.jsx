@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { toast } from "react-hot-toast";
 import { ArrowRight } from "lucide-react";
 import navData from "../../data/navigation.json";
@@ -53,9 +54,18 @@ export default function Footer() {
       <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-16">
         {/* Brand column */}
         <div className="flex flex-col gap-5">
-          <Link href="/" className="flex items-center gap-1 font-display text-2xl font-extrabold tracking-[-0.03em]">
-            <span className="text-[#F5F5F7]">AMAZE</span>
-            <span className="text-[#FF5004]">PMS</span>
+          <Link href="/" className="flex items-center gap-3.5 font-display text-2xl font-extrabold tracking-[-0.03em] transition-transform hover:scale-[1.01] active:scale-[0.99]">
+            <Image
+              src="/images/logo.png"
+              alt="Amaze PMS"
+              width={80}
+              height={80}
+              className="object-contain h-[40px] sm:h-[44px] w-auto"
+            />
+            <div className="flex items-center gap-1.5">
+              <span className="text-[#F5F5F7]">AMAZE</span>
+              <span className="text-[#FF5004]">PMS</span>
+            </div>
           </Link>
           <p className="text-[0.9375rem] text-[#A1A1AA] max-w-[260px]">{navData.footer.tagline}</p>
 

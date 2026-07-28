@@ -22,6 +22,11 @@ export const metadata = {
   title: "Amaze Property Management Solutions | Premium Facility Services",
   description: "Amaze PMS (a division of Action Group) delivers premium, in-house facility management, security, MEP engineering, and cleaning operations across India. Employing 15,000+ professionals.",
   keywords: "facility management, property management, MEP engineering, security services, STP operations, commercial property maintenance, action group, Hyderabad facilities",
+  icons: {
+    icon: "/images/favicon.png",
+    shortcut: "/favicon.ico",
+    apple: "/images/favicon.png",
+  },
 };
 
 export default function RootLayout({ children }) {

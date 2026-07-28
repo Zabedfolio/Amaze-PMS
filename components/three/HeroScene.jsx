@@ -3,6 +3,7 @@
 import React, { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { Html } from "@react-three/drei";
 import CanvasErrorBoundary from "./CanvasErrorBoundary";
 
 // ─── Deterministic seeded RNG (avoids re-render variance) ────────────────────
@@ -15,7 +16,23 @@ function seededRand(seed) {
   };
 }
 
-// ─── Single Building — uses EdgesGeometry for crisp wireframe ────────────────
+function BeaconLight() {
+  const lightRef = useRef();
+  useFrame((state) => {
+    if (!lightRef.current) return;
+    const val = Math.sin(state.clock.getElapsedTime() * 6.5) * 0.5 + 0.5;
+    lightRef.current.opacity = val > 0.65 ? 1.0 : 0.2;
+  });
+
+  return (
+    <mesh position={[0, 0.6, 0]}>
+      <sphereGeometry args={[0.05, 8, 8]} />
+      <meshBasicMaterial ref={lightRef} color="#FF3333" transparent />
+    </mesh>
+  );
+}
+
+// ─── Single Building — Outline Wireframe Style ─────────────────────────────────
 function Building({ x, z, w, d, h, color, opacity }) {
   const edges = useMemo(
     () => new THREE.EdgesGeometry(new THREE.BoxGeometry(w, h, d)),
@@ -27,12 +44,78 @@ function Building({ x, z, w, d, h, color, opacity }) {
     <group position={[x, h * 0.5, z]}>
       {/* Crisp edge lines */}
       <lineSegments geometry={edges}>
-        <lineBasicMaterial color={color} opacity={opacity} transparent />
+        <lineBasicMaterial color="#FF5004" opacity={opacity} transparent />
       </lineSegments>
       {/* Semi-translucent interior for solid volume presence */}
       <mesh geometry={fill}>
-        <meshBasicMaterial color={color} opacity={0.16} transparent />
+        <meshBasicMaterial color="#FF5004" opacity={0.16} transparent />
       </mesh>
+    </group>
+  );
+}
+
+// ─── AMAZE PMS HQ Skyscraper with Rotating Callout Tag ─────────────────────────
+function AmazeBuilding() {
+  const height = 2.5;
+  const w = 0.52;
+  const d = 0.52;
+
+  const edges = useMemo(
+    () => new THREE.EdgesGeometry(new THREE.BoxGeometry(w, height, d)),
+    [w, height, d]
+  );
+  const fill = useMemo(() => new THREE.BoxGeometry(w, height, d), [w, height, d]);
+
+  return (
+    <group position={[4.3, height * 0.5, 4.3]}>
+      {/* Crisp edge lines */}
+      <lineSegments geometry={edges}>
+        <lineBasicMaterial color="#FF5004" opacity={0.8} transparent />
+      </lineSegments>
+      {/* Semi-translucent interior */}
+      <mesh geometry={fill}>
+        <meshBasicMaterial color="#FF5004" opacity={0.16} transparent />
+      </mesh>
+
+      {/* Pointer line and AMAZE PMS HQ Tag */}
+      <group position={[0, height * 0.5 + 0.6, 0]}>
+        {/* Sleek, Enlarged HTML Tag */}
+        <Html center distanceFactor={11}>
+          <div style={{
+            background: "rgba(10, 10, 12, 0.94)",
+            backdropFilter: "blur(8px)",
+            border: "2px solid #FF5004",
+            borderRadius: "8px",
+            padding: "6px 14px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "4px",
+            whiteSpace: "nowrap",
+            pointerEvents: "none",
+            boxShadow: "0 0 20px rgba(255, 80, 4, 0.55)",
+            fontFamily: "var(--font-display), sans-serif",
+            userSelect: "none"
+          }}>
+            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+              <div style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                backgroundColor: "#FF5004",
+                boxShadow: "0 0 8px #FF5004"
+              }} />
+              <span style={{ color: "#F5F5F7", fontSize: "12px", fontWeight: "800", letterSpacing: "0.05em" }}>
+                AMAZE PMS HQ
+              </span>
+            </div>
+            <span style={{ color: "#FF5004", fontSize: "10px", fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.1em" }}>
+              Hyderabad
+            </span>
+          </div>
+        </Html>
+      </group>
     </group>
   );
 }
@@ -125,8 +208,8 @@ function CityGrid() {
 
   useFrame((state, delta) => {
     if (!groupRef.current) return;
-    // Smooth continuous Y-axis rotation
-    groupRef.current.rotation.y += delta * 0.09;
+    // Smooth continuous Y-axis rotation (slowed down for cinematic experience)
+    groupRef.current.rotation.y += delta * 0.038;
     // Very subtle breathing tilt
     groupRef.current.rotation.x =
       -0.08 + Math.sin(state.clock.getElapsedTime() * 0.1) * 0.012;
@@ -150,6 +233,12 @@ function CityGrid() {
 
         const cx = xi * STEP - HALF + BLOCK * 0.5;
         const cz = zi * STEP - HALF + BLOCK * 0.5;
+
+        // Skip HQ building block to prevent overlap
+        if (Math.abs(cx - 4.3) < 0.1 && Math.abs(cz - 4.3) < 0.1) {
+          continue;
+        }
+
         const dist = Math.sqrt(cx * cx + cz * cz);
         const maxDist = HALF * 1.15;
         const t = Math.min(dist / maxDist, 1); // 0=downtown, 1=suburb edge
@@ -210,6 +299,36 @@ function CityGrid() {
     return new THREE.BufferGeometry().setFromPoints(pts);
   }, []);
 
+  // ── Physical asphalt road strips
+  const physicalRoads = useMemo(() => {
+    const COLS = 14;
+    const BLOCK = 1.6;
+    const GAP = 0.55;
+    const STEP = BLOCK + GAP;
+    const HALF = (COLS * STEP) / 2;
+    const EXT = HALF + GAP;
+    
+    const roads = [];
+    const width = 0.20; // asphalt road width
+    
+    for (let i = 0; i <= COLS; i++) {
+      const v = i * STEP - HALF;
+      // Z-parallel roads
+      roads.push({
+        position: [v, 0.002, 0],
+        args: [width, EXT * 2],
+        rotation: [-Math.PI / 2, 0, 0]
+      });
+      // X-parallel roads
+      roads.push({
+        position: [0, 0.002, v],
+        args: [EXT * 2, width],
+        rotation: [-Math.PI / 2, 0, 0]
+      });
+    }
+    return roads;
+  }, []);
+
   // ── Central landmark tower (distinct)
   const landmarkEdges = useMemo(
     () => new THREE.EdgesGeometry(new THREE.BoxGeometry(0.55, 11, 0.55)),
@@ -222,21 +341,32 @@ function CityGrid() {
 
   return (
     <group ref={groupRef} position={[6, 0, 0]}>
-      {/* Road grid — brighter */}
+      {/* Physical dark asphalt road strips */}
+      {physicalRoads.map((road, i) => (
+        <mesh key={`rd-${i}`} position={road.position} rotation={road.rotation}>
+          <planeGeometry args={road.args} />
+          <meshBasicMaterial color="#111115" />
+        </mesh>
+      ))}
+
+      {/* Road grid lines — dimmed to look like subtle glowing lanes */}
       <lineSegments geometry={roadGeom}>
-        <lineBasicMaterial color="#FF5004" opacity={0.22} transparent />
+        <lineBasicMaterial color="#FF5004" opacity={0.05} transparent />
       </lineSegments>
 
-      {/* Ground base plate — subtle dot grid look */}
+      {/* Ground base plate — reflective dark metallic surface */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.005, 0]}>
-        <planeGeometry args={[38, 38, 36, 36]} />
-        <meshBasicMaterial color="#FF5004" wireframe opacity={0.025} transparent />
+        <planeGeometry args={[42, 42]} />
+        <meshStandardMaterial color="#08080B" roughness={0.45} metalness={0.7} />
       </mesh>
 
       {/* All city buildings */}
       {buildings.map(({ key, ...props }) => (
         <Building key={key} {...props} />
       ))}
+
+      {/* Dedicated Amaze Building with rotating HQ tag */}
+      <AmazeBuilding />
 
       {/* Central landmark tower */}
       <group position={[0, 5.5, 0]}>
@@ -280,6 +410,96 @@ function PulsingRing() {
       <lineSegments ref={ringRef} geometry={geom}>
         <lineBasicMaterial color="#FF5004" opacity={0.6} transparent />
       </lineSegments>
+    </group>
+  );
+}
+
+// ─── Moving Vehicles / Traffic System (Headlights & Taillights) ───────────────
+function TrafficSystem() {
+  const ring1Refs = useRef([]);
+  const ring2Refs = useRef([]);
+  const radialRefs = useRef([]);
+
+  // Curves defined for traffic paths
+  const radialCurves = useMemo(() => {
+    const list = [];
+    const NUM_RADIALS = 10;
+    // Animate traffic on half of the arterials to optimize performance
+    for (let i = 0; i < NUM_RADIALS; i += 2) {
+      const a = (i / NUM_RADIALS) * Math.PI * 2;
+      const bendDir = i % 2 === 0 ? 1 : -1;
+      const bend = bendDir * 0.22;
+      
+      const curve = new THREE.CubicBezierCurve3(
+        new THREE.Vector3(Math.cos(a) * 3.0, 0.025, Math.sin(a) * 3.0),
+        new THREE.Vector3(Math.cos(a + bend) * 5.5, 0.025, Math.sin(a + bend) * 5.5),
+        new THREE.Vector3(Math.cos(a - bend * 0.6) * 9.0, 0.025, Math.sin(a - bend * 0.6) * 9.0),
+        new THREE.Vector3(Math.cos(a) * 12.5, 0.025, Math.sin(a) * 12.5)
+      );
+      list.push(curve);
+    }
+    return list;
+  }, []);
+
+  useFrame((state) => {
+    const elapsed = state.clock.getElapsedTime();
+
+    // 1. Ring 1 Traffic (Orbiting inner loop, radius = 3.0)
+    ring1Refs.current.forEach((mesh, index) => {
+      if (!mesh) return;
+      const speed = 0.32;
+      const angle = (elapsed * speed + (index / 6)) * Math.PI * 2;
+      mesh.position.set(Math.cos(angle) * 3.0, 0.035, Math.sin(angle) * 3.0);
+    });
+
+    // 2. Ring 2 Traffic (Orbiting midtown loop, radius = 6.8)
+    ring2Refs.current.forEach((mesh, index) => {
+      if (!mesh) return;
+      const speed = -0.20; // Orbit reverse direction
+      const angle = (elapsed * speed + (index / 10)) * Math.PI * 2;
+      mesh.position.set(Math.cos(angle) * 6.8, 0.035, Math.sin(angle) * 6.8);
+    });
+
+    // 3. Radial Arterials Traffic
+    radialRefs.current.forEach((mesh, idx) => {
+      if (!mesh) return;
+      const curveIdx = Math.floor(idx / 3); // 3 cars per curve
+      const carOffset = (idx % 3) / 3;
+      const progress = (elapsed * 0.15 + carOffset) % 1.0;
+      
+      const curve = radialCurves[curveIdx];
+      if (curve) {
+        const pos = curve.getPointAt(progress);
+        mesh.position.copy(pos);
+      }
+    });
+  });
+
+  return (
+    <group position={[6, 0, 0]}>
+      {/* Spawn Ring 1 Vehicles (White headlights & Red taillights) */}
+      {Array.from({ length: 6 }).map((_, idx) => (
+        <mesh key={`r1-${idx}`} ref={(el) => (ring1Refs.current[idx] = el)}>
+          <boxGeometry args={[0.08, 0.04, 0.05]} />
+          <meshBasicMaterial color={idx % 2 === 0 ? "#FFFFFF" : "#FF1E00"} />
+        </mesh>
+      ))}
+
+      {/* Spawn Ring 2 Vehicles */}
+      {Array.from({ length: 10 }).map((_, idx) => (
+        <mesh key={`r2-${idx}`} ref={(el) => (ring2Refs.current[idx] = el)}>
+          <boxGeometry args={[0.10, 0.04, 0.06]} />
+          <meshBasicMaterial color={idx % 2 === 0 ? "#FFFFFF" : "#FF1E00"} />
+        </mesh>
+      ))}
+
+      {/* Spawn Radial Vehicles */}
+      {Array.from({ length: radialCurves.length * 3 }).map((_, idx) => (
+        <mesh key={`rad-${idx}`} ref={(el) => (radialRefs.current[idx] = el)}>
+          <boxGeometry args={[0.10, 0.04, 0.06]} />
+          <meshBasicMaterial color={idx % 2 === 0 ? "#FFD700" : "#FF1E00"} />
+        </mesh>
+      ))}
     </group>
   );
 }
@@ -343,7 +563,7 @@ export default function HeroScene() {
   return (
     <CanvasErrorBoundary>
       <Canvas
-        camera={{ position: [10, 18, 14], fov: 40, near: 0.1, far: 120 }}
+        camera={{ position: [8, 14, 11], fov: 36, near: 0.1, far: 120 }}
         style={{ width: "100%", height: "100%" }}
         gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
         frameloop="always"
@@ -351,24 +571,27 @@ export default function HeroScene() {
           glRef.current = gl;
           gl.setClearColor(0x000000, 0);
           camera.lookAt(6, 0, 0);
-          // Light fog — just enough depth, doesn't swallow buildings
-          scene.fog = new THREE.FogExp2(0x000000, 0.016);
+          // Reduced fog density to make outer details more visible
+          scene.fog = new THREE.FogExp2(0x000000, 0.012);
         }}
       >
-        {/* Warm ambient fill */}
-        <ambientLight intensity={0.9}  color="#FF7744" />
-        {/* Strong overhead centre — illuminates downtown */}
-        <pointLight position={[0,  16,  0]}  intensity={8}   color="#FF5004" distance={70} decay={1.2} />
-        {/* Electric blue rim — gives blue buildings their glow */}
-        <pointLight position={[14,  10,  8]}  intensity={4}   color="#00BFFF" distance={50} decay={1.5} />
-        {/* Violet accent from behind */}
-        <pointLight position={[-12,  8, -10]} intensity={3}   color="#A855F7" distance={45} decay={1.5} />
-        {/* Cyan fill from left */}
-        <pointLight position={[-6,   5,  12]} intensity={2.5} color="#00E5FF" distance={40} decay={2} />
+        {/* Warm brand-orange ambient fill */}
+        <ambientLight intensity={0.7} color="#FF5004" />
+        {/* Specular highlighting source for building contours - aligned with theme color */}
+        <directionalLight position={[12, 18, 10]} intensity={3.0} color="#FF5004" />
+        {/* Strong overhead centre — illuminates downtown in brand orange */}
+        <pointLight position={[0,  16,  0]}  intensity={12}   color="#FF5004" distance={70} decay={1.2} />
+        {/* Warm gold rim light for shiny specular reflections */}
+        <pointLight position={[14,  10,  8]}  intensity={4}   color="#FFAA00" distance={50} decay={1.5} />
+        {/* Deep red accent from behind */}
+        <pointLight position={[-12,  8, -10]} intensity={4}   color="#FF1E00" distance={45} decay={1.5} />
+        {/* Neutral white fill from left for specular highlights */}
+        <pointLight position={[-6,   5,  12]} intensity={1.8} color="#FFFFFF" distance={40} decay={2} />
         {/* Warm fill from right */}
-        <pointLight position={[18,   4,  -4]} intensity={2}   color="#FF6B2B" distance={40} decay={2} />
+        <pointLight position={[18,   4,  -4]} intensity={3.0}   color="#FF5004" distance={40} decay={2} />
 
         <CityGrid />
+        <TrafficSystem />
         <CityParticles count={220} />
       </Canvas>
     </CanvasErrorBoundary>

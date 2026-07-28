@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, Phone, Mail, MapPin } from "lucide-react";
@@ -76,9 +77,15 @@ export default function Navbar() {
       >
         <div className="container mx-auto px-6 flex items-center justify-between w-full">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-1 font-display text-2xl font-extrabold tracking-[-0.03em] z-[102]">
-            <span className="text-[#F5F5F7]">AMAZE</span>
-            <span className="text-[#FF5004]">PMS</span>
+          <Link href="/" className="flex items-center z-[102] transition-transform hover:scale-1.05 active:scale-0.95">
+            <Image
+              src="/images/logo.png"
+              alt="Amaze PMS"
+              width={70}
+              height={70}
+              priority
+              className="object-contain h-[42px] sm:h-[46px] w-auto"
+            />
           </Link>
 
           {/* Desktop/Tablet Links (Tablet uses larger spacing block hidden on sm) */}
