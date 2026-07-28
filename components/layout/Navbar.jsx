@@ -68,14 +68,17 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.nav
-        className="fixed top-0 left-0 w-full h-20 z-[100] flex items-center border-b border-transparent transition-all"
-        initial="top"
-        animate={isScrolled ? "scrolled" : "top"}
-        variants={navVariants}
-        transition={{ duration: 0.3 }}
-      >
-        <div className="container mx-auto px-6 flex items-center justify-between w-full">
+      {/* Global Sticky Header Group */}
+      <div className="fixed top-0 left-0 w-full z-[100] flex flex-col pointer-events-none">
+        {/* Main Navbar */}
+        <motion.nav
+          className="w-full h-24 flex items-center border-b border-transparent transition-all pointer-events-auto"
+          initial="top"
+          animate={isScrolled ? "scrolled" : "top"}
+          variants={navVariants}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="container mx-auto px-6 flex items-center justify-between w-full">
           {/* Logo */}
           <Link href="/" className="flex items-center z-[102] transition-transform hover:scale-1.05 active:scale-0.95">
             <Image
@@ -84,7 +87,7 @@ export default function Navbar() {
               width={70}
               height={70}
               priority
-              className="object-contain h-[42px] sm:h-[46px] w-auto"
+              className="object-contain h-[50px] sm:h-[56px] w-auto"
             />
           </Link>
 
@@ -163,6 +166,26 @@ export default function Navbar() {
           </div>
         </div>
       </motion.nav>
+
+      {/* Contact Utility Bar - Rendered under the navbar */}
+      <div className={`w-full bg-[#0A0A0C]/90 backdrop-blur-md border-b border-white/5 py-1.5 px-6 hidden sm:block text-[11px] text-[#9A9AA4] font-medium transition-all duration-300 pointer-events-auto ${isScrolled ? 'opacity-85 py-1' : 'opacity-100'}`}>
+        <div className="container mx-auto px-6 flex justify-between items-center w-full">
+          <div className="flex items-center gap-6">
+            <a href="tel:+919988776655" className="flex items-center gap-1.5 hover:text-[#FF5004] transition-colors">
+              <Phone size={11} className="text-[#FF5004]" />
+              <span>+91 99887 76655</span>
+            </a>
+            <a href="mailto:info@amazepms.com" className="flex items-center gap-1.5 hover:text-[#FF5004] transition-colors">
+              <Mail size={11} className="text-[#FF5004]" />
+              <span>info@amazepms.com</span>
+            </a>
+          </div>
+          <div className="flex items-center gap-4">
+            <span>Corporate Office: Hyderabad</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
       {/* Mobile & Tablet Premium Slide Drawer */}
       <AnimatePresence>
@@ -266,9 +289,19 @@ export default function Navbar() {
                       <span className="leading-relaxed text-xs">Action Group, New Delhi / Hyderabad, India</span>
                     </div>
 
+                    <a href="tel:+919988776655" className="flex items-center gap-3 text-[#9A9AA4] hover:text-[#F5F5F7] transition-colors w-max text-xs font-semibold">
+                      <Phone size={16} className="text-[#FF5004]" />
+                      <span>+91 99887 76655 (Mobile)</span>
+                    </a>
+
                     <a href="tel:+914045678900" className="flex items-center gap-3 text-[#9A9AA4] hover:text-[#F5F5F7] transition-colors w-max text-xs">
                       <Phone size={16} className="text-[#FF5004]" />
-                      <span>+91 40 4567 8900</span>
+                      <span>+91 40 4567 8900 (Landline)</span>
+                    </a>
+
+                    <a href="mailto:info@amazepms.com" className="flex items-center gap-3 text-[#9A9AA4] hover:text-[#F5F5F7] transition-colors w-max text-xs font-semibold">
+                      <Mail size={16} className="text-[#FF5004]" />
+                      <span>info@amazepms.com</span>
                     </a>
 
                     <a href="mailto:operations@amazepms.com" className="flex items-center gap-3 text-[#9A9AA4] hover:text-[#F5F5F7] transition-colors w-max text-xs">
@@ -300,6 +333,35 @@ export default function Navbar() {
           </>
         )}
       </AnimatePresence>
+
+      {/* Floating Call/Email Widgets (Fixed in Bottom-Right Corner) */}
+      <div className="fixed bottom-6 right-6 z-[99] flex flex-col gap-3">
+        {/* Mobile-Friendly Call Button */}
+        <a
+          href="tel:+919988776655"
+          className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-[#0A0A0C]/90 backdrop-blur-md border border-[#FF5004]/50 text-[#FF5004] hover:bg-[#FF5004] hover:text-[#F5F5F7] shadow-[0_4px_20px_rgba(255,80,4,0.3)] hover:shadow-[0_8px_30px_rgba(255,80,4,0.5)] transition-all duration-300 active:scale-95 cursor-pointer pointer-events-auto"
+          aria-label="Call Mobile Support"
+        >
+          <Phone size={18} />
+          {/* Desktop Hover Tooltip */}
+          <span className="absolute right-14 bg-[#0A0A0C]/95 backdrop-blur-sm border border-white/10 text-[#F5F5F7] text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap shadow-2xl opacity-0 translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+            Call Mobile: +91 99887 76655
+          </span>
+        </a>
+
+        {/* Mobile-Friendly Email Button */}
+        <a
+          href="mailto:info@amazepms.com"
+          className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-[#0A0A0C]/90 backdrop-blur-md border border-[#FF5004]/50 text-[#FF5004] hover:bg-[#FF5004] hover:text-[#F5F5F7] shadow-[0_4px_20px_rgba(255,80,4,0.3)] hover:shadow-[0_8px_30px_rgba(255,80,4,0.5)] transition-all duration-300 active:scale-95 cursor-pointer pointer-events-auto"
+          aria-label="Email Support"
+        >
+          <Mail size={18} />
+          {/* Desktop Hover Tooltip */}
+          <span className="absolute right-14 bg-[#0A0A0C]/95 backdrop-blur-sm border border-white/10 text-[#F5F5F7] text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap shadow-2xl opacity-0 translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
+            Email Us: info@amazepms.com
+          </span>
+        </a>
+      </div>
     </>
   );
 }
