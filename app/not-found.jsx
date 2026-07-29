@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 import { ArrowLeft } from "lucide-react";
 import Button from "../components/ui/Button";
 
-// Load 3D scene dynamically to disable SSR rendering
 const NotFoundScene = dynamic(() => import("../components/three/NotFoundScene"), {
   ssr: false,
   loading: () => (
@@ -18,15 +17,13 @@ const NotFoundScene = dynamic(() => import("../components/three/NotFoundScene"),
 export default function NotFound() {
   return (
     <div className="relative w-full min-h-screen flex items-center overflow-hidden bg-[#0A0A0C] pt-16">
-      {/* 3D canvas — fills full screen background */}
+      
       <div className="absolute inset-0 z-0 w-full h-full">
         <NotFoundScene />
       </div>
 
-      {/* Gradient fade protecting left text, making the background 3D scene show on the right */}
       <div className="absolute inset-0 z-[1] pointer-events-none bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/85 sm:via-[#0A0A0C]/70 to-transparent" />
 
-      {/* Text Content */}
       <div className="container mx-auto px-6 py-12 relative z-10 w-full">
         <div className="flex flex-col items-start text-left gap-6 max-w-[600px]">
           <span className="font-mono text-xs font-bold uppercase tracking-[0.2em] px-3.5 py-1 rounded-full border border-[#FF5004]/35 bg-[#FF5004]/10 text-[#FF5004]">

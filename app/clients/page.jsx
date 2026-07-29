@@ -12,7 +12,6 @@ import CTABanner from "../../components/sections/CTABanner";
 import GlobeScene from "../../components/three/GlobeScene";
 import AnimatedCounter from "../../components/ui/AnimatedCounter";
 
-// Custom glassmorphic tooltip for Recharts
 const CustomTooltip = ({ active, payload }) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
@@ -29,7 +28,6 @@ const CustomTooltip = ({ active, payload }) => {
   return null;
 };
 
-// Stagger entrance animation variants for property list items
 const listContainerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -63,16 +61,15 @@ export default function ClientsPage() {
     return servicesData.find((s) => s.id === id);
   };
 
-  // Safe client list resolver
   const getClientsByCategory = (catId) => {
     return clientData.fullClientList[catId] || [];
   };
 
   return (
     <div className="bg-[#0A0A0C] min-h-screen">
-      {/* Hero Header */}
+      
       <section className="pt-32 pb-16 border-b border-white/8 bg-gradient-to-b from-[#111114] to-[#0A0A0C] relative overflow-hidden">
-        {/* Subtle orange accent mesh glow */}
+        
         <span className="absolute top-0 right-[20%] w-[450px] h-[450px] rounded-full bg-[#FF5004] blur-[160px] opacity-[0.04] pointer-events-none" />
 
         <div className="container relative z-10 flex flex-col gap-4">
@@ -86,12 +83,10 @@ export default function ClientsPage() {
         </div>
       </section>
 
-      {/* Portfolio Distribution Stats & Pie Chart Dashboard */}
       <section className="py-20 border-b border-white/5 relative bg-[#0D0D10]/40">
         <div className="container">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
             
-            {/* Left Box: Portfolio Summary Text & Stats */}
             <div className="lg:col-span-5 flex flex-col justify-between gap-8">
               <div>
                 <span className="font-display text-xs font-semibold uppercase tracking-wider text-[#FF5004]">Market Distribution</span>
@@ -124,10 +119,9 @@ export default function ClientsPage() {
               </div>
             </div>
 
-            {/* Right Box: Glowing Glassmorphic Pie Chart */}
             <div className="lg:col-span-7">
               <GlassCard className="p-6 md:p-8 flex flex-col justify-center h-full relative" hoverEffect={false}>
-                {/* Visual Chart Accent Layer */}
+                
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#FF5004]/2 to-transparent opacity-30 rounded-2xl pointer-events-none" />
                 
                 <h3 className="font-display text-sm font-bold uppercase tracking-wider text-[#F5F5F7] mb-6 text-center border-b border-white/5 pb-4">
@@ -183,7 +177,6 @@ export default function ClientsPage() {
         </div>
       </section>
 
-      {/* Filterable Client Directory Explorer */}
       <section className="py-24">
         <div className="container">
           <div className="max-w-2xl mb-12">
@@ -194,7 +187,6 @@ export default function ClientsPage() {
             </p>
           </div>
 
-          {/* Sector Tabs */}
           <div className="flex flex-wrap items-center justify-start gap-2.5 mb-14 border-b border-white/5 pb-6">
             {clientData.categories.map((cat) => (
               <button
@@ -216,7 +208,6 @@ export default function ClientsPage() {
             ))}
           </div>
 
-          {/* Directory Listings */}
           <div className="min-h-[400px]">
             <AnimatePresence mode="wait">
               <motion.div
@@ -227,7 +218,7 @@ export default function ClientsPage() {
                 transition={{ duration: 0.35 }}
                 className="flex flex-col gap-12"
               >
-                {/* 1. All Sectors Grid Layout (Shows all categories stacked, matching screenshots) */}
+                
                 {activeCategory === "all" ? (
                   clientData.categories
                     .filter((cat) => cat.id !== "all")
@@ -242,7 +233,6 @@ export default function ClientsPage() {
                             <span className="text-xs text-[#A1A1AA] font-mono font-medium">({clients.length} Properties)</span>
                           </h3>
 
-                          {/* Responsive 4-Column Staggered Animated Grid */}
                           <motion.div
                             variants={listContainerVariants}
                             initial="hidden"
@@ -269,7 +259,7 @@ export default function ClientsPage() {
                       );
                     })
                 ) : (
-                  // 2. Single Category Details View
+                  
                   <div>
                     <h3 className="font-display text-2xl font-extrabold text-[#F5F5F7] tracking-tight mb-8 flex items-center gap-3.5">
                       <span className="w-2 h-7 rounded-full bg-[#FF5004]" />
@@ -279,7 +269,6 @@ export default function ClientsPage() {
                       </span>
                     </h3>
 
-                    {/* Responsive 4-Column Staggered Animated Grid */}
                     <motion.div
                       variants={listContainerVariants}
                       initial="hidden"
@@ -310,7 +299,6 @@ export default function ClientsPage() {
         </div>
       </section>
 
-      {/* Featured Case Studies Bento Grid */}
       <section className="py-20 bg-[#111114] border-t border-b border-white/8">
         <div className="container">
           <div className="max-w-2xl mb-12">
@@ -359,7 +347,6 @@ export default function ClientsPage() {
         </div>
       </section>
 
-      {/* Locations and Geographic breakdown */}
       <section className="py-24">
         <div className="container">
           <div className="bg-[#17171B] border border-white/8 rounded-2xl p-8 md:p-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -388,7 +375,6 @@ export default function ClientsPage() {
         </div>
       </section>
 
-      {/* CTABanner */}
       <CTABanner />
     </div>
   );

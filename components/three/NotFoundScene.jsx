@@ -16,12 +16,11 @@ function LostPortal() {
     }
 
     if (groupRef.current) {
-      // Shift to the right (x = 1.6) on desktop (> 1024px width) and center (x = 0) on mobile/tablet
+      
       const isDesktop = state.size.width > 1024;
       const targetX = isDesktop ? 1.6 : 0;
       groupRef.current.position.x = THREE.MathUtils.lerp(groupRef.current.position.x, targetX, 0.05);
 
-      // Gentle floating animation
       const elapsed = state.clock.elapsedTime;
       groupRef.current.position.y = Math.sin(elapsed * 1.5) * 0.18;
     }
@@ -29,7 +28,7 @@ function LostPortal() {
 
   return (
     <group ref={groupRef}>
-      {/* Pinned central geometric lost shape */}
+      
       <mesh ref={meshRef}>
         <torusKnotGeometry args={[1.75, 0.48, 120, 16, 2, 3]} />
         <meshBasicMaterial
@@ -40,7 +39,6 @@ function LostPortal() {
         />
       </mesh>
 
-      {/* Internal core glow point */}
       <mesh>
         <sphereGeometry args={[0.58, 16, 16]} />
         <meshBasicMaterial color="#FF7A35" transparent opacity={0.3} />
@@ -52,14 +50,13 @@ function LostPortal() {
 function LostPackets({ count = 250 }) {
   const pointsRef = useRef();
 
-  // Generate random positions and speeds for the lost packet particles
   const [positions, speeds, phases] = useMemo(() => {
     const pos = new Float32Array(count * 3);
     const spd = new Float32Array(count);
     const phs = new Float32Array(count);
 
     for (let i = 0; i < count; i++) {
-      // Distribute in a spherical shell around the center
+      
       const theta = Math.random() * Math.PI * 2;
       const phi = Math.acos(Math.random() * 2 - 1);
       const dist = 2.5 + Math.random() * 2.8;
@@ -84,7 +81,7 @@ function LostPackets({ count = 250 }) {
 
     for (let i = 0; i < count; i++) {
       const idx = i * 3;
-      // Orbit around Y-axis
+      
       const x = posArr[idx];
       const z = posArr[idx + 2];
       const angle = delta * speeds[i] * 0.7;
@@ -92,11 +89,9 @@ function LostPackets({ count = 250 }) {
       const cos = Math.cos(angle);
       const sin = Math.sin(angle);
 
-      // Rotate coordinates
       posArr[idx] = x * cos - z * sin;
       posArr[idx + 2] = x * sin + z * cos;
 
-      // Vertical wiggle
       posArr[idx + 1] += Math.sin(elapsed * speeds[i] + phases[i]) * 0.003;
     }
 
@@ -124,7 +119,7 @@ function LostPackets({ count = 250 }) {
 
 function LostSceneContainer() {
   useFrame((state) => {
-    // Parallax camera movement based on mouse pointer
+    
     const xTarget = state.pointer.x * 2.8;
     const yTarget = state.pointer.y * 2.8;
 

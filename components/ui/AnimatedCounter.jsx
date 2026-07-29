@@ -20,7 +20,6 @@ export default function AnimatedCounter({ value, suffix = "", duration = 1200 })
             const progress = timestamp - startTime;
             const percentage = Math.min(progress / duration, 1);
             
-            // Ease out quad
             const easeProgress = percentage * (2 - percentage);
             const currentCount = Math.floor(easeProgress * value);
             

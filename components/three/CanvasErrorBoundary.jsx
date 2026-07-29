@@ -2,7 +2,6 @@
 
 import React from "react";
 
-// List of error messages we silently suppress during unmount
 const SUPPRESSED_MESSAGES = [
   "removeChild",
   "NotFoundError",
@@ -29,7 +28,7 @@ export default class CanvasErrorBoundary extends React.Component {
   }
 
   static getDerivedStateFromError(error) {
-    // Suppress known WebGL / unmount DOM errors — show nothing
+    
     if (isSuppressedError(error)) {
       return { hasError: true };
     }
@@ -40,7 +39,7 @@ export default class CanvasErrorBoundary extends React.Component {
     if (!isSuppressedError(error)) {
       console.warn("R3F Canvas error:", error?.message);
     }
-    // Silently swallow known unmount race-condition errors
+    
   }
 
   render() {

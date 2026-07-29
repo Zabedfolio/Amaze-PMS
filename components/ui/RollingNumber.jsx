@@ -8,7 +8,6 @@ function DigitSlot({ digit, delay }) {
   const containerRef = useRef(null);
   const isInView = useInView(containerRef, { once: true, amount: 0.2 });
 
-  // Generate digits from 0 to 9
   const digits = Array.from({ length: 10 }, (_, i) => i);
 
   return (
@@ -30,7 +29,7 @@ function DigitSlot({ digit, delay }) {
           delay: delay 
         }}
         className="flex flex-col absolute top-0 left-0 w-full"
-        style={{ height: "1000%" }} // 10 items, each 100% container height
+        style={{ height: "1000%" }} 
       >
         {digits.map((num) => (
           <span 
@@ -42,14 +41,14 @@ function DigitSlot({ digit, delay }) {
           </span>
         ))}
       </motion.span>
-      {/* Invisible placeholder for structural spacing layout */}
+      
       <span className="invisible select-none font-extrabold opacity-0">0</span>
     </span>
   );
 }
 
 export default function RollingNumber({ value, suffix = "" }) {
-  // Format the number to localized string (e.g. 15000 -> "15,000")
+  
   const formattedString = typeof value === "number" ? value.toLocaleString("en-IN") : value;
   const chars = formattedString.split("");
 
@@ -59,7 +58,7 @@ export default function RollingNumber({ value, suffix = "" }) {
         const isDigit = /^[0-9]$/.test(char);
         
         if (isDigit) {
-          // Add staggered delay from left-to-right digits
+          
           return (
             <DigitSlot 
               key={index} 
@@ -69,7 +68,6 @@ export default function RollingNumber({ value, suffix = "" }) {
           );
         }
 
-        // Render commas or other static elements
         return (
           <span 
             key={index} 

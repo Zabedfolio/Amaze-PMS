@@ -50,7 +50,7 @@ export default function FAQ() {
   return (
     <section className="py-24 bg-[#0A0A0C] border-b border-white/8">
       <div className="container">
-        {/* Header */}
+        
         <div className="max-w-[600px] mx-auto text-center mb-14">
           <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full border border-white/8 bg-white/[0.03]">
             <HelpCircle size={13} className="text-[#FF5004]" />
@@ -64,7 +64,6 @@ export default function FAQ() {
           </p>
         </div>
 
-        {/* FAQ list */}
         <div className="max-w-[780px] mx-auto flex flex-col gap-3">
           {faqs.map((faq, idx) => (
             <FAQItem

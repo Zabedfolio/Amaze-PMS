@@ -48,11 +48,11 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-[#111114] border-t border-white/8 pt-20 mt-auto">
-      {/* Accent top line */}
+      
       <span className="absolute top-0 left-[10%] w-[80%] h-px bg-gradient-to-r from-transparent via-[#FF5004] to-transparent opacity-30 pointer-events-none" />
 
       <div className="container grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 pb-16">
-        {/* Brand column */}
+        
         <div className="flex flex-col gap-5">
           <Link href="/" className="flex items-center gap-3.5 font-display text-2xl font-extrabold tracking-[-0.03em] transition-transform hover:scale-[1.01] active:scale-[0.99]">
             <Image
@@ -69,7 +69,6 @@ export default function Footer() {
           </Link>
           <p className="text-[0.9375rem] text-[#A1A1AA] max-w-[260px]">{navData.footer.tagline}</p>
 
-          {/* Newsletter */}
           <form className="flex flex-col gap-2 mt-3" onSubmit={handleNewsletterSubmit}>
             <label htmlFor="newsletter-email" className="font-display text-[0.75rem] font-semibold uppercase tracking-[0.05em] text-[#A1A1AA]">
               Subscribe to Facility Insights
@@ -97,7 +96,6 @@ export default function Footer() {
           </form>
         </div>
 
-        {/* Link columns */}
         {navData.footer.columns.map((column) => (
           <div key={column.title} className="flex flex-col gap-5">
             <h4 className="font-display text-base font-semibold text-[#F5F5F7]">{column.title}</h4>
@@ -126,7 +124,6 @@ export default function Footer() {
         ))}
       </div>
 
-      {/* Bottom bar */}
       <div className="border-t border-white/8 py-8 bg-black/15">
         <div className="container flex flex-wrap items-center justify-between gap-6 md:flex-row flex-col md:items-center items-start">
           <p className="text-[0.8125rem] text-[#A1A1AA] order-3 md:order-1">{navData.footer.legal.copyright}</p>

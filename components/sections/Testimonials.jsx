@@ -42,7 +42,7 @@ export default function Testimonials() {
   return (
     <section className="py-28 relative overflow-hidden bg-[#0A0A0C] border-b border-white/8">
       <div className="container">
-        {/* Header Block */}
+        
         <div className="flex justify-between items-end mb-14 flex-col sm:flex-row sm:items-end gap-5">
           <div className="flex flex-col gap-2">
             <span className="font-display text-[0.75rem] font-semibold tracking-[0.05em] uppercase text-[#FF5004]">
@@ -71,7 +71,6 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Scroll Track */}
         <div
           ref={containerRef}
           className="w-full overflow-x-auto cursor-grab py-2.5 pb-8 scroll-smooth no-scrollbar"
@@ -91,7 +90,7 @@ export default function Testimonials() {
                   key={t.id}
                   className="relative w-[320px] sm:w-[420px] bg-[#17171B] border border-white/8 rounded-[20px] p-6 sm:p-10 flex flex-col justify-between min-h-[290px] sm:min-h-[330px] overflow-hidden transition-all duration-300 hover:border-[rgba(255,80,4,0.35)] hover:shadow-[0_15px_40px_rgba(0,0,0,0.45),0_0_15px_rgba(255,80,4,0.15)]"
                 >
-                  {/* Card Glow Top Border */}
+                  
                   <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF5004] to-transparent opacity-45 pointer-events-none" />
 
                   <div className="flex justify-between items-center mb-6 gap-3">
@@ -127,7 +126,6 @@ export default function Testimonials() {
           </div>
         </div>
 
-        {/* Scroll Progress Bar */}
         <div className="w-full h-1 bg-white/[0.03] rounded-full overflow-hidden mt-2.5">
           <motion.div
             className="h-full bg-[#FF5004] rounded-full transition-all duration-100 shadow-[0_0_8px_#FF5004]"

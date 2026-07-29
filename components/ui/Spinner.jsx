@@ -6,11 +6,6 @@ const sizeClasses = {
   lg: "w-9 h-9 border-[3px]",
 };
 
-/**
- * Spinner Component — rendered on buttons and load state overlays.
- * @param {"sm"|"md"|"lg"} [size="sm"]
- * @param {string} [className=""]
- */
 export default function Spinner({ size = "sm", className = "" }) {
   return (
     <div

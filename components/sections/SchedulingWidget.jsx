@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Clock, Video, ArrowLeft, Globe, CheckCircle2, AlertCircle } from "lucide-react";
 import Button from "../ui/Button";
 
-// Predefined mock slots
 const mockSlots = [
   "09:00 AM",
   "09:30 AM",
@@ -32,25 +31,22 @@ export default function SchedulingWidget({ onStepChange }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedTime, setSelectedTime] = useState(null);
-  const [activeSlot, setActiveSlot] = useState(null); // Slot showing "Confirm" button
-  const [widgetStep, setWidgetStep] = useState(1); // 1: Date, 2: Date & Time, 3: Form, 4: Success
+  const [activeSlot, setActiveSlot] = useState(null); 
+  const [widgetStep, setWidgetStep] = useState(1); 
   const [timezone, setTimezone] = useState("UTC");
   const [currentTimeStr, setCurrentTimeStr] = useState("");
   
-  // Notify parent of step changes
   useEffect(() => {
     if (typeof onStepChange === "function") {
       onStepChange(widgetStep);
     }
   }, [widgetStep, onStepChange]);
 
-  // Form state
   const [formName, setFormName] = useState("");
   const [formEmail, setFormEmail] = useState("");
   const [formNotes, setFormNotes] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Timezone and local clock auto-detection
   useEffect(() => {
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "Asia/Kolkata";
@@ -74,15 +70,12 @@ export default function SchedulingWidget({ onStepChange }) {
     }
   }, []);
 
-  // Calendar helper calculation variables
   const year = currentDate.getFullYear();
   const month = currentDate.getMonth();
 
-  // Get index of first day (adjust so Monday = 0)
   const firstDayIndex = (new Date(year, month, 1).getDay() + 6) % 7;
   const totalDays = new Date(year, month + 1, 0).getDate();
 
-  // Calendar month navigations
   const handlePrevMonth = () => {
     setCurrentDate(new Date(year, month - 1, 1));
   };
@@ -94,7 +87,7 @@ export default function SchedulingWidget({ onStepChange }) {
     const clickedDate = new Date(year, month, day);
     setSelectedDate(clickedDate);
     setActiveSlot(null);
-    setWidgetStep(2); // Transition to slots column slide-in
+    setWidgetStep(2); 
   };
 
   const handleBackToCalendar = () => {
@@ -108,16 +101,16 @@ export default function SchedulingWidget({ onStepChange }) {
 
   const handleSlotConfirm = (slot) => {
     setSelectedTime(slot);
-    setWidgetStep(3); // Transition to confirmation form
+    setWidgetStep(3); 
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate booking finalizing delay
+    
     setTimeout(() => {
       setIsSubmitting(false);
-      setWidgetStep(4); // Success screen
+      setWidgetStep(4); 
     }, 1200);
   };
 
@@ -131,7 +124,6 @@ export default function SchedulingWidget({ onStepChange }) {
     setWidgetStep(1);
   };
 
-  // Check if a day is in the past
   const isDateInPast = (day) => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -139,12 +131,11 @@ export default function SchedulingWidget({ onStepChange }) {
     return dateToCheck < today;
   };
 
-  // Simulate weekday availability (Monday to Friday available)
   const isDateAvailable = (day) => {
     if (isDateInPast(day)) return false;
     const dateToCheck = new Date(year, month, day);
     const dayOfWeek = dateToCheck.getDay();
-    return dayOfWeek !== 0 && dayOfWeek !== 6; // Exclude weekends
+    return dayOfWeek !== 0 && dayOfWeek !== 6; 
   };
 
   const formatSelectedDate = () => {
@@ -158,13 +149,12 @@ export default function SchedulingWidget({ onStepChange }) {
 
   return (
     <div className="w-full max-w-5xl mx-auto flex flex-col items-center">
-      {/* Outer Glassmorphic Widget Board */}
+      
       <div className="w-full bg-[#111114] border border-white/10 rounded-3xl overflow-hidden shadow-2xl relative z-10 flex flex-col md:grid md:grid-cols-12 min-h-[480px] md:min-h-[520px]">
         
-        {/* Left Column: Meeting Info */}
         <div className="md:col-span-4 border-b md:border-b-0 md:border-r border-white/5 p-8 flex flex-col justify-between bg-white/[0.01]">
           <div>
-            {/* Back button visible during slots selection or form steps */}
+            
             {widgetStep > 1 && widgetStep < 4 && (
               <button 
                 onClick={handleBackToCalendar}
@@ -191,7 +181,6 @@ export default function SchedulingWidget({ onStepChange }) {
             </div>
           </div>
 
-          {/* Conditional selected slot preview in info panel */}
           {selectedDate && selectedTime && widgetStep < 4 && (
             <motion.div 
               initial={{ opacity: 0, y: 10 }}
@@ -204,7 +193,6 @@ export default function SchedulingWidget({ onStepChange }) {
             </motion.div>
           )}
 
-          {/* Left Column Bottom Footer (Only in booking steps) */}
           {widgetStep < 4 && (
             <div className="hidden md:block mt-8 pt-4 border-t border-white/5 text-[11px] text-zinc-600">
               Action Group Operational SOP Consultation Desks.
@@ -212,11 +200,9 @@ export default function SchedulingWidget({ onStepChange }) {
           )}
         </div>
 
-        {/* Right Columns Slot: Conditional Steps Render */}
         <div className="md:col-span-8 flex flex-col justify-between">
           <AnimatePresence mode="wait">
             
-            {/* Step 1 & 2: Calendar & Optional Slots panel side-by-side */}
             {(widgetStep === 1 || widgetStep === 2) && (
               <motion.div 
                 key="step-calendar"
@@ -225,12 +211,11 @@ export default function SchedulingWidget({ onStepChange }) {
                 exit={{ opacity: 0 }}
                 className="w-full flex-grow flex flex-col lg:grid lg:grid-cols-12"
               >
-                {/* Calendar grid (takes full space in Step 1, half in Step 2) */}
+                
                 <div className={`${widgetStep === 2 ? "lg:col-span-7" : "lg:col-span-12"} p-8 flex flex-col justify-between`}>
                   <div>
                     <h4 className="text-lg font-bold text-white mb-6 font-display">Select a Date & Time</h4>
                     
-                    {/* Month Picker Header */}
                     <div className="flex items-center justify-between mb-6">
                       <span className="text-sm font-bold text-zinc-300 font-display">
                         {monthsList[month]} {year}
@@ -251,21 +236,18 @@ export default function SchedulingWidget({ onStepChange }) {
                       </div>
                     </div>
 
-                    {/* Days of Week Header */}
                     <div className="grid grid-cols-7 gap-1 text-center text-xs font-bold text-zinc-500 uppercase tracking-wider mb-3">
                       {daysOfWeek.map((day, idx) => (
                         <div key={idx} className="py-1">{day}</div>
                       ))}
                     </div>
 
-                    {/* Calendar grid points */}
                     <div className="grid grid-cols-7 gap-1 text-center text-sm font-medium">
-                      {/* Empty padding offsets */}
+                      
                       {Array.from({ length: firstDayIndex }).map((_, idx) => (
                         <div key={`empty-${idx}`} className="py-2.5 opacity-0" />
                       ))}
 
-                      {/* Days list */}
                       {Array.from({ length: totalDays }).map((_, idx) => {
                         const day = idx + 1;
                         const available = isDateAvailable(day);
@@ -285,7 +267,7 @@ export default function SchedulingWidget({ onStepChange }) {
                             }`}
                           >
                             {day}
-                            {/* Visual availability indicator dot */}
+                            
                             {available && !isSelected && (
                               <span className="absolute bottom-1 w-1 h-1 rounded-full bg-accent/40" />
                             )}
@@ -295,7 +277,6 @@ export default function SchedulingWidget({ onStepChange }) {
                     </div>
                   </div>
 
-                  {/* Timezone Selector indicator below calendar */}
                   <div className="mt-8 pt-4 border-t border-white/5 flex items-center gap-2 text-xs text-zinc-500">
                     <Globe size={14} className="text-zinc-600" />
                     <span>
@@ -304,7 +285,6 @@ export default function SchedulingWidget({ onStepChange }) {
                   </div>
                 </div>
 
-                {/* Column 3: Slide-in Time Slots panel (Only in Step 2) */}
                 {widgetStep === 2 && (
                   <motion.div 
                     initial={{ opacity: 0, x: 20 }}
@@ -354,7 +334,6 @@ export default function SchedulingWidget({ onStepChange }) {
               </motion.div>
             )}
 
-            {/* Step 3: Confirmation Form Overlay */}
             {widgetStep === 3 && (
               <motion.div 
                 key="step-form"
@@ -423,7 +402,6 @@ export default function SchedulingWidget({ onStepChange }) {
               </motion.div>
             )}
 
-            {/* Step 4: Booking Finalized Success Screen */}
             {widgetStep === 4 && (
               <motion.div 
                 key="step-success"
@@ -481,7 +459,6 @@ export default function SchedulingWidget({ onStepChange }) {
 
       </div>
 
-      {/* Calendly-style footer links */}
       <div className="flex items-center justify-center gap-4 mt-6 text-[10px] text-zinc-600 hover:text-zinc-400 transition-colors select-none">
         <a href="#troubleshoot" className="hover:underline flex items-center gap-1">
           <AlertCircle size={10} />

@@ -30,7 +30,6 @@ export default function CareersPage() {
   const [activeDept, setActiveDept] = useState("all");
   const [formLoading, setFormLoading] = useState(false);
 
-  // Modal recruitment states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
 
@@ -73,7 +72,7 @@ export default function CareersPage() {
 
   return (
     <div className="bg-[#0A0A0C] min-h-screen">
-      {/* Hero Section */}
+      
       <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-[#111114] to-[#0A0A0C] border-b border-white/8">
         <AmbientAura />
         <div className="container relative z-10 flex flex-col gap-4">

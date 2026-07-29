@@ -3,9 +3,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-/**
- * Reusable Frosted Glass Card Container with scroll entrance animations.
- */
 export default function GlassCard({
   children,
   className = "",
@@ -19,15 +16,15 @@ export default function GlassCard({
   return (
     <Wrapper
       className={[
-        // glass base
+        
         "bg-[rgba(23,23,27,0.6)] backdrop-blur-[16px] border border-white/5",
         "rounded-[20px] p-8 text-left relative overflow-hidden",
         "transition-[border-color,box-shadow] duration-300",
-        // hover lift
+        
         hoverEffect
           ? "hover:border-[rgba(255,80,4,0.25)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.5),0_0_20px_rgba(255,80,4,0.15)] hover:-translate-y-1"
           : "",
-        // clickable
+        
         onClick
           ? "bg-[rgba(23,23,27,0.4)] w-full cursor-pointer outline-none font-[inherit] text-inherit hover:bg-[rgba(23,23,27,0.6)] focus-visible:outline-2 focus-visible:outline-[#FF5004] focus-visible:outline-offset-4"
           : "",

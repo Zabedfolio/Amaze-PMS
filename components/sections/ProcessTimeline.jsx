@@ -12,7 +12,7 @@ const steps = [
     title: "Comprehensive Site Audit",
     desc: "We perform full-load MEP thermal profiling, water chemical audits, and janitorial mapping to trace current operational bottlenecks.",
     icon: ClipboardList,
-    color: "#3B82F6", // Blue
+    color: "#3B82F6", 
     rotation: "-rotate-2 lg:-rotate-[1.5deg]"
   },
   {
@@ -20,7 +20,7 @@ const steps = [
     title: "SLA Customization",
     desc: "We align key performance metrics with your compliance guidelines, drawing up clear service targets with complete legal transparency.",
     icon: FileSignature,
-    color: "#8B5CF6", // Purple
+    color: "#8B5CF6", 
     rotation: "rotate-1 lg:rotate-[1.2deg]"
   },
   {
@@ -28,7 +28,7 @@ const steps = [
     title: "In-House Staff Induction",
     desc: "We deploy directly employed, vetted professionals. We handle statutory PF/ESIC registrations directly to secure absolute labor safety.",
     icon: Users,
-    color: "#06B6D4", // Cyan
+    color: "#06B6D4", 
     rotation: "-rotate-1 lg:-rotate-[2deg]"
   },
   {
@@ -36,12 +36,11 @@ const steps = [
     title: "Continuous Audits & KPI Checks",
     desc: "We run monthly energy cost reviews, safety checklists, and SLA evaluations, presenting digital diagnostic dashboard feedback.",
     icon: CheckCircle,
-    color: "#FF5004", // Orange (Primary Theme)
+    color: "#FF5004", 
     rotation: "rotate-2 lg:rotate-[1.8deg]"
   },
 ];
 
-// Reusable SVG Glossy Pushpin component matching each card's theme color
 function PushPin({ color }) {
   return (
     <svg 
@@ -65,34 +64,28 @@ function PushPin({ color }) {
         </linearGradient>
       </defs>
       
-      {/* Pushpin shadow */}
       <ellipse cx="20" cy="38" rx="7" ry="2.5" fill="#000000" opacity="0.6" filter="blur(2px)" />
       
-      {/* Pushpin pin needle */}
       <rect x="19" y="24" width="2" height="12" rx="0.5" fill="url(#needleGrad)" />
       
-      {/* Lower Grip Block */}
       <path d="M 12 16 L 28 16 L 25 24 L 15 24 Z" fill={`url(#pinGrad-${color})`} stroke="rgba(0,0,0,0.2)" strokeWidth="0.5" />
       
-      {/* Head Cap */}
       <ellipse cx="20" cy="11" rx="9" ry="7" fill={`url(#pinGrad-${color})`} stroke="rgba(0,0,0,0.2)" strokeWidth="0.5" />
       
-      {/* Glass glossy reflection */}
       <circle cx="17" cy="8" r="1.8" fill="#ffffff" opacity="0.7" />
     </svg>
   );
 }
 
 export default function ProcessTimeline() {
-  // SVG Bezier spline path weaving dynamically between center nodes on desktop
+  
   const cubicBezierPath = "M 25 10 C 25 22.5, 75 22.5, 75 35 C 75 47.5, 25 47.5, 25 60 C 25 72.5, 75 72.5, 75 85";
 
   return (
     <section className="relative py-32 bg-[#09090B] border-b border-white/5 overflow-hidden">
-      {/* 1. Subtle 3D particle background field */}
+      
       <TimelineParticles />
 
-      {/* 2. Technical Lined drafting grid (notebook style) */}
       <div 
         className="absolute inset-0 z-0 pointer-events-none opacity-20"
         style={{
@@ -101,12 +94,10 @@ export default function ProcessTimeline() {
         }}
       />
 
-      {/* 3. Radial center lighting gradient */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,80,4,0.025),transparent_50%)] pointer-events-none z-0" />
 
       <div className="container mx-auto px-6 max-w-7xl relative z-10">
         
-        {/* Header Block */}
         <div className="text-center max-w-3xl mx-auto mb-28">
           <span className="text-xs font-semibold tracking-widest text-accent uppercase font-display">SLA Roadmap</span>
           <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-tight mt-3 mb-6 font-display">
@@ -117,10 +108,8 @@ export default function ProcessTimeline() {
           </p>
         </div>
 
-        {/* Roadmap Wrapper */}
         <div className="relative w-full max-w-5xl mx-auto">
           
-          {/* Weaving Dashed SVG Path (Desktop Mode only) */}
           <svg 
             className="hidden lg:block absolute inset-0 w-full h-full pointer-events-none z-0"
             viewBox="0 0 100 100" 
@@ -139,7 +128,6 @@ export default function ProcessTimeline() {
             />
           </svg>
 
-          {/* Straight Vertical Connector Line (Mobile/Tablet Mode only) */}
           <div className="lg:hidden absolute left-[31px] top-6 bottom-6 w-[2px] bg-white/5 z-0">
             <motion.div 
               className="w-full h-full bg-gradient-to-b from-blue-500 via-purple-500 via-cyan-500 to-accent origin-top"
@@ -150,7 +138,6 @@ export default function ProcessTimeline() {
             />
           </div>
 
-          {/* Cards Stack */}
           <div className="flex flex-col gap-24 lg:gap-32">
             {steps.map((step, index) => {
               const StepIcon = step.icon;
@@ -163,7 +150,7 @@ export default function ProcessTimeline() {
                     isEven ? "lg:justify-start" : "lg:justify-end"
                   }`}
                 >
-                  {/* Outer Motion Wrapper for Entrance & Floating animations */}
+                  
                   <motion.div
                     className={`w-full lg:w-[48%] pl-14 sm:pl-16 lg:pl-0 ${step.rotation}`}
                     initial={{ opacity: 0, y: 50 }}
@@ -187,18 +174,16 @@ export default function ProcessTimeline() {
                       }}
                       className="relative w-full"
                     >
-                      {/* Soft colored glow aura right behind the pushpin base */}
+                      
                       <div 
                         className="absolute -top-6 left-1/2 -translate-x-1/2 w-14 h-14 rounded-full blur-xl opacity-60 z-10 pointer-events-none"
                         style={{ backgroundColor: step.color }}
                       />
 
-                      {/* Realistic 3D pushpin mockup on top */}
                       <PushPin color={step.color} />
 
-                      {/* Double-bordered Outer Card with Spotlight mouse hover tracking */}
                       <SpotlightCard className="p-3 lg:p-4 bg-[#141416] border border-white/10 shadow-2xl rounded-[32px]">
-                        {/* Nested Inner Container Card (tinted background color match) */}
+                        
                         <div 
                           className="w-full h-full p-6 lg:p-8 rounded-[20px] border border-white/[0.02] flex flex-col items-start"
                           style={{
@@ -206,7 +191,7 @@ export default function ProcessTimeline() {
                           }}
                         >
                           <div className="w-full flex items-center justify-between mb-6">
-                            {/* Stylish Icon Circle */}
+                            
                             <div 
                               className="w-12 h-12 rounded-2xl flex items-center justify-center border"
                               style={{
@@ -217,7 +202,6 @@ export default function ProcessTimeline() {
                               <StepIcon size={22} style={{ color: step.color }} />
                             </div>
 
-                            {/* Large Outline Step Indicator Number */}
                             <span 
                               className="text-4xl font-extrabold tracking-tight font-display select-none opacity-45 hover:opacity-100 transition-opacity duration-300"
                               style={{
@@ -240,7 +224,6 @@ export default function ProcessTimeline() {
                     </motion.div>
                   </motion.div>
 
-                  {/* Central Node visual timeline marker for Mobile view layout */}
                   <div 
                     className="lg:hidden absolute left-[26px] top-6 w-3 h-3 rounded-full border-2 bg-black z-20"
                     style={{ borderColor: step.color }}

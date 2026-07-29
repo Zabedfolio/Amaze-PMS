@@ -27,7 +27,6 @@ export default function WhyChooseUs() {
       <div className="container">
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-16 items-start">
 
-          {/* Left — title block */}
           <div className="flex flex-col gap-6 lg:sticky lg:top-28">
             <span className="font-display text-[0.75rem] font-semibold uppercase tracking-[0.06em] text-[#FF5004]">Differentiators</span>
             <h2 className="font-display text-[clamp(1.75rem,4vw,2.75rem)] font-extrabold text-[#F5F5F7] tracking-[-0.02em] leading-[1.1]">
@@ -46,7 +45,6 @@ export default function WhyChooseUs() {
             </div>
           </div>
 
-          {/* Right — 2x2 grid cards */}
           <motion.div
             className="grid grid-cols-1 sm:grid-cols-2 gap-4"
             initial="hidden"

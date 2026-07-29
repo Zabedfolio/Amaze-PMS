@@ -15,7 +15,7 @@ export default function CTABanner() {
           viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Decorative dot grid */}
+          
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
@@ -23,12 +23,12 @@ export default function CTABanner() {
               backgroundSize: "20px 20px",
             }}
           />
-          {/* Accent glow */}
+          
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[60%] h-px bg-gradient-to-r from-transparent via-[#FF5004] to-transparent opacity-60 pointer-events-none" />
           <div className="absolute -top-20 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-[rgba(255,80,4,0.06)] blur-[90px] pointer-events-none" />
 
           <div className="relative z-10 flex flex-col items-center text-center gap-6 max-w-[720px] mx-auto">
-            {/* Top Pill Badge */}
+            
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#FF5004]/10 border border-[#FF5004]/30 backdrop-blur-md text-xs font-semibold text-[#FF5004]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#FF5004]" />
               <span className="font-mono uppercase tracking-wider text-[11px]">

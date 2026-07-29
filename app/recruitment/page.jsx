@@ -130,7 +130,6 @@ const functionalStages = [
   }
 ];
 
-// Animation containers settings
 const containerVariants = {
   hidden: {},
   visible: {
@@ -153,7 +152,6 @@ export default function RecruitmentPage() {
   return (
     <div className="bg-[#0A0A0C] text-white min-h-screen relative overflow-hidden">
       
-      {/* Hero Section */}
       <section className="relative py-28 bg-gradient-to-b from-[#111114] to-[#0A0A0C] border-b border-white/5 overflow-hidden">
         <InteractiveGrid />
         <div className="container mx-auto px-6 max-w-7xl relative z-10 text-center lg:text-left flex flex-col lg:flex-row items-center justify-between gap-12 pt-8">
@@ -188,7 +186,6 @@ export default function RecruitmentPage() {
         </div>
       </section>
 
-      {/* 1. Sourcing & Verification Grid */}
       <section className="py-24 relative overflow-hidden border-b border-white/5">
         <AmbientAura />
         <div className="container mx-auto px-6 max-w-7xl relative z-10">
@@ -211,7 +208,6 @@ export default function RecruitmentPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
             
-            {/* Sourcing Panel */}
             <motion.div
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -238,7 +234,6 @@ export default function RecruitmentPage() {
               </SpotlightCard>
             </motion.div>
 
-            {/* Background Check Panel */}
             <motion.div
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -270,7 +265,6 @@ export default function RecruitmentPage() {
         </div>
       </section>
 
-      {/* 2. Skill Development Columns */}
       <section className="py-24 border-b border-white/5 bg-[#09090B] relative">
         <div className="container mx-auto px-6 max-w-7xl">
           
@@ -298,7 +292,6 @@ export default function RecruitmentPage() {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           >
             
-            {/* Col 1 */}
             <motion.div variants={itemVariants}>
               <SpotlightCard className="bg-[#111114] border border-white/5 rounded-3xl p-6 shadow-md flex flex-col h-full hover:-translate-y-1.5 transition-transform duration-300">
                 <h4 className="text-lg font-bold text-white mb-4 border-b border-white/5 pb-3 font-display text-blue-400">
@@ -315,7 +308,6 @@ export default function RecruitmentPage() {
               </SpotlightCard>
             </motion.div>
 
-            {/* Col 2 */}
             <motion.div variants={itemVariants}>
               <SpotlightCard className="bg-[#111114] border border-white/5 rounded-3xl p-6 shadow-md flex flex-col h-full hover:-translate-y-1.5 transition-transform duration-300">
                 <h4 className="text-lg font-bold text-white mb-4 border-b border-white/5 pb-3 font-display text-purple-400">
@@ -332,7 +324,6 @@ export default function RecruitmentPage() {
               </SpotlightCard>
             </motion.div>
 
-            {/* Col 3 */}
             <motion.div variants={itemVariants}>
               <SpotlightCard className="bg-[#111114] border border-white/5 rounded-3xl p-6 shadow-md flex flex-col h-full hover:-translate-y-1.5 transition-transform duration-300">
                 <h4 className="text-lg font-bold text-white mb-4 border-b border-white/5 pb-3 font-display text-cyan-400">
@@ -349,7 +340,6 @@ export default function RecruitmentPage() {
               </SpotlightCard>
             </motion.div>
 
-            {/* Col 4 */}
             <motion.div variants={itemVariants}>
               <SpotlightCard className="bg-[#111114] border border-white/5 rounded-3xl p-6 shadow-md flex flex-col h-full hover:-translate-y-1.5 transition-transform duration-300">
                 <h4 className="text-lg font-bold text-white mb-4 border-b border-white/5 pb-3 font-display text-accent">
@@ -370,12 +360,10 @@ export default function RecruitmentPage() {
         </div>
       </section>
 
-      {/* 3. Audits */}
       <section className="py-24 border-b border-white/5 relative overflow-hidden">
         <div className="container mx-auto px-6 max-w-7xl relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
-            {/* Left Column: Title and details */}
             <motion.div 
               initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -406,7 +394,6 @@ export default function RecruitmentPage() {
               </div>
             </motion.div>
 
-            {/* Right Column: Audits Checklists Grid */}
             <motion.div 
               initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -430,7 +417,6 @@ export default function RecruitmentPage() {
         </div>
       </section>
 
-      {/* 4. Transition Functional Approach */}
       <section className="py-24 bg-[#09090B] relative">
         <div className="container mx-auto px-6 max-w-7xl">
           
@@ -450,7 +436,6 @@ export default function RecruitmentPage() {
             </p>
           </motion.div>
 
-          {/* Weaving Steps Flow */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {functionalStages.map((stage, idx) => (
               <motion.div

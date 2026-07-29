@@ -21,7 +21,7 @@ export default function InteractiveGrid() {
       onMouseLeave={() => setOpacity(0)}
       className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-transparent"
     >
-      {/* Dot grid */}
+      
       <div
         className="absolute inset-0"
         style={{
@@ -32,7 +32,7 @@ export default function InteractiveGrid() {
           WebkitMaskImage: "radial-gradient(circle at center, black 60%, transparent 100%)",
         }}
       />
-      {/* Spotlight */}
+      
       <div
         className="absolute inset-0 transition-opacity duration-[600ms]"
         style={{

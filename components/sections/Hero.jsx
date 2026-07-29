@@ -28,15 +28,13 @@ export default function Hero() {
 
   return (
     <section className="relative w-full min-h-screen flex items-center overflow-hidden bg-[#0A0A0C] pt-16">
-      {/* 3D canvas — fills right half */}
+      
       <div className="absolute inset-0 z-0">
         <HeroScene />
       </div>
 
-      {/* Global shadow overlay to slightly dim overall background scene visibility */}
       <div className="absolute inset-0 z-[1] pointer-events-none bg-black/28" />
 
-      {/* Gradient fade protecting left text */}
       <div className="absolute inset-0 z-[2] pointer-events-none bg-gradient-to-r from-[#0A0A0C] via-[#0A0A0C]/30 to-transparent" />
 
       <div className="container relative z-[3]">
@@ -46,7 +44,7 @@ export default function Hero() {
           animate="visible"
           variants={containerVariants}
         >
-          {/* Top Live Status Badge */}
+          
           <motion.div variants={fadeUpVariants} className="w-max">
             <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md text-xs font-semibold text-[#F5F5F7] shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
               <span className="relative flex h-2 w-2">
@@ -59,7 +57,6 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* Headline — line 1: "Facility Management," | line 2: "Reimagined" */}
           <h1 className="font-display font-extrabold text-[clamp(2.5rem,5.5vw,4.25rem)] leading-[1.08] tracking-[-0.02em] text-[#F5F5F7] flex flex-wrap gap-y-1">
             <span className="inline-block overflow-hidden mr-3">
               <motion.span variants={wordVariants} className="inline-block">
@@ -79,7 +76,6 @@ export default function Hero() {
             </span>
           </h1>
 
-          {/* Description */}
           <motion.p
             className="text-[#A1A1AA] text-[clamp(1rem,2vw,1.125rem)] leading-[1.65] max-w-[520px]"
             variants={fadeUpVariants}
@@ -87,7 +83,6 @@ export default function Hero() {
             Pan-India self-performing facility services. Powered by 15,000+ directly employed professionals maintaining over 20 Million sq ft of premium corporate, industrial, and luxury residential real estate.
           </motion.p>
 
-          {/* CTAs */}
           <motion.div className="flex items-center gap-4 flex-wrap" variants={fadeUpVariants}>
             <Button 
               onClick={() => window.dispatchEvent(new CustomEvent("open-proposal", { detail: { tab: "rfp" } }))} 
@@ -99,7 +94,6 @@ export default function Hero() {
             <Button href="/services" variant="outline" size="lg">Explore Services</Button>
           </motion.div>
 
-          {/* Quick Glass Metric Chips */}
           <motion.div 
             variants={fadeUpVariants}
             className="flex items-center gap-3 flex-wrap pt-2 border-t border-white/[0.06] mt-2"
@@ -120,7 +114,6 @@ export default function Hero() {
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-[2]">
         <motion.div
           className="w-6 h-10 rounded-[14px] border-2 border-white/20 flex justify-center pt-2"

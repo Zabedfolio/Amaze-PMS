@@ -9,12 +9,11 @@ function FloatingPoints() {
   const pointsRef = useRef();
   const count = 90;
 
-  // Generate randomized positions and slow velocities
   const [positions, velocities] = useMemo(() => {
     const pos = new Float32Array(count * 3);
     const vel = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
-      // Scale to cover the layout volume
+      
       pos[i * 3] = (Math.random() - 0.5) * 10;
       pos[i * 3 + 1] = (Math.random() - 0.5) * 8;
       pos[i * 3 + 2] = (Math.random() - 0.5) * 4;
@@ -31,19 +30,16 @@ function FloatingPoints() {
     const points = pointsRef.current;
     const positionsAttr = points.geometry.attributes.position;
     
-    // Slow drifting animation
     for (let i = 0; i < count; i++) {
       positionsAttr.array[i * 3] += velocities[i * 3] * 12 * delta;
       positionsAttr.array[i * 3 + 1] += velocities[i * 3 + 1] * 12 * delta;
       positionsAttr.array[i * 3 + 2] += velocities[i * 3 + 2] * 12 * delta;
 
-      // Wrap-around boundary resets
       if (Math.abs(positionsAttr.array[i * 3]) > 5) positionsAttr.array[i * 3] *= -0.95;
       if (Math.abs(positionsAttr.array[i * 3 + 1]) > 4) positionsAttr.array[i * 3 + 1] *= -0.95;
     }
     positionsAttr.needsUpdate = true;
     
-    // Slow rotation
     points.rotation.y += delta * 0.015;
     points.rotation.x += delta * 0.008;
   });

@@ -14,12 +14,12 @@ export default function ProposalDrawer() {
   const [formLoading, setFormLoading] = useState(false);
   const [selectedServices, setSelectedServices] = useState([]);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [activeTab, setActiveTab] = useState("rfp"); // "rfp" or "book"
-  const [bookingStep, setBookingStep] = useState(1); // Track inner step of SchedulingWidget
+  const [activeTab, setActiveTab] = useState("rfp"); 
+  const [bookingStep, setBookingStep] = useState(1); 
 
   useEffect(() => {
     const handleOpen = (e) => {
-      const targetService = e.detail?.service; // e.g., "Professional Housekeeping"
+      const targetService = e.detail?.service; 
       if (targetService) {
         setSelectedServices([targetService]);
       } else {
@@ -38,7 +38,6 @@ export default function ProposalDrawer() {
 
     window.addEventListener("open-proposal", handleOpen);
 
-    // Check URL action parameters on mount (useful for redirects)
     const params = new URLSearchParams(window.location.search);
     const action = params.get("action");
     if (action === "contact" || action === "proposal") {
@@ -56,7 +55,6 @@ export default function ProposalDrawer() {
     };
   }, []);
 
-  // Handle body scroll locking and Lenis smooth scroll freezing
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
@@ -140,7 +138,7 @@ export default function ProposalDrawer() {
             exit={{ y: "100%" }}
             transition={{ type: "spring", damping: 28, stiffness: 240 }}
           >
-            {/* Header section - responsive layout with vertical wrap on small viewports */}
+            
             <div className="mb-4 flex flex-col sm:flex-row sm:items-center justify-between border-b border-white/5 pb-4 shrink-0 gap-3">
               <div className="pr-4 flex-1">
                 <h2 className="font-display text-xl sm:text-2xl font-bold text-[#F5F5F7] mb-1">
@@ -197,7 +195,6 @@ export default function ProposalDrawer() {
               </div>
             </div>
 
-            {/* Segmented Tab Switcher (only show if form not submitted) */}
             {!isSubmitted && (
               <div className="flex bg-[#0A0A0C] border border-white/5 rounded-xl p-1 gap-1 mb-5 shrink-0">
                 <button
@@ -225,12 +222,11 @@ export default function ProposalDrawer() {
               </div>
             )}
 
-            {/* Content Body Switcher */}
             {activeTab === "rfp" ? (
               isSubmitted ? (
                 <div className="flex flex-col items-center justify-center text-center p-6 gap-6">
                   <div className="relative w-20 h-20 flex items-center justify-center">
-                    {/* Glowing orange rotating outer circle */}
+                    
                     <motion.div 
                       className="absolute inset-0 rounded-full border-4 border-[#FF5004]/10 border-t-[#FF5004]"
                       animate={{ rotate: 360 }}
@@ -263,9 +259,9 @@ export default function ProposalDrawer() {
                 </div>
               ) : (
                 <form id="proposal-form" className="flex flex-col" onSubmit={handleSubmit}>
-                  {/* Fields container (no nested overflow scroll to use root card scroll) */}
+                  
                   <div className="flex flex-col gap-5 pb-4">
-                    {/* Spam Honeypot */}
+                    
                     <div className="hidden" aria-hidden="true">
                       <label htmlFor="company_website">Company Website</label>
                       <input
@@ -278,7 +274,6 @@ export default function ProposalDrawer() {
                       />
                     </div>
 
-                    {/* Form Grid - 3 Columns on md viewports */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                       <div className="flex flex-col gap-1.5">
                         <label htmlFor="fullName" className="font-display text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Contact Person *</label>
@@ -357,7 +352,6 @@ export default function ProposalDrawer() {
                       </div>
                     </div>
 
-                    {/* Services Checkboxes - 3 Columns on md viewports */}
                     <div className="flex flex-col gap-1.5">
                       <label className="font-display text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-[#A1A1AA]">Services of Interest (Select all that apply)</label>
                       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 border border-white/8 rounded-lg p-3 bg-black/15">

@@ -6,24 +6,22 @@ import clientData from "../../data/clients.json";
 
 export default function ClientLogos() {
   const { logos } = clientData;
-  // Triple the list so the marquee loop is seamless
+  
   const tripleLogos = [...logos, ...logos, ...logos];
 
   return (
     <section className="py-8 relative bg-[#0A0A0C] overflow-hidden">
-      {/* Top fade border */}
+      
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-      {/* Bottom fade border */}
+      
       <div className="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
-      {/* Section label */}
       <div className="container mx-auto px-6 mb-10 text-center">
         <p className="text-[0.75rem] font-semibold uppercase tracking-[0.14em] text-[#606060] mb-5">
           Trusted by India&rsquo;s Leading Enterprises &amp; Real Estate Groups
         </p>
       </div>
 
-      {/* Scrolling marquee */}
       <div
         className="relative w-full overflow-hidden"
         style={{

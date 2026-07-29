@@ -34,7 +34,7 @@ export default function SpotlightCard({ children, className = "", ...props }) {
       }}
       {...props}
     >
-      {/* Spotlight glow layer */}
+      
       <div
         className="absolute inset-0 z-[1] pointer-events-none transition-opacity duration-500"
         style={{
@@ -42,7 +42,7 @@ export default function SpotlightCard({ children, className = "", ...props }) {
           background: `radial-gradient(320px circle at ${pos.x}px ${pos.y}px, rgba(255,80,4,0.09), transparent 80%)`,
         }}
       />
-      {/* Content layer */}
+      
       <div className="relative z-[2] w-full h-full flex flex-col">
         {children}
       </div>

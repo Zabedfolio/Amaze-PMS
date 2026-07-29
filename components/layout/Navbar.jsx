@@ -85,9 +85,9 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Global Sticky Header Group */}
+      
       <div className="fixed top-0 left-0 w-full z-[100] flex flex-col pointer-events-none">
-        {/* Main Navbar */}
+        
         <motion.nav
           className="w-full h-16 flex items-center border-b border-transparent transition-all pointer-events-auto"
           initial="top"
@@ -96,7 +96,7 @@ export default function Navbar() {
           transition={{ duration: 0.3 }}
         >
           <div className="container mx-auto px-6 flex items-center justify-between w-full h-full">
-          {/* Logo */}
+          
           <Link href="/" className="flex items-center z-[102] transition-transform hover:scale-1.05 active:scale-0.95 h-full">
             <Image
               src="/images/logo.png"
@@ -108,7 +108,6 @@ export default function Navbar() {
             />
           </Link>
 
-          {/* Desktop/Tablet Links (Tablet uses larger spacing block hidden on sm) */}
           <div className="hidden lg:flex items-center gap-8 h-full">
             {navData.navLinks.map((link) => {
               const isActive = pathname === link.path;
@@ -134,9 +133,8 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Actions */}
           <div className="flex items-center gap-3 sm:gap-4 z-[102] h-full">
-            {/* Mobile/Tablet visible Book Audit button */}
+            
             <button 
               onClick={() => window.dispatchEvent(new CustomEvent("open-proposal", { detail: { tab: "book" } }))}
               className="lg:hidden flex items-center gap-1.5 font-display text-xs font-semibold text-[#FF5004] bg-[#FF5004]/10 hover:bg-[#FF5004] hover:text-white border border-[#FF5004]/30 px-3.5 py-1.5 rounded-full transition-all duration-300 cursor-pointer shadow-sm active:scale-95"
@@ -162,7 +160,6 @@ export default function Navbar() {
               </div>
             </div>
 
-            {/* Custom Hamburger Button with animated lines and border glow */}
             <button
               className="lg:hidden flex flex-col items-center justify-center w-10 h-10 rounded-full border border-white/10 bg-white/[0.03] hover:bg-white/[0.08] hover:border-white/20 transition-all duration-300 cursor-pointer relative"
               onClick={() => setIsOpen(!isOpen)}
@@ -195,11 +192,10 @@ export default function Navbar() {
       </motion.nav>
     </div>
 
-      {/* Mobile & Tablet Premium Slide Drawer */}
       <AnimatePresence>
         {isOpen && (
           <>
-            {/* Backdrop Overlay */}
+            
             <motion.div
               className="fixed inset-0 bg-black/60 z-[98]"
               initial="closed"
@@ -209,7 +205,6 @@ export default function Navbar() {
               onClick={() => setIsOpen(false)}
             />
 
-            {/* Drawer */}
             <motion.div
               data-lenis-prevent="true"
               className="fixed top-0 right-0 h-full max-h-screen w-full sm:w-[480px] bg-[#0E0E12] border-l border-white/[0.06] z-[99] shadow-[0_0_80px_rgba(0,0,0,0.8)] overflow-hidden flex flex-col justify-between"
@@ -218,18 +213,16 @@ export default function Navbar() {
               exit="closed"
               variants={drawerVariants}
             >
-              {/* Decorative top lights */}
+              
               <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#FF5004] opacity-[0.04] blur-[80px] pointer-events-none rounded-full" />
 
-              {/* Top empty block to offset fixed Navbar header */}
               <div className="h-16 flex-shrink-0" />
 
-              {/* Main Content Area */}
               <div 
                 data-lenis-prevent="true"
                 className="flex-1 overflow-y-auto overscroll-contain px-6 sm:px-12 py-6 flex flex-col justify-between gap-10"
               >
-                {/* Navigation Links list (Redesigned for Premium Corporate Look) */}
+                
                 <motion.div className="flex flex-col gap-3" variants={staggerVariants}>
                   {navData.navLinks.map((link, index) => {
                     const isActive = pathname === link.path;
@@ -277,7 +270,6 @@ export default function Navbar() {
                             ].join(" ")}
                           />
 
-                          {/* Subtle hover gradient background */}
                           <div className="absolute inset-0 bg-gradient-to-r from-[#FF5004]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         </Link>
                       </motion.div>
@@ -285,7 +277,6 @@ export default function Navbar() {
                   })}
                 </motion.div>
 
-                {/* Contact / Office details on bottom */}
                 <motion.div
                   className="pt-8 border-t border-white/[0.05] flex flex-col gap-5 text-sm"
                   initial={{ opacity: 0, y: 20 }}
@@ -324,9 +315,8 @@ export default function Navbar() {
                 </motion.div>
               </div>
 
-              {/* Bottom CTA Block: Quick contact actions + Triggers global proposal request */}
               <div className="p-6 sm:p-10 bg-white/[0.015] border-t border-white/[0.04] relative z-10 flex-shrink-0 flex flex-col gap-3">
-                {/* Dedicated Call & Email Action Buttons inside Hamburger Menu */}
+                
                 <div className="grid grid-cols-2 gap-3">
                   <a
                     href="tel:+919988776655"
@@ -364,30 +354,28 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Floating Call/Email Widgets (Only visible when mobile drawer is closed) */}
       {!isOpen && (
         <div className="fixed bottom-6 right-6 z-[99] flex flex-col gap-3">
-          {/* Mobile-Friendly Call Button */}
+          
           <a
             href="tel:+919988776655"
             className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-[#0A0A0C]/90 backdrop-blur-md border border-[#FF5004]/50 text-[#FF5004] hover:bg-[#FF5004] hover:text-[#F5F5F7] shadow-[0_4px_20px_rgba(255,80,4,0.3)] hover:shadow-[0_8px_30px_rgba(255,80,4,0.5)] transition-all duration-300 active:scale-95 cursor-pointer pointer-events-auto"
             aria-label="Call Mobile Support"
           >
             <Phone size={18} />
-            {/* Desktop Hover Tooltip */}
+            
             <span className="absolute right-14 bg-[#0A0A0C]/95 backdrop-blur-sm border border-white/10 text-[#F5F5F7] text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap shadow-2xl opacity-0 translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
               Call Mobile: +91 99887 76655
             </span>
           </a>
 
-          {/* Mobile-Friendly Email Button */}
           <a
             href="mailto:info@amazepms.com"
             className="group relative flex items-center justify-center w-12 h-12 rounded-full bg-[#0A0A0C]/90 backdrop-blur-md border border-[#FF5004]/50 text-[#FF5004] hover:bg-[#FF5004] hover:text-[#F5F5F7] shadow-[0_4px_20px_rgba(255,80,4,0.3)] hover:shadow-[0_8px_30px_rgba(255,80,4,0.5)] transition-all duration-300 active:scale-95 cursor-pointer pointer-events-auto"
             aria-label="Email Support"
           >
             <Mail size={18} />
-            {/* Desktop Hover Tooltip */}
+            
             <span className="absolute right-14 bg-[#0A0A0C]/95 backdrop-blur-sm border border-white/10 text-[#F5F5F7] text-xs font-semibold px-3 py-1.5 rounded-lg whitespace-nowrap shadow-2xl opacity-0 translate-x-2 pointer-events-none group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300">
               Email Us: info@amazepms.com
             </span>

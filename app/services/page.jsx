@@ -80,7 +80,7 @@ function ServiceAccordion({ items, color }) {
 export default function ServicesPage() {
   return (
     <div className="bg-[#0A0A0C] min-h-screen">
-      {/* Hero Section */}
+      
       <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-[#111114] to-[#0A0A0C] border-b border-white/8">
         <InteractiveGrid />
         <div className="container relative z-10 flex flex-col gap-4">
@@ -94,7 +94,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* Services List alternating */}
       <section className="py-24">
         <div className="container">
           <div className="flex flex-col gap-28 md:gap-32">
@@ -123,7 +122,7 @@ export default function ServicesPage() {
                   viewport={{ once: true, margin: "-100px" }}
                   variants={slideVariants}
                 >
-                  {/* Left: Premium service photograph */}
+                  
                   <div className="w-full lg:w-[44%] shrink-0">
                     <div
                       className="relative aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl group/image"
@@ -139,10 +138,9 @@ export default function ServicesPage() {
                         sizes="(max-width: 1024px) 100vw, 44vw"
                         priority={index < 2}
                       />
-                      {/* Dark overlay mask that lifts on hover */}
+                      
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0C]/90 via-transparent to-transparent opacity-80 transition-opacity duration-500 group-hover/image:opacity-40" />
                       
-                      {/* Subtle floating brand gradient corner line */}
                       <div 
                         className="absolute bottom-0 left-0 right-0 h-[3px]"
                         style={{
@@ -152,7 +150,6 @@ export default function ServicesPage() {
                     </div>
                   </div>
 
-                  {/* Right: Detailed Content */}
                   <div className="flex-1">
                     <div className="flex items-baseline gap-3 mb-4">
                       <span className="font-display text-xl font-extrabold text-[#FF5004]">0{index + 1}</span>
@@ -168,10 +165,8 @@ export default function ServicesPage() {
                       <span className="text-xs font-semibold uppercase tracking-wider text-[#A1A1AA] mt-1">{service.stat.label}</span>
                     </div>
 
-                    {/* Accordion List Inclusions */}
                     <ServiceAccordion items={service.included} color={service.gradient[0]} />
 
-                    {/* Request CTA drawer trigger */}
                     <div className="flex">
                       <Button
                         onClick={() => window.dispatchEvent(new CustomEvent("open-proposal", { detail: { service: service.name } }))}
@@ -191,7 +186,6 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* CTABanner */}
       <CTABanner />
     </div>
   );

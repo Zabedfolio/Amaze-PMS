@@ -56,7 +56,7 @@ export default function StickyCardStack() {
 
   return (
     <div ref={containerRef} className="min-h-screen bg-[#0A0A0C] border-b border-white/8 overflow-hidden">
-      {/* Section header */}
+      
       <div className="container pt-28 pb-10">
         <div className="flex items-center gap-3 mb-5">
           <span className="w-2 h-2 rounded-full bg-[#FF5004] shadow-[0_0_8px_#FF5004] mt-10" />
@@ -67,7 +67,6 @@ export default function StickyCardStack() {
         </h2>
       </div>
 
-      {/* Stacked cards */}
       <div className="container relative h-[780px] sm:h-[640px] md:h-[580px] lg:h-[60vh] lg:max-h-[600px]">
         {cards.map((service, index) => {
           const Icon = iconMap[service.icon] || Wrench;
@@ -81,7 +80,7 @@ export default function StickyCardStack() {
               className="absolute inset-0 rounded-[20px] overflow-hidden"
               style={{ zIndex: index + 1 }}
             >
-              {/* Card shell */}
+              
               <div
                 className="relative w-full h-full flex flex-col lg:flex-row"
                 style={{
@@ -89,7 +88,7 @@ export default function StickyCardStack() {
                   boxShadow: `0 0 0 1px ${service.gradient[0]}20, 0 40px 80px rgba(0,0,0,0.55)`,
                 }}
               >
-                {/* ── Left/Top accent strip ── */}
+                
                 <div
                   className="w-full h-[3px] lg:w-[3px] lg:h-full flex-shrink-0 rounded-t-[20px] lg:rounded-tr-none lg:rounded-l-[20px]"
                   style={{
@@ -97,9 +96,8 @@ export default function StickyCardStack() {
                   }}
                 />
 
-                {/* ── LEFT COLUMN ── */}
                 <div className="relative flex flex-col justify-between p-5 sm:p-8 lg:p-10 w-full lg:w-[44%] overflow-hidden">
-                  {/* Giant watermark number */}
+                  
                   <span
                     className="absolute -top-6 -left-3 font-display font-extrabold select-none pointer-events-none leading-none"
                     style={{
@@ -112,7 +110,6 @@ export default function StickyCardStack() {
                     {cardNum}
                   </span>
 
-                  {/* TOP: icon + counter badge */}
                   <div className="relative z-10 flex items-start justify-between">
                     <div
                       className="w-[48px] h-[48px] lg:w-[60px] lg:h-[60px] rounded-xl lg:rounded-2xl flex items-center justify-center flex-shrink-0"
@@ -137,7 +134,6 @@ export default function StickyCardStack() {
                     </span>
                   </div>
 
-                  {/* MIDDLE: name + description */}
                   <div className="relative z-10 flex flex-col gap-2 lg:gap-3 mt-4 lg:mt-5">
                     <h3 className="font-display text-[clamp(1.1rem,2vw,1.55rem)] font-extrabold text-[#F0F0F2] tracking-[-0.02em] leading-[1.18]">
                       {service.name}
@@ -147,7 +143,6 @@ export default function StickyCardStack() {
                     </p>
                   </div>
 
-                  {/* BOTTOM: stat metric block */}
                   <div
                     className="relative z-10 mt-4 lg:mt-6 rounded-[12px] lg:rounded-[14px] p-3 lg:p-4 flex items-center gap-3 lg:gap-4"
                     style={{
@@ -155,7 +150,7 @@ export default function StickyCardStack() {
                       border: `1px solid ${service.gradient[0]}22`,
                     }}
                   >
-                    {/* colour bar */}
+                    
                     <div
                       className="w-[3px] self-stretch rounded-full flex-shrink-0"
                       style={{
@@ -180,7 +175,6 @@ export default function StickyCardStack() {
                     </div>
                   </div>
 
-                  {/* Proposal Action Button */}
                   <div className="relative z-10 mt-4 lg:mt-5">
                     <button
                       onClick={() => window.dispatchEvent(new CustomEvent("open-proposal", { detail: { service: service.name } }))}
@@ -206,7 +200,6 @@ export default function StickyCardStack() {
                   </div>
                 </div>
 
-                {/* ── Divider ── */}
                 <div
                   className="h-px w-[90%] mx-auto lg:w-px lg:h-auto lg:self-stretch lg:my-8 lg:mx-0 flex-shrink-0"
                   style={{
@@ -214,9 +207,8 @@ export default function StickyCardStack() {
                   }}
                 />
 
-                {/* ── RIGHT COLUMN ── */}
                 <div className="relative flex flex-col p-5 sm:p-8 lg:p-10 flex-1 overflow-hidden">
-                  {/* Subtle dot-grid texture */}
+                  
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
@@ -225,7 +217,6 @@ export default function StickyCardStack() {
                     }}
                   />
 
-                  {/* Section label with decorative lines */}
                   <div className="relative z-10 flex items-center gap-3 mb-4 lg:mb-6">
                     <div
                       className="h-px flex-shrink-0 w-8 rounded-full"
@@ -237,14 +228,13 @@ export default function StickyCardStack() {
                     <div className="h-px flex-1 rounded-full bg-white/[0.04]" />
                   </div>
 
-                  {/* Inclusion items */}
                   <ul className="relative z-10 flex flex-col">
                     {service.included.map((item, idx) => (
                       <li
                         key={idx}
                         className="flex items-center gap-3 lg:gap-4 py-[8px] lg:py-[11px] border-b border-white/[0.045] last:border-0"
                       >
-                        {/* Check icon badge */}
+                        
                         <span
                           className="w-[18px] h-[18px] lg:w-[22px] lg:h-[22px] rounded-full flex items-center justify-center flex-shrink-0"
                           style={{

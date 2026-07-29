@@ -10,7 +10,6 @@ function ContactRedirectContent() {
   useEffect(() => {
     const isSchedule = window.location.hash === "#schedule" || searchParams.get("action") === "schedule";
     
-    // Redirect to home page with correct action query param to trigger drawer
     if (isSchedule) {
       router.replace("/?action=schedule");
     } else {

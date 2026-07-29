@@ -7,22 +7,19 @@ import * as THREE from "three";
 import CanvasErrorBoundary from "./CanvasErrorBoundary";
 
 const RADIUS = 2.0;
-const LATITUDE = 25.3850; // Hyderabad North
-const LONGITUDE = 69.4867 + 95.0; // Hyderabad East + Texture offset
+const LATITUDE = 25.3850; 
+const LONGITUDE = 69.4867 + 95.0; 
 
 function GlobeModel() {
   const groupRef = useRef();
   const ringRef = useRef();
 
-  // Load public monochrome Earth landmass texture
   const earthTexture = useTexture("https://unpkg.com/three-globe/example/img/earth-dark.jpg");
 
-  // Project latitude/longitude coordinate to Cartesian 3D space
   const { position, quaternion } = useMemo(() => {
     const radLat = (LATITUDE * Math.PI) / 180;
     const radLon = (LONGITUDE * Math.PI) / 180;
 
-    // Standard spherical projection coordinates mapping
     const x = RADIUS * Math.cos(radLat) * Math.sin(radLon);
     const y = RADIUS * Math.sin(radLat);
     const z = RADIUS * Math.cos(radLat) * Math.cos(radLon);
@@ -30,7 +27,6 @@ function GlobeModel() {
     const pos = [x, y, z];
     const normal = new THREE.Vector3(x, y, z).normalize();
     
-    // Quaternion to align local Y-axis (0, 1, 0) with the surface normal vector
     const localUp = new THREE.Vector3(0, 1, 0);
     const q = new THREE.Quaternion().setFromUnitVectors(localUp, normal);
 
@@ -42,12 +38,12 @@ function GlobeModel() {
 
   useFrame((state, delta) => {
     if (groupRef.current) {
-      groupRef.current.rotation.y += delta * 0.08; // Slow auto-rotation
+      groupRef.current.rotation.y += delta * 0.08; 
     }
 
     if (ringRef.current) {
       const elapsed = state.clock.elapsedTime;
-      const progress = (elapsed % 1.5) / 1.5; // Pulsing 1.5s loop
+      const progress = (elapsed % 1.5) / 1.5; 
       ringRef.current.scale.setScalar(0.2 + progress * 2.2);
       if (ringRef.current.material) {
         ringRef.current.material.opacity = (1 - progress) * 0.85;
@@ -57,7 +53,7 @@ function GlobeModel() {
 
   return (
     <group ref={groupRef}>
-      {/* 1. Glowing Continent World Globe */}
+      
       <mesh>
         <sphereGeometry args={[RADIUS, 64, 64]} />
         <meshStandardMaterial
@@ -70,27 +66,23 @@ function GlobeModel() {
         />
       </mesh>
 
-      {/* 2. Outer Atmosphere/Faint Grid Overlay */}
       <mesh>
         <sphereGeometry args={[RADIUS + 0.015, 32, 32]} />
         <meshBasicMaterial color="#FF5004" wireframe opacity={0.22} transparent />
       </mesh>
 
-      {/* 3. Hyderabad HQ Interactive Pin with aligned quaternion rotation */}
       <group position={position} quaternion={quaternion}>
-        {/* Pulsing Radar Ring (lying flat on X-Z plane, rotated by 90deg on X to lie flat on surface) */}
+        
         <mesh ref={ringRef} rotation={[Math.PI / 2, 0, 0]}>
           <ringGeometry args={[0.02, 0.18, 32]} />
           <meshBasicMaterial color="#FF5004" transparent depthWrite={false} side={THREE.DoubleSide} />
         </mesh>
 
-        {/* Vertical pointer spike standing straight up along Y-axis */}
         <mesh position={[0, 0.2, 0]}>
           <cylinderGeometry args={[0.006, 0.006, 0.4, 4]} />
           <meshBasicMaterial color="#FF5004" opacity={0.5} transparent />
         </mesh>
 
-        {/* Glowing HQ Pin Core */}
         <mesh>
           <sphereGeometry args={[0.06, 16, 16]} />
           <meshBasicMaterial color="#FF5004" />
@@ -100,7 +92,6 @@ function GlobeModel() {
   );
 }
 
-// Fallback sphere shown during texture loading sequence
 function GlobeFallback() {
   return (
     <mesh>
@@ -121,40 +112,36 @@ function CelestialBackground() {
 
   return (
     <group>
-      {/* Stars Background */}
+      
       <Stars radius={80} depth={40} count={1000} factor={5} saturation={0.5} fade speed={1.2} />
 
-      {/* Sun (glowing star in the distance) */}
       <mesh position={[10, 5, -15]}>
         <sphereGeometry args={[1.3, 32, 32]} />
         <meshBasicMaterial color="#FFD700" />
       </mesh>
-      {/* Sun aura glow */}
+      
       <mesh position={[10, 5, -15]}>
         <sphereGeometry args={[2.2, 16, 16]} />
         <meshBasicMaterial color="#FF5004" transparent opacity={0.12} />
       </mesh>
 
-      {/* Moon (near globe) */}
       <mesh position={[-3.0, 1.2, -2.5]}>
         <sphereGeometry args={[0.3, 24, 24]} />
         <meshStandardMaterial color="#8E8E93" roughness={0.8} metalness={0.1} />
       </mesh>
 
-      {/* Saturn ringed planet */}
       <group ref={saturnGroupRef} position={[-7.5, -2, -14]}>
         <mesh>
           <sphereGeometry args={[0.75, 32, 32]} />
           <meshStandardMaterial color="#4A8C55" roughness={0.7} />
         </mesh>
-        {/* Ring */}
+        
         <mesh rotation={[Math.PI / 2.6, 0, 0]}>
           <ringGeometry args={[1.0, 1.6, 64]} />
           <meshBasicMaterial color="#559960" transparent opacity={0.35} side={THREE.DoubleSide} />
         </mesh>
       </group>
 
-      {/* Mars-like red planet */}
       <mesh position={[5.5, -3.5, -9]}>
         <sphereGeometry args={[0.42, 24, 24]} />
         <meshStandardMaterial color="#C83E0A" roughness={0.75} />

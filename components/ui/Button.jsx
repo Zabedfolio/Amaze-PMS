@@ -22,9 +22,6 @@ const variantClasses = {
     "bg-transparent text-[#A1A1AA] hover:text-[#F5F5F7] hover:bg-white/5 disabled:opacity-50",
 };
 
-/**
- * Reusable Sleek Button Component with Spotlight Hover Glow.
- */
 export default function Button({
   children,
   variant = "primary",
@@ -67,7 +64,6 @@ export default function Button({
     <>
       {loading && <Spinner size="sm" className="mr-2 shrink-0" />}
       
-      {/* Spotlight Hover Glow Overlay */}
       {!disabled && !loading && isHovered && (
         <span
           className="absolute inset-0 pointer-events-none transition-opacity duration-300 z-0"

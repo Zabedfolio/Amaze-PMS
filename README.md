@@ -138,11 +138,42 @@ npm run start
 
 ---
 
-## 🌐 Live Deployment
+## 🛠️ Development Challenges & Engineering Solutions
 
-The application is deployed on **Vercel** with automatic continuous deployment (CD) enabled:
+### 1. WebGL Context Lifecycle & Teardown Management
+- **Challenge**: Switching routes and Next.js Hot Module Replacement (HMR) caused premature WebGL context disposal in Three.js, triggering console errors (`WebGL: INVALID_OPERATION: loseContext: context already lost` & `THREE.WebGLRenderer: Context Lost`).
+- **Solution**: Delegated canvas lifecycle management safely to `@react-three/fiber` by removing redundant manual `forceContextLoss()` calls, and attached `e.preventDefault()` to the native `webglcontextlost` event listener on `gl.domElement` across all 3D canvas components. Added custom client-side console interceptors in `layout.js` to silence dev-server context reload notifications.
 
-👉 **Live URL**: [https://amaze-pms-beta.vercel.app/](https://amaze-pms-beta.vercel.app/)
+### 2. Lenis Smooth Scroll vs. Mobile Touch Drawer Isolation
+- **Challenge**: When opening full-height slide-out drawers (`Navbar.jsx` mobile menu and `ProposalDrawer.jsx`), Lenis smooth scroll intercepted mobile touch gestures, locking the drawer content and preventing user swiping on iOS Safari and Android devices.
+- **Solution**: Implemented a multi-tier scroll isolation strategy. Added `data-lenis-prevent="true"` and CSS `overscroll-contain` to the drawer containers, while dynamically executing `window.lenis.stop()` and applying a root `.lenis-stopped` CSS class to pause background viewport inertia scrolling while drawers are active.
+
+### 3. High-Frame-Rate Procedural 3D City Rendering
+- **Challenge**: Rendering 100+ procedural building wireframes, dynamic pulsing rings, and vehicle headlights at 60 FPS without causing GPU frame drops on mobile devices.
+- **Solution**: Leveraged `useMemo` for static geometry generation (procedural building matrices and curved Bézier traffic paths), replaced expensive `THREE.Clock.getElapsedTime()` calls with lightweight `state.clock.elapsedTime` properties inside `useFrame`, and utilized frameloop demand optimizations.
+
+### 4. Hydration & SSR Compatibility
+- **Challenge**: Integrating client-only 3D WebGL canvases and Recharts SVG graphs caused React 19 SSR hydration mismatch warnings when initial HTML rendered.
+- **Solution**: Enforced client-side component mounting guards (`mounted` state checks) and wrapped Three.js components in Next.js `dynamic()` imports with `ssr: false` and fallback loader skeletons.
+
+---
+
+## 🚀 Future Improvements & Strategic Roadmap
+
+### 1. Real-Time IoT Sensor Integration & Telemetry Dashboard
+- Connect live IoT telemetry endpoints (STP/WTP water flow rate, HVAC chiller efficiency, energy consumption meters, and elevator health monitors) to an interactive 3D digital twin visualization mode in `HeroScene`.
+
+### 2. Multi-Language & Internationalization (i18n) Support
+- Expand accessibility by introducing multi-language support (English, Hindi, Telugu, Kannada, Tamil) with dynamic locale switching and right-to-left layout capabilities.
+
+### 3. AI-Powered Predictive Facility Maintenance Assistant
+- Integrate an AI assistant chatbot into the RFP & Audit drawer, allowing property managers to describe site issues in natural language and receive automated manpower/cost estimates.
+
+### 4. PWA (Progressive Web App) & Offline Capabilities
+- Implement Service Workers for offline caching, push notifications for scheduled facility audits, and app-like mobile home screen installation.
+
+### 5. WebGPU Renderer Migration
+- Upgrade Three.js rendering pipelines from WebGL 2.0 to WebGPU to leverage modern compute shaders for complex volumetric lighting and dense particle physics.
 
 ---
 

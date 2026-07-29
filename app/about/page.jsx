@@ -72,7 +72,7 @@ export default function AboutPage() {
 
   return (
     <div ref={containerRef} className="bg-[#0A0A0C] min-h-screen">
-      {/* Short Hero Header */}
+      
       <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-[#111114] to-[#0A0A0C] border-b border-white/8">
         <InteractiveGrid />
         <div className="container relative z-10 flex flex-col gap-4">
@@ -86,7 +86,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Founder Pullquote Block */}
       <section className="py-24 relative overflow-hidden bg-[#0A0A0C]">
         <AmbientAura />
         <div className="container relative z-10">
@@ -112,7 +111,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Vertical Milestones Timeline */}
       <section className="py-24 bg-[#111114] border-t border-b border-white/8">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center mb-16">
@@ -121,7 +119,7 @@ export default function AboutPage() {
           </div>
 
           <div className="relative max-w-4xl mx-auto">
-            {/* Timeline center line */}
+            
             <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-0.5 bg-white/10 hidden md:block">
               <div ref={lineRef} className="w-full h-full bg-[#FF5004] origin-top" />
             </div>
@@ -142,7 +140,7 @@ export default function AboutPage() {
                       <p className="text-sm text-[#A1A1AA] leading-relaxed">{milestone.description}</p>
                     </GlassCard>
                   </div>
-                  {/* Center Dot */}
+                  
                   <div className="w-4 h-4 rounded-full bg-[#0A0A0C] border-2 border-[#FF5004] absolute left-1/2 -translate-x-1/2 z-10 hidden md:block" />
                   <div className="w-full md:w-1/2 hidden md:block" />
                 </div>
@@ -152,7 +150,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Values Bento Grid */}
       <section className="py-24 bg-[#0A0A0C]">
         <div className="container">
           <div className="max-w-2xl mx-auto text-center mb-16">
@@ -177,7 +174,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* CTABanner Callout */}
       <CTABanner />
     </div>
   );
