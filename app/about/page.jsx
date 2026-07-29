@@ -8,6 +8,7 @@ import companyData from "../../data/company.json";
 import CTABanner from "../../components/sections/CTABanner";
 import InteractiveGrid from "../../components/ui/InteractiveGrid";
 import AmbientAura from "../../components/ui/AmbientAura";
+import GlassCard from "../../components/ui/GlassCard";
 
 const iconMap = {
   "100% In-House Capability": HeartHandshake,
@@ -135,11 +136,11 @@ export default function AboutPage() {
                   }`}
                 >
                   <div className="w-full md:w-1/2">
-                    <div className="bg-[#17171B] border border-white/8 rounded-xl p-6 hover:border-[#FF5004]/30 transition-colors duration-300">
+                    <GlassCard className="p-6 transition-all duration-300 hover:border-[#FF5004]/30" hoverEffect>
                       <span className="font-display text-sm font-extrabold text-[#FF5004] block mb-1">{milestone.year}</span>
                       <h4 className="font-display text-lg font-bold text-[#F5F5F7] mb-2">{milestone.title}</h4>
                       <p className="text-sm text-[#A1A1AA] leading-relaxed">{milestone.description}</p>
-                    </div>
+                    </GlassCard>
                   </div>
                   {/* Center Dot */}
                   <div className="w-4 h-4 rounded-full bg-[#0A0A0C] border-2 border-[#FF5004] absolute left-1/2 -translate-x-1/2 z-10 hidden md:block" />
@@ -163,13 +164,13 @@ export default function AboutPage() {
             {companyData.values.map((val, idx) => {
               const IconComp = iconMap[val.title] || ShieldCheck;
               return (
-                <div key={idx} className="bg-[#17171B] border border-white/8 rounded-xl p-6 flex flex-col gap-4 hover:border-[#FF5004]/30 transition-colors duration-300">
+                <GlassCard key={idx} className="p-6 flex flex-col gap-4" hoverEffect>
                   <div className="w-12 h-12 rounded-lg bg-[#FF5004]/10 border border-[#FF5004]/20 flex items-center justify-center text-[#FF5004]">
                     <IconComp size={24} />
                   </div>
                   <h3 className="font-display text-lg font-bold text-[#F5F5F7]">{val.title}</h3>
                   <p className="text-sm text-[#A1A1AA] leading-relaxed">{val.description}</p>
-                </div>
+                </GlassCard>
               );
             })}
           </div>

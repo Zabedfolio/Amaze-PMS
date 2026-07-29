@@ -46,6 +46,19 @@ export default function Hero() {
           animate="visible"
           variants={containerVariants}
         >
+          {/* Top Live Status Badge */}
+          <motion.div variants={fadeUpVariants} className="w-max">
+            <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/[0.03] border border-white/10 backdrop-blur-md text-xs font-semibold text-[#F5F5F7] shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FF5004] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FF5004]" />
+              </span>
+              <span className="font-mono uppercase tracking-wider text-[11px] text-[#A1A1AA]">
+                Pan-India Self-Performing IFM Platform
+              </span>
+            </div>
+          </motion.div>
+
           {/* Headline — line 1: "Facility Management," | line 2: "Reimagined" */}
           <h1 className="font-display font-extrabold text-[clamp(2.5rem,5.5vw,4.25rem)] leading-[1.08] tracking-[-0.02em] text-[#F5F5F7] flex flex-wrap gap-y-1">
             <span className="inline-block overflow-hidden mr-3">
@@ -84,6 +97,25 @@ export default function Hero() {
               Get a Free Quote
             </Button>
             <Button href="/services" variant="outline" size="lg">Explore Services</Button>
+          </motion.div>
+
+          {/* Quick Glass Metric Chips */}
+          <motion.div 
+            variants={fadeUpVariants}
+            className="flex items-center gap-3 flex-wrap pt-2 border-t border-white/[0.06] mt-2"
+          >
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.06] hover:border-[#FF5004]/30 hover:bg-white/[0.04] transition-all duration-300">
+              <span className="font-mono text-xs font-bold text-[#FF5004]">25M+</span>
+              <span className="text-[11px] font-medium text-[#A1A1AA]">Sq. Ft. Managed</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.06] hover:border-[#FF5004]/30 hover:bg-white/[0.04] transition-all duration-300">
+              <span className="font-mono text-xs font-bold text-[#FF5004]">100%</span>
+              <span className="text-[11px] font-medium text-[#A1A1AA]">Statutory Compliance</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/[0.02] border border-white/[0.06] hover:border-[#FF5004]/30 hover:bg-white/[0.04] transition-all duration-300">
+              <span className="font-mono text-xs font-bold text-[#FF5004]">3,500+</span>
+              <span className="text-[11px] font-medium text-[#A1A1AA]">Active Staff</span>
+            </div>
           </motion.div>
         </motion.div>
       </div>
